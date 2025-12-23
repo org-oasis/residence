@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,7 +15,7 @@ const AppContent = () => {
     <div dir={language === "ar" ? "rtl" : "ltr"} lang={language}>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/residence">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/apartments" element={<Apartments />} />

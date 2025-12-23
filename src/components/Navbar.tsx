@@ -36,7 +36,7 @@ export default function Navbar() {
         <div className={cn("flex items-center", language === "ar" ? "flex-row-reverse space-x-reverse space-x-4" : "space-x-4") }>
           <Link to="/" className={cn("flex items-center", language === "ar" ? "flex-row-reverse space-x-reverse space-x-2" : "space-x-2") }>
             <img
-              src="/residence/assets/logo.avif"
+              src="/assets/logo.avif"
               alt="Résidence Oasis"
               className="h-10 w-10 rounded-full"
             />

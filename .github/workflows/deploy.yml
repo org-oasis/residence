@@ -31,8 +31,9 @@ jobs:
         VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
         VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
-    - name: Copy cache headers
+    - name: Create CNAME and cache headers
       run: |
+        echo "residence-oasis.com" > dist/CNAME
         cp public/_headers dist/
         cp public/_redirects dist/
 

@@ -4,7 +4,11 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables. Please check your .env file.');
+  console.error('WARNING: Missing Supabase environment variables. Database features will not work.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey); 
+// Fallback to empty strings to prevent crash, but DB calls will fail gracefully
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co',
+  supabaseAnonKey || 'placeholder-key'
+);
