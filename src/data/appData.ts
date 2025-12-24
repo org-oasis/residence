@@ -63,7 +63,7 @@ export const allApartments: ApartmentProps[] = [
     ],
     location: "floor1",
     type: "F2-jacuzzi",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "Jacuzzi"],
+    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "Jacuzzi", "Sauna"],
     airbnbLink: "https://www.airbnb.fr/rooms/1406477130010047362",
     contactPhone: "213696123800"
   },
@@ -87,7 +87,7 @@ export const allApartments: ApartmentProps[] = [
     location: "floor2",
     type: "F2",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
-    airbnbLink: "https://www.airbnb.fr/rooms/1466501144879461799",
+    airbnbLink: "https://www.airbnb.fr/h/residence-oasis-4-f2-moderne",
     contactPhone: "213561472990"
   },
   {
@@ -111,7 +111,7 @@ export const allApartments: ApartmentProps[] = [
     location: "floor2",
     type: "F2",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
-    airbnbLink: "https://www.airbnb.fr/rooms/1459886902893228309",
+    airbnbLink: "https://www.airbnb.fr/h/residence-oasis-5-f2-moderne",
     contactPhone: "213561472990"
   },
   {
@@ -134,7 +134,7 @@ export const allApartments: ApartmentProps[] = [
     location: "floor2",
     type: "F2",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
-    airbnbLink: "https://www.airbnb.fr/rooms/1456024577261385927",
+    airbnbLink: "https://www.airbnb.fr/h/residence-oasis-6-f2-moderne",
     contactPhone: "213561472990"
   },
   {
@@ -159,7 +159,7 @@ export const allApartments: ApartmentProps[] = [
     location: "floor3",
     type: "F3",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "TV", "Microwave", "Terrace", "Dishwasher"],
-    airbnbLink: "https://www.airbnb.fr/rooms/1476767652269208861",
+    airbnbLink: "https://www.airbnb.fr/h/residence-oasis-7-f3-terrasse-privee",
     contactPhone: "213561472990"
   },
 ];
