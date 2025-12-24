@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -40,7 +39,7 @@ export default function Gallery() {
   // Filter gallery images by apartment
   const filterByApartment = (apartmentId: string) => {
     setActiveApartmentFilter(apartmentId);
-    
+
     if (apartmentId === "all") {
       setFilteredImages(galleryImages.filter(img => img.category === "apartments"));
     } else {
@@ -53,7 +52,7 @@ export default function Gallery() {
     if (selectedImage === null) return;
 
     const currentIndex = filteredImages.findIndex(img => img.id === selectedImage);
-    let newIndex;
+    let newIndex: number;
 
     if (direction === "prev") {
       newIndex = currentIndex > 0 ? currentIndex - 1 : filteredImages.length - 1;
@@ -76,7 +75,7 @@ export default function Gallery() {
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -215,7 +214,7 @@ export default function Gallery() {
 
         {/* Lightbox */}
         {selectedImage !== null && (
-          <div 
+          <div
             ref={lightboxRef}
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-fade-in"
             onTouchStart={onTouchStart}
