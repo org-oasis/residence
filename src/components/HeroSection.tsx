@@ -11,16 +11,15 @@ export default function HeroSection() {
       <div className="absolute inset-0 -z-10">
         <img
           src="/assets/COMMON/00-background.avif"
-          alt="Residence Oasis Background"
+          alt="Residence Oasis View"
           className="w-full h-full object-cover object-center"
           fetchPriority="high"
           loading="eager"
+          decoding="async"
         />
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
       </div>
 
-      {/* Content */}
       <div className="relative h-full flex flex-col justify-center items-center text-center px-4 animate-fade-in">
         <div className="max-w-4xl">
           <span className="inline-block text-white/90 text-lg mb-4 tracking-wide border-b border-white/30 pb-2">
@@ -43,13 +42,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Simple CSS-only animation for the arrow (No JS required) */}
       <div className="absolute bottom-10 w-full flex justify-center text-white animate-bounce">
-        <a
-          href="#welcome"
-          className="flex flex-col items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
-          aria-label={t.hero.scrollDown}
-        >
+        <a href="#welcome" className="flex flex-col items-center justify-center opacity-70 hover:opacity-100 transition-opacity">
           <span className="text-sm mb-2 text-center">{t.hero.scrollDown}</span>
           <ChevronDown className="h-6 w-6" />
         </a>

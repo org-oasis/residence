@@ -1,0 +1,20 @@
+{
+  "name": "Résidence Oasis",
+  "short_name": "Oasis",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "/assets/logo-only-without-bg.avif",
+      "sizes": "192x192",
+      "type": "image/avif"
+    },
+    {
+      "src": "/assets/logo-only-without-bg.avif",
+      "sizes": "512x512",
+      "type": "image/avif"
+    }
+  ]
+}
