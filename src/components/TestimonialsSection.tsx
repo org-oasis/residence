@@ -99,7 +99,7 @@ export default function TestimonialsSection() {
                 )}
               >
                 <div className="flex flex-col md:flex-row gap-4 md:gap-6 h-full">
-                  <div className="flex flex-col items-center md:items-start flex-shrink-0">
+                  <div className="flex flex-col items-center md:items-start shrink-0">
                     <div className="rounded-full overflow-hidden w-14 h-14 md:w-20 md:h-20 mb-3 md:mb-4 border-2 border-primary">
                       <img
                         src={testimonial.avatar}

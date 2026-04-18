@@ -6,17 +6,21 @@ import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocalizedHref } from "@/lib/i18n";
 
 export default function Navbar() {
   const { t, language } = useLanguage();
+  const loc = useLocalizedHref();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const navLinks = [
-    { name: t.nav.home, path: "/" },
-    { name: t.nav.apartments, path: "/apartments" },
-    { name: t.nav.gallery, path: "/gallery" },
-    { name: t.nav.contact, path: "/contact" }
+    { name: t.nav.home, path: loc("/") },
+    { name: t.nav.apartments, path: loc("/apartments") },
+    { name: t.nav.gallery, path: loc("/gallery") },
+    { name: t.nav.blog, path: loc("/blog") },
+    { name: t.nav.reglement, path: loc("/reglement") },
+    { name: t.nav.contact, path: loc("/contact") }
   ];
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export default function Navbar() {
     dir={language === "ar" ? "rtl" : "ltr"}>
       <nav className={cn("container flex justify-between items-center", language === "ar" ? "flex-row-reverse" : "") }>
         <div className={cn("flex items-center", language === "ar" ? "flex-row-reverse space-x-reverse space-x-4" : "space-x-4") }>
-          <Link to="/" className={cn("flex items-center", language === "ar" ? "flex-row-reverse space-x-reverse space-x-2" : "space-x-2") }>
+          <Link to={loc("/")} className={cn("flex items-center", language === "ar" ? "flex-row-reverse space-x-reverse space-x-2" : "space-x-2") }>
             <img
               src="/assets/logo.avif"
               alt="Résidence Oasis"

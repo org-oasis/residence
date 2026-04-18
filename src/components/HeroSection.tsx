@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocalizedHref } from "@/lib/i18n";
 
 export default function HeroSection() {
   const { t } = useLanguage();
+  const loc = useLocalizedHref();
 
   return (
     <section className="relative h-screen overflow-hidden">
@@ -17,7 +19,7 @@ export default function HeroSection() {
           loading="eager"
           decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/20 to-black/70" />
       </div>
 
       <div className="relative h-full flex flex-col justify-center items-center text-center px-4 animate-fade-in">
@@ -25,18 +27,18 @@ export default function HeroSection() {
           <span className="inline-block text-white/90 text-lg mb-4 tracking-wide border-b border-white/30 pb-2">
             {t.hero.subtitle}
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 shadow-sm">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 shadow-xs">
             {t.hero.title}
           </h1>
-          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto shadow-sm">
+          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto shadow-xs">
             {t.hero.description}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" variant="heroSolid" className="min-w-[200px] rounded-full hover:scale-105 transition-transform">
-              <Link to="/gallery">{t.hero.exploreGallery}</Link>
+              <Link to={loc("/gallery")}>{t.hero.exploreGallery}</Link>
             </Button>
             <Button asChild variant="hero" size="lg" className="min-w-[200px] rounded-full hover:scale-105 transition-transform">
-              <Link to="/apartments">{t.hero.exploreApartments}</Link>
+              <Link to={loc("/apartments")}>{t.hero.exploreApartments}</Link>
             </Button>
           </div>
         </div>

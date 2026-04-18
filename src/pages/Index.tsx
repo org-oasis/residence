@@ -8,15 +8,29 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, CookingPot, Snowflake, Wifi, Utensils, Waves, LifeBuoy } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocalizedHref } from "@/lib/i18n";
 import { featuredApartments, siteConfig } from "@/data/appData";
+import type { MetaFunction } from "react-router";
+import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
+import { buildMeta } from "@/lib/seo";
+import { buildLodgingBusiness } from "@/lib/jsonld";
+
+export const meta: MetaFunction = ({ params }) => {
+  const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
+  const t = dictFor(lang);
+  return buildMeta({
+    lang,
+    pathname: "",
+    title: t.seo.home.title,
+    description: t.seo.home.description,
+    image: "/og/og-home.png",
+    jsonLd: [buildLodgingBusiness()],
+  });
+};
 
 export default function Index() {
   const { t } = useLanguage();
-
-  useEffect(() => {
-    // Scroll to top when component mounts
-    window.scrollTo(0, 0);
-  }, []);
+  const loc = useLocalizedHref();
 
   // Feature items
   const features = [
@@ -78,14 +92,14 @@ export default function Index() {
                   {t.home.welcome.description2}
                 </p>
                 <Button asChild className="btn-primary">
-                  <Link to="/apartments">
+                  <Link to={loc("/apartments")}>
                     {t.home.welcome.learnMore} <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
 
               <div className="relative animate-fade-in [animation-delay:300ms]">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+                <div className="aspect-4/3 rounded-2xl overflow-hidden">
                   <img
                     src={siteConfig.heroImage}
                     alt="Seaside view"

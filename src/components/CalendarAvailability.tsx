@@ -243,7 +243,7 @@ export default function CalendarAvailability({ apartmentId, label, availableLabe
       {/* Apartment Label */}
       {apartmentName && (
         <div className="text-center mb-4">
-                      <span className="bg-secondary text-secondary-foreground font-semibold text-base px-4 py-2 rounded-full shadow-sm border border-secondary/20">
+                      <span className="bg-secondary text-secondary-foreground font-semibold text-base px-4 py-2 rounded-full shadow-xs border border-secondary/20">
             {apartmentName}
           </span>
         </div>

@@ -1,56 +1,26 @@
-
-import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import { en } from '../locales/en';
-import { fr } from '../locales/fr';
-import { ar } from '../locales/ar';
+import type { ReactNode } from "react";
+import {
+  dictFor,
+  useLang,
+  useSwitchLanguage,
+  type Lang,
+} from "@/lib/i18n";
+import { en } from "@/locales/en";
 
 type Translations = typeof en;
 
-interface LanguageContextType {
-  language: string;
-  setLanguage: (lang: string) => void;
+export interface LanguageContextValue {
+  language: Lang;
+  setLanguage: (lang: Lang) => void;
   t: Translations;
 }
 
-const translations: Record<string, Translations> = {
-  en,
-  fr,
-  ar
-};
+// Backwards-compat shim: existing code calls useLanguage() with no Provider.
+// All language state is now URL-driven via useLang() / useSwitchLanguage().
+export const LanguageProvider = ({ children }: { children: ReactNode }) => <>{children}</>;
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
-
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState('fr');
-  const [t, setT] = useState<Translations>(translations.fr);
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language');
-    if (savedLanguage && translations[savedLanguage]) {
-      setLanguage(savedLanguage);
-      setT(translations[savedLanguage]);
-    }
-  }, []);
-
-  const changeLanguage = (lang: string) => {
-    if (translations[lang]) {
-      setLanguage(lang);
-      setT(translations[lang]);
-      localStorage.setItem('language', lang);
-    }
-  };
-
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage: changeLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
-  );
-};
-
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};
+export function useLanguage(): LanguageContextValue {
+  const language = useLang();
+  const setLanguage = useSwitchLanguage();
+  return { language, setLanguage, t: dictFor(language) as Translations };
+}

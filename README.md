@@ -1,138 +1,102 @@
-# React TypeScript Project
+# Résidence Oasis
 
-A modern, responsive website built with React, TypeScript, and Tailwind CSS.
+Beachfront-apartment rental site for Résidence Oasis (Filfila, Skikda, Algérie). Static-rendered multilingual (fr / en / ar) SPA with per-apartment landing pages, full SEO (meta, OG, JSON-LD, hreflang, sitemap), and built-in prerendering.
 
-## 🛠️ Technologies Used
+Live: https://residence-oasis.com
 
-- **Frontend**: React 18, TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS, shadcn/ui components
-- **Routing**: React Router DOM
-- **Icons**: React Icons
-- **State Management**: React Context API
-- **Deployment**: GitHub Actions
+## Stack
 
-## 🚀 Getting Started
+- **Bun** — package manager + runtime. `bun.lockb` is the source of truth. **Do not use `npm install`.**
+- **Vite 7** + **React 19** + **TypeScript 5**
+- **React Router 7** (framework mode, `ssr: false` + full-route prerender)
+- **Tailwind CSS 4** (CSS-first config via `@theme`, no `tailwind.config.ts`)
+- **shadcn/ui** (Radix primitives)
+- **Supabase** (availability calendar data)
+- **Satori + @resvg/resvg-js** — OG image generation at build time
 
-### Prerequisites
+## Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn
+- [Bun](https://bun.sh) ≥ 1.3 (`curl -fsSL https://bun.sh/install | bash`)
+- Node.js ≥ 20 (for the Satori OG script)
 
-### Installation
+> **Why not npm/pnpm/yarn?** The repo only ships `bun.lockb`. Running `npm i` or `yarn` will fail with peer-dependency conflicts (e.g. `ERESOLVE` on `react-router`) because they regenerate their own lockfile against the loose `^` ranges and pick up stale transitive versions. If you *must* use npm, delete `package-lock.json` first and pass `--legacy-peer-deps`, but the supported path is Bun.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/org-oasis/residence.git
-   cd residence
-   ```
+## Environment
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   # Copy the example environment file
-   cp .env.example .env
-   
-   # Edit .env and add your Supabase credentials
-   # VITE_SUPABASE_URL=your_supabase_url_here
-   # VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
-   ```
-
-4. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-### Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## 📁 Project Structure
+Copy `.env.example` → `.env` and fill in:
 
 ```
-residence/
-├── public/
-│   └── assets/          # Images and static assets
-├── src/
-│   ├── components/      # React components
-│   │   └── ui/         # shadcn/ui components
-│   ├── contexts/       # React contexts
-│   ├── data/           # App data and configuration
-│   ├── hooks/          # Custom React hooks
-│   ├── lib/            # Utility functions
-│   ├── locales/        # Translation files
-│   └── pages/          # Page components
-├── index.html
-├── package.json
-├── tailwind.config.ts
-└── vite.config.ts
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
 ```
 
-## 🔐 Environment Variables
+Without these, the availability calendar on apartment detail pages stays disabled but the rest of the site works.
 
-This project uses environment variables for sensitive configuration. The following variables are required:
+## Commands
 
-- `VITE_SUPABASE_URL` - Your Supabase project URL
-- `VITE_SUPABASE_ANON_KEY` - Your Supabase anonymous key
+| Command | What it does |
+|---|---|
+| `bun install` | Install dependencies |
+| `bun run dev` | Start the React Router dev server at `http://localhost:5173` |
+| `bun run build` | Generate OG images (prebuild) → prerender every route to static HTML under `build/client/` |
+| `bun run og` | Regenerate OG social-preview PNGs only |
+| `bun run lint` | ESLint on `src/**/*.{ts,tsx}` |
+| `bun run preview` | Serve the prerendered `build/client/` |
 
-**Important**: Never commit your `.env` file to version control. The `.env.example` file is provided as a template.
+## Routes
 
-## 🌐 Deployment
+All content lives under a locale prefix. `/` redirects to `/fr`.
 
-This project uses GitHub Actions for automated deployment. The deployment workflow is configured in `.github/workflows/` and automatically builds and deploys the application when changes are pushed to the main branch.
+- `/fr`, `/en`, `/ar`
+- `/{lang}/apartments`
+- `/{lang}/apartments/{slug}` — 7 units (see `src/data/appData.ts`)
+- `/{lang}/gallery`
+- `/{lang}/contact`
 
-### GitHub Actions Setup
+Build produces 34 static HTML files (1 root redirect + 3 locales × 11 pages) plus `sitemap.xml` (33 unique URLs) and `robots.txt`.
 
-The deployment process is handled automatically by GitHub Actions. When you push changes to the main branch:
+## Project structure
 
-1. **Automatic Build**: The workflow automatically builds the project
-2. **Environment Variables**: Uses GitHub Secrets for production environment variables
-3. **Deployment**: Automatically deploys to the configured hosting platform
+```
+src/
+├── root.tsx              # RR7 document shell (<html>, <head>, <Meta/>, <Scripts/>)
+├── routes.ts             # RR7 RouteConfig (nested under :lang)
+├── routes/
+│   ├── lang-layout.tsx   # Validates :lang param, renders <Outlet/>
+│   └── root-redirect.tsx # / → /fr (meta-refresh + JS fallback)
+├── pages/                # Index, Apartments, ApartmentDetail, Gallery, Contact, NotFound
+├── components/           # Navbar, Footer, HeroSection, ApartmentCard, ui/* (shadcn)
+├── contexts/
+│   └── LanguageContext.tsx # URL-driven hook (reads :lang param, no Provider state)
+├── lib/
+│   ├── i18n.ts           # LOCALES, useLang, useLocalizedHref, useSwitchLanguage
+│   ├── seo.ts            # buildMeta() → title, description, canonical, OG, Twitter, hreflang
+│   └── jsonld.ts         # LodgingBusiness, Apartment+Offer, BreadcrumbList, FAQPage builders
+├── locales/              # fr.ts, en.ts, ar.ts
+├── data/appData.ts       # Apartments, contact info, site config
+└── index.css             # Tailwind 4 @import + @theme + @plugin directives
 
-### Required GitHub Secrets
+react-router.config.ts    # ssr: false, prerender: all locale × route combos
+vite.config.ts            # reactRouter() + tailwindcss() + Sitemap() plugins
+scripts/generate-og.mjs   # Satori → 1200×630 PNG OG cards (runs on prebuild)
+```
 
-For the deployment to work correctly, you need to set up the following secrets in your GitHub repository:
+## SEO
 
-1. Go to your repository settings
-2. Navigate to "Secrets and variables" → "Actions"
-3. Add the following repository secrets:
-   - `VITE_SUPABASE_URL` - Your Supabase project URL
-   - `VITE_SUPABASE_ANON_KEY` - Your Supabase anonymous key
+Every prerendered page emits:
 
-## 📱 Features
+- Unique `<title>` and `<meta name="description">` (per locale, per page)
+- `<link rel="canonical">`
+- `<link rel="alternate" hrefLang>` × 4 (fr, en, ar, x-default)
+- Full Open Graph + Twitter Card set
+- JSON-LD: `LodgingBusiness` on home, `BreadcrumbList` on interior, `FAQPage` on `/contact`, `Apartment` + two `Offer` nodes (EUR + DZD) on each apartment detail
 
-- Multi-language support (French, English, and Arabic)
-- Responsive design for all devices
-- Interactive components with smooth animations
-- Touch-friendly mobile interactions
-- Modern UI with Tailwind CSS
-- Apartment booking and availability system
-- Image galleries and virtual tours
+Sitemap is generated by `vite-plugin-sitemap` at `build/client/sitemap.xml`.
 
-## 🎨 Customization
+## Deployment
 
-### Adding Content
-Edit `src/data/appData.ts` to modify the application data and content.
+Deploy `build/client/` as a static site. `_redirects` and `_headers` are included for Netlify / Cloudflare Pages. For true 404 status on unknown paths, configure the host — the SPA fallback currently returns 200.
 
-### Adding Translations
-Edit the locale files in `src/locales/` to add or modify translations:
-- `src/locales/en.ts` - English translations
-- `src/locales/fr.ts` - French translations
-- `src/locales/ar.ts` - Arabic translations
+## License
 
-### Styling
-The project uses Tailwind CSS for styling. Custom styles can be added in `src/index.css` or by modifying the Tailwind configuration in `tailwind.config.ts`.
-
-## 📄 License
-
-This project is private and proprietary.
+Private — © Résidence Oasis.

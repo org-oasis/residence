@@ -51,7 +51,7 @@ export default function ApartmentDetailsDialog({
             <DialogTitle className="text-lg md:text-2xl font-bold flex-1 min-w-0 text-left">
               {translatedName}
             </DialogTitle>
-            <Badge variant="secondary" className="text-sm md:text-lg font-semibold px-2 md:px-4 py-1 md:py-2 flex-shrink-0 mr-4">
+            <Badge variant="secondary" className="text-sm md:text-lg font-semibold px-2 md:px-4 py-1 md:py-2 shrink-0 mr-4">
               {t.apartmentNumber[apartment.id as keyof typeof t.apartmentNumber] || `${t.apartmentNumber.appartement} ${t.apartmentNumber.numero} ${apartment.id}`}
             </Badge>
           </div>
@@ -128,7 +128,7 @@ export default function ApartmentDetailsDialog({
           <Separator />
 
           {/* Pricing */}
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-lg">
+          <div className="bg-linear-to-r from-primary/10 to-secondary/10 p-6 rounded-lg">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold mb-1">{t.apartments.pricing}</h3>
@@ -147,19 +147,6 @@ export default function ApartmentDetailsDialog({
             </div>
           </div>
 
-          {/* Additional Details */}
-          <div>
-            <h3 className="text-lg font-semibold mb-3">{t.apartments.conditionsText}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2  md:grid-cols-3 gap-2">
-              {t.apartments.conditions.map((condition, index) => (
-                <div key={index} className="animate-fade-in" style={{ animationDelay: `${(index + 1) * 50}ms` }}>
-                <Badge variant="outline" className="w-full justify-start">
-                  {condition}
-                </Badge>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </DialogContent>
       {/* Calendar Popup Dialog */}

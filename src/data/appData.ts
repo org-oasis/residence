@@ -21,7 +21,8 @@ export const allApartments: ApartmentProps[] = [
     type: "Studio",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1210309363040804447",
-    contactPhone: "213696123800"
+    contactPhone: "213696123800",
+    slug: "studio-deluxe-1"
   },
   {
     id: "2",
@@ -42,7 +43,8 @@ export const allApartments: ApartmentProps[] = [
     type: "F2",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1403490902913383980",
-    contactPhone: "213696123800"
+    contactPhone: "213696123800",
+    slug: "f2-classique-2"
   },
   {
     id: "3",
@@ -65,7 +67,8 @@ export const allApartments: ApartmentProps[] = [
     type: "F2-jacuzzi",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "Jacuzzi", "Sauna"],
     airbnbLink: "https://www.airbnb.fr/rooms/1406477130010047362",
-    contactPhone: "213696123800"
+    contactPhone: "213696123800",
+    slug: "f2-jacuzzi-3"
   },
   {
     id: "4",
@@ -88,7 +91,8 @@ export const allApartments: ApartmentProps[] = [
     type: "F2",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-4-f2-moderne",
-    contactPhone: "213561472990"
+    contactPhone: "213561472990",
+    slug: "f2-moderne-4"
   },
   {
     id: "5",
@@ -112,7 +116,8 @@ export const allApartments: ApartmentProps[] = [
     type: "F2",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-5-f2-moderne",
-    contactPhone: "213561472990"
+    contactPhone: "213561472990",
+    slug: "f2-moderne-5"
   },
   {
     id: "6",
@@ -135,7 +140,8 @@ export const allApartments: ApartmentProps[] = [
     type: "F2",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-6-f2-moderne",
-    contactPhone: "213561472990"
+    contactPhone: "213561472990",
+    slug: "f2-deluxe-6"
   },
   {
     id: "7",
@@ -160,7 +166,8 @@ export const allApartments: ApartmentProps[] = [
     type: "F3",
     features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "TV", "Microwave", "Terrace", "Dishwasher"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-7-f3-terrasse-privee",
-    contactPhone: "213561472990"
+    contactPhone: "213561472990",
+    slug: "f3-terrasse-7"
   },
 ];
 
@@ -291,10 +298,19 @@ export const contactInfo = {
   hours: {
     reception: "24h",
   },
+  geo: {
+    latitude: 36.8941843,
+    longitude: 7.024806,
+  },
   map: {
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1213.5907643681207!2d7.024805984390581!3d36.894184300337336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12f1cd7a86daeb77%3A0xbfbebfabf4bdedec!2sR%C3%A9sidence%20Oasis!5e0!3m2!1sen!2sdz!4v1752252755553!5m2!1sen!2sdz"
   }
 };
+
+// Lookup helpers
+export function getApartmentBySlug(slug: string): ApartmentProps | undefined {
+  return allApartments.find((a) => a.slug === slug);
+}
 
 // Site configuration
 export const siteConfig = {

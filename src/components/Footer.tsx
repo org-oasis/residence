@@ -2,10 +2,12 @@
 import { Link } from "react-router-dom";
 import { Facebook, MessageCircle, Send, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocalizedHref } from "@/lib/i18n";
 import { contactInfo, siteConfig } from "@/data/appData";
 
 export default function Footer() {
   const { t } = useLanguage();
+  const loc = useLocalizedHref();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -37,10 +39,12 @@ export default function Footer() {
             <h4 className="text-xl font-bold mb-4">{t.footer.quickLinks}</h4>
             <ul className="space-y-2">
               {[
-                { name: t.nav.home, path: "/" },
-                { name: t.nav.apartments, path: "/apartments" },
-                { name: t.nav.gallery, path: "/gallery" },
-                { name: t.nav.contact, path: "/contact" },
+                { name: t.nav.home, path: loc("/") },
+                { name: t.nav.apartments, path: loc("/apartments") },
+                { name: t.nav.gallery, path: loc("/gallery") },
+                { name: t.nav.blog, path: loc("/blog") },
+                { name: t.nav.reglement, path: loc("/reglement") },
+                { name: t.nav.contact, path: loc("/contact") },
               ].map((link) => (
                 <li key={link.name}>
                   <Link

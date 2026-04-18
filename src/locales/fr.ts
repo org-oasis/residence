@@ -1,9 +1,89 @@
 export const fr = {
+  seo: {
+    home: {
+      title: "Résidence Oasis - Appartements modernes en bord de mer à Skikda",
+      description: "Studios, F2 et F3 meublés à Skikda près des plages. Wi-Fi haut débit, climatisation, cuisine équipée. Réservez votre séjour à partir de 30 €/nuit."
+    },
+    apartments: {
+      title: "Appartements & studios meublés en bord de mer | Résidence Oasis",
+      description: "Découvrez nos studios, F2 et F3 modernes à Skikda. Filtres par type, étage et prix. À partir de 30 € par nuit."
+    },
+    gallery: {
+      title: "Galerie photos de la résidence et des appartements | Résidence Oasis",
+      description: "Explorez en images la Résidence Oasis : extérieurs, appartements meublés et plages à proximité de Skikda."
+    },
+    contact: {
+      title: "Contact, accès et FAQ | Résidence Oasis Skikda",
+      description: "Téléphone, WhatsApp, Telegram, adresse et plan d'accès. Réception 24h/24. FAQ check-in, parking, transferts."
+    },
+    notFound: {
+      title: "Page introuvable | Résidence Oasis",
+      description: "La page demandée n'existe pas. Retournez à l'accueil pour découvrir nos hébergements."
+    },
+    reglement: {
+      title: "Règlement intérieur | Résidence Oasis Skikda",
+      description: "Règlement intérieur de la Résidence Oasis : horaires, tabac, animaux, calme, événements, documents requis et règles de vie commune."
+    },
+    blog: {
+      title: "Blog vacances à Skikda - guides, conseils et bons plans | Résidence Oasis",
+      description: "Conseils pratiques pour préparer votre séjour à Skikda : où loger, que faire, plages, transports, gastronomie et bons plans en bord de mer."
+    },
+    apartmentDetailSuffix: "| Résidence Oasis Skikda",
+    blogArticleSuffix: "| Blog Résidence Oasis"
+  },
   nav: {
     home: "Accueil",
     apartments: "Appartements",
     gallery: "Galerie",
-    contact: "Contact"
+    contact: "Contact",
+    blog: "Blog",
+    reglement: "Règlement"
+  },
+  reglement: {
+    title: "Règlement intérieur",
+    subtitle: "Règles de vie pour un séjour agréable à la Résidence Oasis",
+    intro: "Le présent règlement intérieur s'applique à tous les voyageurs séjournant dans les appartements de la Résidence Oasis. Il vise à garantir le confort, la sécurité et la tranquillité de chacun. Sa lecture et son acceptation sont implicites au moment de la réservation.",
+    acknowledgement: "Le non-respect de ces règles peut entraîner l'expulsion immédiate sans remboursement. En cas de doute ou de demande spécifique, contactez-nous via WhatsApp, Telegram ou téléphone.",
+    sections: {
+      checkInOut: {
+        title: "Heures d'arrivée et de départ",
+        body: "L'arrivée se fait à partir de 14h00. Le départ doit être effectué avant 12h00 (midi). Une arrivée anticipée ou un départ tardif peuvent être organisés selon la disponibilité, sur demande au moins 24h à l'avance."
+      },
+      smoking: {
+        title: "Interdiction de fumer à l'intérieur",
+        body: "Il est strictement interdit de fumer à l'intérieur des appartements (cigarettes, chicha, cigarette électronique). Seules les terrasses sont autorisées, à condition de respecter le voisinage et de jeter les mégots dans les cendriers prévus."
+      },
+      pets: {
+        title: "Animaux de compagnie",
+        body: "Les animaux de compagnie ne sont pas admis dans les appartements ni dans les parties communes de la résidence. Cette mesure garantit l'hygiène et le confort de tous les voyageurs, notamment ceux souffrant d'allergies."
+      },
+      noise: {
+        title: "Calme et tranquillité",
+        body: "Le calme doit être respecté entre 22h00 et 7h00 du matin. Les volumes sonores (musique, télévision, conversations) doivent rester modérés à toute heure pour préserver le repos des autres résidents."
+      },
+      events: {
+        title: "Événements et fêtes",
+        body: "Les fêtes, soirées et rassemblements ne sont pas autorisés. Le nombre d'occupants ne doit jamais dépasser la capacité indiquée à la réservation."
+      },
+      documents: {
+        title: "Livret de famille pour les couples",
+        body: "Pour les couples, la présentation du livret de famille ou d'un acte de mariage est obligatoire et non négociable, conformément à la réglementation en vigueur en Algérie. Cette pièce doit être valide et lisible."
+      },
+      damages: {
+        title: "Entretien et signalement",
+        body: "Aucune caution n'est demandée. En contrepartie, nous comptons sur chaque voyageur pour traiter le logement et son équipement avec soin. Si une chose ne fonctionne pas ou se casse durant le séjour, signalez-le immédiatement par WhatsApp ou téléphone."
+      },
+      neighbourhood: {
+        title: "Respect du voisinage et des parties communes",
+        body: "Les couloirs, escaliers, parking et espaces extérieurs sont à partager dans le respect mutuel. Aucune nuisance, aucun dépôt d'objets personnels et aucune activité commerciale ne sont tolérés dans les parties communes."
+      }
+    }
+  },
+  blog: {
+    title: "Blog Résidence Oasis",
+    subtitle: "Guides pratiques pour réussir votre séjour à Skikda",
+    empty: "Les premiers articles arrivent bientôt.",
+    readingTime: "de lecture"
   },
   apartmentNumber: {
     prefix: "Appartement",
@@ -133,7 +213,7 @@ export const fr = {
       hideFilters: "Masquer les Filtres",
       noMatch: "Aucun appartement ne correspond à vos filtres",
       adjustFilters: "Essayez d'ajuster vos critères de filtre pour voir plus d'options.",
-      viewDetails: "Détails & Photos",
+      viewDetails: "Détails",
       features: "caractéristiques",
       more: "plus",
       allTypes: "Tous les types"

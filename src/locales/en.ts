@@ -1,9 +1,89 @@
 export const en = {
+  seo: {
+    home: {
+      title: "Oasis Residence - Modern Beachfront Apartments in Skikda",
+      description: "Furnished studios, F2 and F3 apartments in Skikda near the beaches. High-speed Wi-Fi, AC, equipped kitchen. Book your stay from €30/night."
+    },
+    apartments: {
+      title: "Beachfront Furnished Apartments & Studios | Oasis Residence",
+      description: "Browse our modern studios, F2 and F3 in Skikda. Filter by type, floor and price. From €30 per night."
+    },
+    gallery: {
+      title: "Residence and Apartment Photo Gallery | Oasis Residence",
+      description: "Explore Oasis Residence in pictures: exteriors, furnished apartments and nearby beaches in Skikda."
+    },
+    contact: {
+      title: "Contact, Directions and FAQ | Oasis Residence Skikda",
+      description: "Phone, WhatsApp, Telegram, address and map. 24/7 reception. FAQ on check-in, parking, transfers."
+    },
+    notFound: {
+      title: "Page not found | Oasis Residence",
+      description: "The page you requested does not exist. Return to the home page to explore our accommodations."
+    },
+    reglement: {
+      title: "House Rules | Oasis Residence Skikda",
+      description: "House rules at Oasis Residence: check-in times, smoking, pets, quiet hours, events, required documents and shared-space conduct."
+    },
+    blog: {
+      title: "Skikda Travel Blog - guides, tips and local insights | Oasis Residence",
+      description: "Practical advice for planning your stay in Skikda: where to stay, what to do, beaches, transport, food and beachfront tips."
+    },
+    apartmentDetailSuffix: "| Oasis Residence Skikda",
+    blogArticleSuffix: "| Oasis Residence Blog"
+  },
   nav: {
     home: "Home",
     apartments: "Apartments",
     gallery: "Gallery",
-    contact: "Contact"
+    contact: "Contact",
+    blog: "Blog",
+    reglement: "Rules"
+  },
+  reglement: {
+    title: "House Rules",
+    subtitle: "Living guidelines for a pleasant stay at Oasis Residence",
+    intro: "These house rules apply to all travellers staying in Oasis Residence apartments. They aim to guarantee comfort, safety and quietness for everyone. Reading and acceptance are implicit at the time of booking.",
+    acknowledgement: "Failure to respect these rules may lead to immediate eviction without refund. In case of doubt or specific request, contact us via WhatsApp, Telegram or phone.",
+    sections: {
+      checkInOut: {
+        title: "Check-in and check-out times",
+        body: "Check-in is from 2:00 PM. Check-out must be completed by 12:00 PM (noon). Early check-in or late check-out may be arranged subject to availability, with at least 24 hours' notice."
+      },
+      smoking: {
+        title: "No smoking indoors",
+        body: "Smoking is strictly forbidden inside the apartments (cigarettes, shisha, e-cigarettes). Only terraces are allowed, provided neighbours are respected and butts are discarded in the ashtrays provided."
+      },
+      pets: {
+        title: "Pets",
+        body: "Pets are not admitted in the apartments or in the common areas of the residence. This measure protects hygiene and the comfort of all travellers, particularly those with allergies."
+      },
+      noise: {
+        title: "Quiet hours and tranquillity",
+        body: "Quiet must be respected between 10:00 PM and 7:00 AM. Sound levels (music, television, conversations) must remain moderate at all hours to preserve the rest of other residents."
+      },
+      events: {
+        title: "Events and parties",
+        body: "Parties, evening events and gatherings are not allowed. The number of occupants must never exceed the capacity declared at booking."
+      },
+      documents: {
+        title: "Family record book for couples",
+        body: "For couples, presenting the family record book or a marriage certificate is mandatory and non-negotiable, in accordance with current Algerian regulations. The document must be valid and legible."
+      },
+      damages: {
+        title: "Care of the apartment and reporting",
+        body: "No deposit is requested. In return, we count on every traveller to treat the apartment and its equipment with care. If something does not work or breaks during the stay, report it immediately via WhatsApp or phone."
+      },
+      neighbourhood: {
+        title: "Respect for neighbours and common areas",
+        body: "Corridors, stairs, parking and outdoor spaces are shared with mutual respect. No nuisance, no personal items left outside, and no commercial activity is tolerated in the common areas."
+      }
+    }
+  },
+  blog: {
+    title: "Oasis Residence Blog",
+    subtitle: "Practical guides for your stay in Skikda",
+    empty: "First articles coming soon.",
+    readingTime: "read"
   },
   apartmentNumber: {
     prefix: "Apartment",
@@ -133,7 +213,7 @@ export const en = {
       hideFilters: "Hide Filters",
       noMatch: "No apartments match your filters",
       adjustFilters: "Try adjusting your filter criteria to see more options.",
-      viewDetails: "Details & Photos",
+      viewDetails: "Details",
       features: "features",
       more: "more",
       allTypes: "All types"

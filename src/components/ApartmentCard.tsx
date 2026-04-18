@@ -1,5 +1,7 @@
 
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { useLocalizedHref } from "@/lib/i18n";
 import {
   FaUsers,
   FaExpand,
@@ -12,6 +14,7 @@ import {
   FaChevronDown,
   FaChevronUp
 } from "react-icons/fa";
+import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getFeatureIcon } from "@/lib/iconUtils";
@@ -22,6 +25,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 
 export interface ApartmentProps {
   id: string;
+  slug: string;
   name: string;
   description: string;
   priceeur: number;
@@ -41,6 +45,7 @@ export interface ApartmentProps {
 
 export default function ApartmentCard({ apartment }: { apartment: ApartmentProps }) {
   const { t } = useLanguage();
+  const loc = useLocalizedHref();
   const [isHovered, setIsHovered] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -69,7 +74,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
       <div className="relative overflow-hidden h-64">
         {/* Apartment Number Label */}
         <div className="absolute top-4 left-4 z-10">
-          <div className="bg-secondary text-secondary-foreground font-semibold text-xs px-2 py-1 rounded-full shadow-sm border border-secondary/20">
+          <div className="bg-secondary text-secondary-foreground font-semibold text-xs px-2 py-1 rounded-full shadow-xs border border-secondary/20">
             {t.apartmentNumber[apartment.id as keyof typeof t.apartmentNumber] || `${t.apartmentNumber.appartement} ${t.apartmentNumber.numero} ${apartment.id}`}
           </div>
         </div>
@@ -84,7 +89,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
           onClick={() => setIsDialogOpen(true)}
         />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 flex items-end p-6 cursor-pointer"
+          className="absolute inset-0 bg-linear-to-b from-transparent to-black/60 flex items-end p-6 cursor-pointer"
           onClick={() => setIsDialogOpen(true)}
         >
           <div>
@@ -146,7 +151,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
           <Button
             variant="outline"
             onClick={() => setShowSeasonalPricing(!showSeasonalPricing)}
-            className="w-full flex items-center justify-between bg-gradient-to-r from-blue-50 to-teal-50 border border-blue-100 hover:from-blue-100 hover:to-teal-100"
+            className="w-full flex items-center justify-between bg-linear-to-r from-blue-50 to-teal-50 border border-blue-100 hover:from-blue-100 hover:to-teal-100"
           >
             <span className="seasonal-pricing-title">
               {t.apartments.seasonalPricing}
@@ -160,7 +165,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
 
           {/* Collapsible Content */}
           {showSeasonalPricing && (
-            <div className="mt-2 p-4 bg-gradient-to-r from-blue-50 to-teal-50 rounded-lg border border-blue-100 animate-fade-in">
+            <div className="mt-2 p-4 bg-linear-to-r from-blue-50 to-teal-50 rounded-lg border border-blue-100 animate-fade-in">
               {/* September 1-15 Pricing */}
               <div className="mb-3">
                 <div className="flex items-center justify-between mb-2">
@@ -246,15 +251,27 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
             className="btn-primary w-full sm:w-auto"
             onClick={() => setIsDialogOpen(true)}
           >
-            <FaImages className="h-4 w-4 mr-2 flex-shrink-0" />
+            <FaImages className="h-4 w-4 mr-2 shrink-0" />
             <span className="whitespace-nowrap">{t.apartments.filters.viewDetails}</span>
           </Button>
           <Button
             className="btn-primary bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto"
             onClick={handleCalendarClick}
           >
-            <FaCalendarAlt className="h-4 w-4 mr-2 flex-shrink-0" />
+            <FaCalendarAlt className="h-4 w-4 mr-2 shrink-0" />
             <span className="whitespace-nowrap">{t.apartments.availability || 'Availability'}</span>
+          </Button>
+        </div>
+        <div className="flex justify-center mt-3">
+          <Button
+            asChild
+            variant="outline"
+            className="w-full sm:w-auto"
+          >
+            <Link to={loc(`/apartments/${apartment.slug}`)}>
+              <ExternalLink className="h-4 w-4 mr-2 shrink-0" />
+              <span className="whitespace-nowrap">{translatedName}</span>
+            </Link>
           </Button>
         </div>
 

@@ -5,6 +5,28 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { galleryImages, allApartments } from "@/data/appData";
+import type { MetaFunction } from "react-router";
+import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
+import { buildMeta } from "@/lib/seo";
+import { buildBreadcrumbList } from "@/lib/jsonld";
+
+export const meta: MetaFunction = ({ params }) => {
+  const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
+  const t = dictFor(lang);
+  return buildMeta({
+    lang,
+    pathname: "/gallery",
+    title: t.seo.gallery.title,
+    description: t.seo.gallery.description,
+    image: "/og/og-gallery.png",
+    jsonLd: [
+      buildBreadcrumbList([
+        { name: t.nav.home, url: `/${lang}` },
+        { name: t.nav.gallery, url: `/${lang}/gallery` },
+      ]),
+    ],
+  });
+};
 
 export default function Gallery() {
   const { t } = useLanguage();
@@ -18,11 +40,6 @@ export default function Gallery() {
 
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
-
-  useEffect(() => {
-    // Scroll to top when component mounts
-    window.scrollTo(0, 0);
-  }, []);
 
   // Filter gallery images by category
   const filterGallery = (category: string) => {
@@ -112,7 +129,7 @@ export default function Gallery() {
 
       <main className="flex-1 pt-20">
         {/* Header Section */}
-        <section className="relative py-10 bg-gradient-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
+        <section className="relative py-10 bg-linear-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -193,8 +210,7 @@ export default function Gallery() {
               {filteredImages.map((image, index) => (
                 <div
                   key={image.id}
-                  className="relative overflow-hidden rounded-xl aspect-[4/3] cursor-pointer group animate-fade-in"
-                  style={{ animationDelay: `${index * 50}ms` }}
+                  className="relative overflow-hidden rounded-xl aspect-4/3 cursor-pointer group"
                   onClick={() => setSelectedImage(image.id)}
                 >
                   <img
@@ -203,7 +219,7 @@ export default function Gallery() {
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                     <p className="text-white">{image.alt}</p>
                   </div>
                 </div>

@@ -15,6 +15,28 @@ import { Slider } from "@/components/ui/slider";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { allApartments } from "@/data/appData";
 import { ChevronDown, ChevronUp, Filter } from "lucide-react";
+import type { MetaFunction } from "react-router";
+import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
+import { buildMeta } from "@/lib/seo";
+import { buildBreadcrumbList } from "@/lib/jsonld";
+
+export const meta: MetaFunction = ({ params }) => {
+  const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
+  const t = dictFor(lang);
+  return buildMeta({
+    lang,
+    pathname: "/apartments",
+    title: t.seo.apartments.title,
+    description: t.seo.apartments.description,
+    image: "/og/og-apartments.png",
+    jsonLd: [
+      buildBreadcrumbList([
+        { name: t.nav.home, url: `/${lang}` },
+        { name: t.nav.apartments, url: `/${lang}/apartments` },
+      ]),
+    ],
+  });
+};
 
 export default function Apartments() {
   const { t } = useLanguage();
@@ -24,11 +46,6 @@ export default function Apartments() {
   const [priceMax, setPriceMax] = useState<number>(150);
   const [priceDzdMax, setPriceDzdMax] = useState<number>(25000);
   const [showFilters, setShowFilters] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Scroll to top when component mounts
-    window.scrollTo(0, 0);
-  }, []);
 
   // Apply filters
   useEffect(() => {
@@ -62,7 +79,7 @@ export default function Apartments() {
 
       <main className="flex-1 pt-20">
         {/* Header Section */}
-        <section className="relative py-10 bg-gradient-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
+        <section className="relative py-10 bg-linear-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -211,10 +228,8 @@ export default function Apartments() {
           <div className="container">
             {filteredApartments.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredApartments.map((apartment, index) => (
-                  <div key={apartment.id} className="animate-fade-in" style={{ animationDelay: `${(index + 1) * 100}ms` }}>
-                    <ApartmentCard apartment={apartment} />
-                  </div>
+                {filteredApartments.map((apartment) => (
+                  <ApartmentCard key={apartment.id} apartment={apartment} />
                 ))}
               </div>
             ) : (

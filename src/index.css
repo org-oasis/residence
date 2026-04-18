@@ -1,9 +1,446 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap')
+layer(base);
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Uniform page fade-in: every <main> mounts with the same 0.6s ease-out fade.
+   Single source of truth — no need to sprinkle animate-fade-in everywhere. */
+main {
+  animation: fade-in 0.6s ease-out;
+}
+
+/* Apply the same fade to Radix dialog content (apartment details, calendar, etc.)
+   !important overrides Radix's default faster animate-in shorthand. */
+[role="dialog"][data-state="open"] {
+  animation: fade-in 0.6s ease-out !important;
+}
+
+/* Blog article typography */
+.prose-oasis {
+  max-width: 70ch;
+  color: hsl(var(--foreground));
+  line-height: 1.7;
+}
+.prose-oasis h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+.prose-oasis h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+.prose-oasis h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose-oasis p {
+  margin-bottom: 1rem;
+}
+.prose-oasis ul, .prose-oasis ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+}
+.prose-oasis ul { list-style: disc; }
+.prose-oasis ol { list-style: decimal; }
+.prose-oasis li { margin-bottom: 0.5rem; }
+.prose-oasis a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-oasis a:hover { opacity: 0.8; }
+.prose-oasis strong { font-weight: 700; }
+.prose-oasis table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.prose-oasis th, .prose-oasis td {
+  border: 1px solid hsl(var(--border));
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-oasis th {
+  background: hsl(var(--muted));
+  font-weight: 600;
+}
+.prose-oasis blockquote {
+  border-left: 4px solid hsl(var(--primary));
+  padding-left: 1rem;
+  font-style: italic;
+  color: hsl(var(--muted-foreground));
+  margin: 1.5rem 0;
+}
+.prose-oasis code {
+  background: hsl(var(--muted));
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+.prose-oasis-rtl {
+  direction: rtl;
+  text-align: right;
+}
+.prose-oasis-rtl ul, .prose-oasis-rtl ol {
+  margin: 1rem 1.5rem 1.5rem 0;
+}
+.prose-oasis-rtl th, .prose-oasis-rtl td {
+  text-align: right;
+}
+.prose-oasis-rtl blockquote {
+  border-left: none;
+  border-right: 4px solid hsl(var(--primary));
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-sea-light: hsl(185, 45%, 85%);
+  --color-sea: hsl(185, 60%, 30%);
+  --color-sea-dark: hsl(185, 80%, 20%);
+
+  --color-sand-light: hsl(40, 30%, 95%);
+  --color-sand: hsl(40, 45%, 80%);
+  --color-sand-dark: hsl(40, 35%, 70%);
+
+  --color-oasis-teal: hsl(185, 60%, 30%);
+  --color-oasis-teal-light: hsl(185, 45%, 45%);
+  --color-oasis-teal-dark: hsl(185, 80%, 20%);
+  --color-oasis-gold: hsl(42, 85%, 65%);
+  --color-oasis-gold-light: hsl(42, 70%, 75%);
+  --color-oasis-gold-dark: hsl(42, 95%, 55%);
+  --color-oasis-cream: hsl(40, 20%, 96%);
+  --color-oasis-cream-dark: hsl(40, 25%, 88%);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.6s ease-out;
+  --animate-fade-in-right: fade-in-right 0.6s ease-out;
+  --animate-fade-in-left: fade-in-left 0.6s ease-out;
+  --animate-slide-up: slide-up 0.6s ease-out;
+  --animate-slide-down: slide-down 0.6s ease-out;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
+  --animate-wave: wave 12s -2s linear infinite;
+  --animate-button-glow: button-glow 3s ease-in-out infinite;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes fade-in-left {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-up {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-down {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  @keyframes wave {
+    0% {
+      transform: translateX(0) translateZ(0) scaleY(1);
+    }
+    50% {
+      transform: translateX(-25%) translateZ(0) scaleY(0.8);
+    }
+    100% {
+      transform: translateX(-50%) translateZ(0) scaleY(1);
+    }
+  }
+  @keyframes button-glow {
+    0% {
+      box-shadow: 0 0 5px hsl(185, 60%, 30%, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(185, 60%, 30%, 0.8);
+    }
+    100% {
+      box-shadow: 0 0 5px hsl(185, 60%, 30%, 0.5);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility container {
+  @apply px-4 md:px-6 lg:px-8 mx-auto;
+}
+
+@utility btn-primary {
+  @apply bg-primary text-primary-foreground rounded-full px-6 py-2.5 font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 active:scale-[0.98];
+}
+
+@utility section {
+  @apply py-12 md:py-16 lg:py-24;
+}
+
+@utility glass-card {
+  @apply bg-white/70 dark:bg-black/30 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-xl shadow-lg;
+}
+
+@utility wave-animation {
+  animation: wave 12s linear infinite;
+  animation-delay: -2s;
+  transform-origin: center bottom;
+}
+
+@utility page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@utility page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 400ms,
+    transform 400ms;
+}
+
+@utility page-transition-exit {
+  opacity: 1;
+}
+
+@utility page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+@utility custom-scrollbar {
+  /* Custom Scrollbar Styles */
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.3) transparent;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.6) 0%,
+      hsl(var(--primary) / 0.4) 100%
+    );
+    border-radius: 4px;
+    border: 1px solid hsl(var(--primary) / 0.2);
+    transition: all 0.3s ease;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.8) 0%,
+      hsl(var(--primary) / 0.6) 100%
+    );
+    transform: scaleX(1.2);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--primary) / 0.8) 100%
+    );
+  }
+  /* Hide scrollbar buttons (up/down arrows) */
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+  /* Dark mode adjustments */
+  .dark & {
+    scrollbar-color: hsl(var(--primary) / 0.4) transparent;
+  }
+  .dark &::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.7) 0%,
+      hsl(var(--primary) / 0.5) 100%
+    );
+    border: 1px solid hsl(var(--primary) / 0.3);
+  }
+  .dark &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.9) 0%,
+      hsl(var(--primary) / 0.7) 100%
+    );
+  }
+  .dark &::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--primary) / 0.9) 100%
+    );
+  }
+}
+
+@utility dark {
+  /* Dark mode adjustments */
+  & .custom-scrollbar {
+    scrollbar-color: hsl(var(--primary) / 0.4) transparent;
+  }
+  & .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.7) 0%,
+      hsl(var(--primary) / 0.5) 100%
+    );
+    border: 1px solid hsl(var(--primary) / 0.3);
+  }
+  & .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.9) 0%,
+      hsl(var(--primary) / 0.7) 100%
+    );
+  }
+  & .custom-scrollbar::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--primary) / 0.9) 100%
+    );
+  }
+}
 
 @layer base {
   :root {
@@ -27,7 +464,7 @@
     --input: 46 20% 88%;
     --ring: 191 70% 35%;
     --radius: 0.5rem;
-    --color-primary: theme('colors.primary.DEFAULT', #0ea5e9); /* fallback to Tailwind blue-500 if not set */
+    --color-primary: var(--color-primary, #0ea5e9); /* fallback to Tailwind blue-500 if not set */
   }
   .dark {
     --background: 191 40% 8%;
@@ -62,85 +499,6 @@
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
-  }
-}
-
-@layer components {
-  .container {
-    @apply px-4 md:px-6 lg:px-8 mx-auto;
-  }
-  .btn-primary {
-    @apply bg-primary text-primary-foreground rounded-full px-6 py-2.5 font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 active:scale-[0.98];
-  }
-  .section {
-    @apply py-12 md:py-16 lg:py-24;
-  }
-  .glass-card {
-    @apply bg-white/70 dark:bg-black/30 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-xl shadow-lg;
-  }
-  .wave-animation {
-    animation: wave 12s linear infinite;
-    animation-delay: -2s;
-    transform-origin: center bottom;
-  }
-  .page-transition-enter {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  .page-transition-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 400ms, transform 400ms;
-  }
-  .page-transition-exit {
-    opacity: 1;
-  }
-  .page-transition-exit-active {
-    opacity: 0;
-    transition: opacity 300ms;
-  }
-  /* Custom Scrollbar Styles */
-  .custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: hsl(var(--primary) / 0.3) transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, hsl(var(--primary) / 0.6) 0%, hsl(var(--primary) / 0.4) 100%);
-    border-radius: 4px;
-    border: 1px solid hsl(var(--primary) / 0.2);
-    transition: all 0.3s ease;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, hsl(var(--primary) / 0.8) 0%, hsl(var(--primary) / 0.6) 100%);
-    transform: scaleX(1.2);
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
-  }
-  /* Hide scrollbar buttons (up/down arrows) */
-  .custom-scrollbar::-webkit-scrollbar-button {
-    display: none;
-  }
-  /* Dark mode adjustments */
-  .dark .custom-scrollbar {
-    scrollbar-color: hsl(var(--primary) / 0.4) transparent;
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, hsl(var(--primary) / 0.7) 0%, hsl(var(--primary) / 0.5) 100%);
-    border: 1px solid hsl(var(--primary) / 0.3);
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.7) 100%);
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.9) 100%);
   }
 }
 

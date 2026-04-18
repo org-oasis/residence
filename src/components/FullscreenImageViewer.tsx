@@ -95,7 +95,7 @@ export default function FullscreenImageViewer({
   return createPortal(
     <div 
       ref={containerRef}
-      className="fixed inset-0 z-[9999] bg-black/90 animate-fade-in"
+      className="fixed inset-0 z-9999 bg-black/90 animate-fade-in"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
