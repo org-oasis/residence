@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/generate-blog-data.mjs",
+    "predev": "bun scripts/generate-blog-data.mjs",
     "dev": "react-router dev",
-    "prebuild": "node scripts/generate-og.mjs && node scripts/generate-blog-data.mjs",
+    "prebuild": "bun scripts/generate-og.mjs && bun scripts/generate-blog-data.mjs",
     "build": "react-router build",
-    "og": "node scripts/generate-og.mjs",
-    "blog:gen": "node scripts/generate-blog-data.mjs",
+    "og": "bun scripts/generate-og.mjs",
+    "blog:gen": "bun scripts/generate-blog-data.mjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "react-router serve ./build/client"
   },

@@ -40,11 +40,17 @@ export const meta: MetaFunction = ({ params }) => {
 
 export default function Apartments() {
   const { t } = useLanguage();
+  // Derive slider bounds from the actual apartment data (single source of truth via pricing.ts)
+  const PRICE_EUR_MIN = Math.min(...allApartments.map((a) => a.priceeur));
+  const PRICE_EUR_MAX = Math.max(...allApartments.map((a) => a.priceeur));
+  const PRICE_DZD_MIN = Math.min(...allApartments.map((a) => a.pricedz));
+  const PRICE_DZD_MAX = Math.max(...allApartments.map((a) => a.pricedz));
+
   const [filteredApartments, setFilteredApartments] = useState<ApartmentProps[]>(allApartments);
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [locationFilter, setLocationFilter] = useState<string>("all");
-  const [priceMax, setPriceMax] = useState<number>(150);
-  const [priceDzdMax, setPriceDzdMax] = useState<number>(25000);
+  const [priceMax, setPriceMax] = useState<number>(PRICE_EUR_MAX);
+  const [priceDzdMax, setPriceDzdMax] = useState<number>(PRICE_DZD_MAX);
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
   // Apply filters
@@ -175,9 +181,9 @@ export default function Apartments() {
                         {t.apartments.filters.priceRange}: ≤ €{priceMax}
                       </label>
                       <Slider
-                        defaultValue={[150]}
-                        min={30}
-                        max={150}
+                        defaultValue={[PRICE_EUR_MAX]}
+                        min={PRICE_EUR_MIN}
+                        max={PRICE_EUR_MAX}
                         step={5}
                         value={[priceMax]}
                         onValueChange={([val]) => setPriceMax(val)}
@@ -192,9 +198,9 @@ export default function Apartments() {
                         {t.apartments.filters.priceRange}: ≤ DZD{priceDzdMax.toLocaleString()}
                       </label>
                       <Slider
-                        defaultValue={[25000]}
-                        min={8000}
-                        max={25000}
+                        defaultValue={[PRICE_DZD_MAX]}
+                        min={PRICE_DZD_MIN}
+                        max={PRICE_DZD_MAX}
                         step={500}
                         value={[priceDzdMax]}
                         onValueChange={([val]) => setPriceDzdMax(val)}
@@ -211,8 +217,8 @@ export default function Apartments() {
                     onClick={() => {
                       setTypeFilter("all");
                       setLocationFilter("all");
-                      setPriceMax(150);
-                      setPriceDzdMax(25000);
+                      setPriceMax(PRICE_EUR_MAX);
+                      setPriceDzdMax(PRICE_DZD_MAX);
                     }}
                   >
                     {t.apartments.filters.resetFilters}

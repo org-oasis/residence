@@ -305,7 +305,7 @@ export const ar = {
       description: "شقة واسعة مثالية لعائلة صغيرة، مع مطبخ مجهز."
     },
     "3": {
-      name: "جناح F2 مع جاكوزي",
+      name: "جناح F2 مع جاكوزي وساونا نرويجية",
       description: "شقة حديثة أنيقة بتصميم عصري وجاكوزي فاخر."
     },
     "4": {
@@ -328,7 +328,7 @@ export const ar = {
   apartmentNames: {
     apartment1_name: "استوديو ديلوكس",
     apartment2_name: "شقة F2 مزدوجة كلاسيكية",
-    apartment3_name: "جناح F2 مع جاكوزي",
+    apartment3_name: "جناح F2 مع جاكوزي وساونا نرويجية",
     apartment4_name: "شقة F2 مزدوجة كلاسيكية",
     apartment5_name: "شقة F2 مزدوجة كلاسيكية",
     apartment6_name: "شقة F2 ديلوكس مزدوجة",

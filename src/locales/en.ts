@@ -305,7 +305,7 @@ export const en = {
       description: "Spacious apartment ideal for a small family, with equipped kitchen."
     },
     "3": {
-      name: "F2 Suite Jacuzzi",
+      name: "F2 Suite Jacuzzi & Norwegian Sauna",
       description: "Modern elegant apartment with contemporary design and premium jacuzzi."
     },
     "4": {
@@ -328,7 +328,7 @@ export const en = {
   apartmentNames: {
     apartment1_name: "Studio Deluxe",
     apartment2_name: "F2 Double Classic",
-    apartment3_name: "F2 Suite Jacuzzi",
+    apartment3_name: "F2 Suite Jacuzzi & Norwegian Sauna",
     apartment4_name: "F2 Double Classic",
     apartment5_name: "F2 Double Classic",
     apartment6_name: "F2 Deluxe Double",

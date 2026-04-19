@@ -1,4 +1,5 @@
 import { ApartmentProps } from "@/components/ApartmentCard";
+import { TIERS } from "./pricing";
 
 // Apartment data
 export const allApartments: ApartmentProps[] = [
@@ -6,9 +7,9 @@ export const allApartments: ApartmentProps[] = [
     id: "1",
     name: "apartment1_name",
     description: "apartment1_description",
-    priceeur: 30,
-    pricedz: 8000,
-    capacity: 2,
+    priceeur: TIERS.studio.eur,
+    pricedz: TIERS.studio.dzd,
+    capacity: TIERS.studio.capacity,
     size: 23,
     image: "/assets/1-STUDIO/01.avif",
     images: [
@@ -19,7 +20,7 @@ export const allApartments: ApartmentProps[] = [
     ],
     location: "floor1",
     type: "Studio",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
+    features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1210309363040804447",
     contactPhone: "213696123800",
     slug: "studio-deluxe-1"
@@ -28,9 +29,9 @@ export const allApartments: ApartmentProps[] = [
     id: "2",
     name: "apartment2_name",
     description: "apartment2_description",
-    priceeur: 35,
-    pricedz: 9000,
-    capacity: 4,
+    priceeur: TIERS.f2.eur,
+    pricedz: TIERS.f2.dzd,
+    capacity: TIERS.f2.capacity,
     size: 33,
     image: "/assets/2-F2/01.avif",
     images: [
@@ -41,7 +42,7 @@ export const allApartments: ApartmentProps[] = [
     ],
     location: "floor1",
     type: "F2",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
+    features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1403490902913383980",
     contactPhone: "213696123800",
     slug: "f2-classique-2"
@@ -50,9 +51,9 @@ export const allApartments: ApartmentProps[] = [
     id: "3",
     name: "apartment3_name",
     description: "apartment3_description",
-    priceeur: 50,
-    pricedz: 14000,
-    capacity: 4,
+    priceeur: TIERS.f2jacuzzi.eur,
+    pricedz: TIERS.f2jacuzzi.dzd,
+    capacity: TIERS.f2jacuzzi.capacity,
     size: 44,
     image: "/assets/3-F2/01.avif",
     images: [
@@ -65,7 +66,7 @@ export const allApartments: ApartmentProps[] = [
     ],
     location: "floor1",
     type: "F2-jacuzzi",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "Jacuzzi", "Sauna"],
+    features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "Jacuzzi", "Sauna"],
     airbnbLink: "https://www.airbnb.fr/rooms/1406477130010047362",
     contactPhone: "213696123800",
     slug: "f2-jacuzzi-3"
@@ -74,9 +75,9 @@ export const allApartments: ApartmentProps[] = [
     id: "4",
     name: "apartment4_name",
     description: "apartment4_description",
-    priceeur: 40,
-    pricedz: 10000,
-    capacity: 4,
+    priceeur: TIERS.f2.eur,
+    pricedz: TIERS.f2.dzd,
+    capacity: TIERS.f2.capacity,
     size: 33,
     image: "/assets/4-F2/01.avif",
     images: [
@@ -89,7 +90,7 @@ export const allApartments: ApartmentProps[] = [
     ],
     location: "floor2",
     type: "F2",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
+    features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-4-f2-moderne",
     contactPhone: "213561472990",
     slug: "f2-moderne-4"
@@ -98,9 +99,9 @@ export const allApartments: ApartmentProps[] = [
     id: "5",
     name: "apartment5_name",
     description: "apartment5_description",
-    priceeur: 40,
-    pricedz: 10000,
-    capacity: 4,
+    priceeur: TIERS.f2.eur,
+    pricedz: TIERS.f2.dzd,
+    capacity: TIERS.f2.capacity,
     size: 33,
     image: "/assets/5-F2/01.avif",
     images: [
@@ -114,7 +115,7 @@ export const allApartments: ApartmentProps[] = [
     ],
     location: "floor2",
     type: "F2",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
+    features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-5-f2-moderne",
     contactPhone: "213561472990",
     slug: "f2-moderne-5"
@@ -123,9 +124,9 @@ export const allApartments: ApartmentProps[] = [
     id: "6",
     name: "apartment6_name",
     description: "apartment6_description",
-    priceeur: 40,
-    pricedz: 10000,
-    capacity: 4,
+    priceeur: TIERS.f2.eur,
+    pricedz: TIERS.f2.dzd,
+    capacity: TIERS.f2.capacity,
     size: 36,
     image: "/assets/6-F2/01.avif",
     images: [
@@ -138,7 +139,7 @@ export const allApartments: ApartmentProps[] = [
     ],
     location: "floor2",
     type: "F2",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
+    features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-6-f2-moderne",
     contactPhone: "213561472990",
     slug: "f2-deluxe-6"
@@ -147,9 +148,9 @@ export const allApartments: ApartmentProps[] = [
     id: "7",
     name: "apartment7_name",
     description: "apartment7_description",
-    priceeur: 100,
-    pricedz: 25000,
-    capacity: 8,
+    priceeur: TIERS.f3.eur,
+    pricedz: TIERS.f3.dzd,
+    capacity: TIERS.f3.capacity,
     size: 132,
     image: "/assets/7-F3/01.avif",
     images: [
