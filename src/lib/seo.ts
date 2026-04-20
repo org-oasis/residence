@@ -44,6 +44,11 @@ export function buildMeta({
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:image", content: ogImage },
+    // Explicit dimensions required by WhatsApp's preview bot (without them it skips the preview).
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:type", content: "image/png" },
+    { property: "og:image:alt", content: title },
     { property: "og:type", content: "website" },
     { property: "og:url", content: canonical },
     { property: "og:locale", content: ogLocaleFor(lang) },

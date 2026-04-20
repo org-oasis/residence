@@ -15,7 +15,7 @@ export const meta: MetaFunction = ({ params }) => {
     pathname: "/reglement",
     title: t.seo.reglement.title,
     description: t.seo.reglement.description,
-    image: "/og/og-home.png",
+    image: "/og/og-reglement.png",
     jsonLd: [
       buildBreadcrumbList([
         { name: t.nav.home, url: `/${lang}` },

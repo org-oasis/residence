@@ -18,7 +18,7 @@ export const meta: MetaFunction = ({ params }) => {
     pathname: "/gallery",
     title: t.seo.gallery.title,
     description: t.seo.gallery.description,
-    image: "/og/og-gallery.png",
+    image: "/og/og-home.png",
     jsonLd: [
       buildBreadcrumbList([
         { name: t.nav.home, url: `/${lang}` },
