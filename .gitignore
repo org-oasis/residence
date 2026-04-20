@@ -20,6 +20,7 @@ docs/
 # Generated at build time (do not commit)
 # ============================================================
 src/lib/blog-data.generated.ts
+public/llms.txt
 
 # ============================================================
 # Environment & secrets (NEVER commit)

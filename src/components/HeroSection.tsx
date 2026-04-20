@@ -13,7 +13,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 -z-10">
         <img
           src="/assets/COMMON/00-background.avif"
-          alt="Residence Oasis View"
+          alt={t.hero.imageAlt}
           className="w-full h-full object-cover object-center"
           fetchPriority="high"
           loading="eager"

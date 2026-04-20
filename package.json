@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "bun scripts/generate-blog-data.mjs",
     "dev": "react-router dev",
-    "prebuild": "bun scripts/generate-og.mjs && bun scripts/generate-blog-data.mjs",
+    "prebuild": "bun scripts/generate-og.mjs && bun scripts/generate-blog-data.mjs && bun scripts/generate-llms.mjs",
     "build": "react-router build",
     "og": "bun scripts/generate-og.mjs",
     "blog:gen": "bun scripts/generate-blog-data.mjs",

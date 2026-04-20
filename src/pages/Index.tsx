@@ -102,21 +102,21 @@ export default function Index() {
                 <div className="aspect-4/3 rounded-2xl overflow-hidden">
                   <img
                     src={siteConfig.heroImage}
-                    alt="Seaside view"
+                    alt={t.hero.welcomeImage1Alt}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-6 left-0 w-2/3 rounded-2xl overflow-hidden shadow-xl">
                   <img
                     src={siteConfig.heroImage2}
-                    alt="Beachfront"
+                    alt={t.hero.welcomeImage2Alt}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -top-6 right-0 w-1/2 rounded-2xl overflow-hidden shadow-xl">
                   <img
                     src={siteConfig.heroImage3}
-                    alt="Algerian flag"
+                    alt={t.hero.welcomeImage3Alt}
                     className="w-full h-full object-cover"
                   />
                 </div>

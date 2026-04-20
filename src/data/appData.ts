@@ -313,6 +313,13 @@ export function getApartmentBySlug(slug: string): ApartmentProps | undefined {
   return allApartments.find((a) => a.slug === slug);
 }
 
+// Derived price bounds — single source of truth used by Apartments.tsx slider
+// filter AND locale SEO descriptions. Editing pricing.ts propagates here automatically.
+export const PRICE_EUR_MIN = Math.min(...allApartments.map((a) => a.priceeur));
+export const PRICE_EUR_MAX = Math.max(...allApartments.map((a) => a.priceeur));
+export const PRICE_DZD_MIN = Math.min(...allApartments.map((a) => a.pricedz));
+export const PRICE_DZD_MAX = Math.max(...allApartments.map((a) => a.pricedz));
+
 // Site configuration
 export const siteConfig = {
   name: "Résidence Oasis",

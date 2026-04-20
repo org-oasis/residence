@@ -1,12 +1,14 @@
+import { PRICE_EUR_MIN } from "../data/appData";
+
 export const fr = {
   seo: {
     home: {
       title: "Résidence Oasis - Appartements modernes en bord de mer à Skikda",
-      description: "Studios, F2 et F3 meublés à Skikda près des plages. Wi-Fi haut débit, climatisation, cuisine équipée. Réservez votre séjour à partir de 30 €/nuit."
+      description: `Studios, F2 et F3 meublés à Skikda près des plages. Wi-Fi haut débit, climatisation, cuisine équipée. Réservez votre séjour à partir de ${PRICE_EUR_MIN} €/nuit.`
     },
     apartments: {
       title: "Appartements & studios meublés en bord de mer | Résidence Oasis",
-      description: "Découvrez nos studios, F2 et F3 modernes à Skikda. Filtres par type, étage et prix. À partir de 30 € par nuit."
+      description: `Découvrez nos studios, F2 et F3 modernes à Skikda. Filtres par type, étage et prix. À partir de ${PRICE_EUR_MIN} € par nuit.`
     },
     gallery: {
       title: "Galerie photos de la résidence et des appartements | Résidence Oasis",
@@ -103,7 +105,11 @@ export const fr = {
     description: "Venez à la découverte de nos appartements modernes proches des plages, offrant un confort inégalé et une proximité des complexes touristiques 5★",
     exploreGallery: "Regarder la Galerie",
     exploreApartments: "Explorer les Appartements",
-    scrollDown: "Défiler Vers le Bas"
+    scrollDown: "Défiler Vers le Bas",
+    imageAlt: "Vue de la côte méditerranéenne depuis la Résidence Oasis à Filfila, Skikda",
+    welcomeImage1Alt: "Vue sur la mer depuis la résidence",
+    welcomeImage2Alt: "Plage de Filfila à proximité",
+    welcomeImage3Alt: "Littoral algérien de Skikda"
   },
   footer: {
     description: "Appartements modernes équipés proches des plages, offrant le parfait mélange de confort et d'élégance pour des vacances de rêve.",

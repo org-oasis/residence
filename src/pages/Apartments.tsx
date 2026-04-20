@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { allApartments } from "@/data/appData";
+import { allApartments, PRICE_EUR_MIN, PRICE_EUR_MAX, PRICE_DZD_MIN, PRICE_DZD_MAX } from "@/data/appData";
 import { ChevronDown, ChevronUp, Filter } from "lucide-react";
 import type { MetaFunction } from "react-router";
 import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
@@ -40,12 +40,6 @@ export const meta: MetaFunction = ({ params }) => {
 
 export default function Apartments() {
   const { t } = useLanguage();
-  // Derive slider bounds from the actual apartment data (single source of truth via pricing.ts)
-  const PRICE_EUR_MIN = Math.min(...allApartments.map((a) => a.priceeur));
-  const PRICE_EUR_MAX = Math.max(...allApartments.map((a) => a.priceeur));
-  const PRICE_DZD_MIN = Math.min(...allApartments.map((a) => a.pricedz));
-  const PRICE_DZD_MAX = Math.max(...allApartments.map((a) => a.pricedz));
-
   const [filteredApartments, setFilteredApartments] = useState<ApartmentProps[]>(allApartments);
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [locationFilter, setLocationFilter] = useState<string>("all");

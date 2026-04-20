@@ -1,12 +1,14 @@
+import { PRICE_EUR_MIN } from "../data/appData";
+
 export const en = {
   seo: {
     home: {
       title: "Oasis Residence - Modern Beachfront Apartments in Skikda",
-      description: "Furnished studios, F2 and F3 apartments in Skikda near the beaches. High-speed Wi-Fi, AC, equipped kitchen. Book your stay from €30/night."
+      description: `Furnished studios, F2 and F3 apartments in Skikda near the beaches. High-speed Wi-Fi, AC, equipped kitchen. Book your stay from €${PRICE_EUR_MIN}/night.`
     },
     apartments: {
       title: "Beachfront Furnished Apartments & Studios | Oasis Residence",
-      description: "Browse our modern studios, F2 and F3 in Skikda. Filter by type, floor and price. From €30 per night."
+      description: `Browse our modern studios, F2 and F3 in Skikda. Filter by type, floor and price. From €${PRICE_EUR_MIN} per night.`
     },
     gallery: {
       title: "Residence and Apartment Photo Gallery | Oasis Residence",
@@ -103,7 +105,11 @@ export const en = {
     description: "Come discover our modern apartments near the beaches, offering unparalleled comfort and proximity to 5★ tourist complexes",
     exploreGallery: "View Gallery",
     exploreApartments: "Explore Apartments",
-    scrollDown: "Scroll Down"
+    scrollDown: "Scroll Down",
+    imageAlt: "View of the Mediterranean coast from Oasis Residence in Filfila, Skikda",
+    welcomeImage1Alt: "Sea view from the residence",
+    welcomeImage2Alt: "Filfila beach nearby",
+    welcomeImage3Alt: "Algerian coastline of Skikda"
   },
   footer: {
     description: "Modern equipped apartments near the beaches, offering the perfect blend of comfort and elegance for dream vacations.",

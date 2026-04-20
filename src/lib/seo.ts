@@ -17,7 +17,9 @@ export interface SeoInput {
 
 function buildLocalizedUrl(lang: Lang, pathname: string): string {
   const clean = pathname === "" || pathname === "/" ? "" : pathname;
-  return `${SITE_URL}/${lang}${clean}`;
+  // Always append trailing slash — matches GitHub Pages' actual URL shape
+  // (directory-style URLs) and avoids the 301 roundtrip Google otherwise follows.
+  return `${SITE_URL}/${lang}${clean}/`;
 }
 
 export function buildMeta({

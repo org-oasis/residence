@@ -3,6 +3,9 @@ name: Deploy Résidence Oasis
 on:
   push:
     branches: [main]
+  schedule:
+    # Rebuild weekly so llms.txt picks up fresh blog content
+    - cron: '0 3 * * 1'
   workflow_dispatch:
 
 concurrency:

@@ -28,6 +28,10 @@
 *.html
   Cache-Control: public, max-age=3600
 
-# Default cache for other files
+# Default cache + security headers for every response
 /*
-  Cache-Control: public, max-age=86400 
+  Cache-Control: public, max-age=86400
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self)
