@@ -4,6 +4,18 @@ import { SITE_URL } from "@/lib/seo";
 
 type JsonLd = Record<string, unknown>;
 
+export function buildWebSite(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}#website`,
+    name: siteConfig.name,
+    url: SITE_URL,
+    inLanguage: ["fr-FR", "en-US", "ar-DZ"],
+    publisher: { "@id": `${SITE_URL}#lodging` },
+  };
+}
+
 export function buildLodgingBusiness(): JsonLd {
   return {
     "@context": "https://schema.org",

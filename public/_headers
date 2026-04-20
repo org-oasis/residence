@@ -28,10 +28,11 @@
 *.html
   Cache-Control: public, max-age=3600
 
-# Default cache + security headers for every response
+# Default cache for other files.
+# NOTE: GitHub Pages (current host) does NOT process this file — kept for
+# parity with local `bunx vite preview` and for future migration to Netlify /
+# Cloudflare Pages, which both honor `_headers`. Security headers (HSTS,
+# nosniff, Referrer-Policy, Permissions-Policy) must be configured on the
+# edge (Fastly / Cloudflare / host) to take effect.
 /*
   Cache-Control: public, max-age=86400
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(self)

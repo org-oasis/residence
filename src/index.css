@@ -450,12 +450,12 @@ main {
     --card-foreground: 191 50% 15%;
     --popover: 46 30% 98%;
     --popover-foreground: 191 50% 15%;
-    --primary: 191 70% 35%;
-    --primary-foreground: 46 80% 95%;
+    --primary: 191 72% 28%;
+    --primary-foreground: 46 80% 98%;
     --secondary: 44 85% 75%;
     --secondary-foreground: 191 50% 20%;
     --muted: 46 25% 92%;
-    --muted-foreground: 191 30% 45%;
+    --muted-foreground: 191 32% 32%;
     --accent: 183 65% 60%;
     --accent-foreground: 191 50% 15%;
     --destructive: 0 85% 60%;

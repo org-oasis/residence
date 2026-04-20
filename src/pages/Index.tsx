@@ -13,7 +13,7 @@ import { featuredApartments, siteConfig } from "@/data/appData";
 import type { MetaFunction } from "react-router";
 import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
 import { buildMeta } from "@/lib/seo";
-import { buildLodgingBusiness } from "@/lib/jsonld";
+import { buildLodgingBusiness, buildWebSite } from "@/lib/jsonld";
 
 export const meta: MetaFunction = ({ params }) => {
   const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
@@ -24,7 +24,7 @@ export const meta: MetaFunction = ({ params }) => {
     title: t.seo.home.title,
     description: t.seo.home.description,
     image: "/og/og-home.png",
-    jsonLd: [buildLodgingBusiness()],
+    jsonLd: [buildWebSite(), buildLodgingBusiness()],
   });
 };
 

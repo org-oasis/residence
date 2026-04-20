@@ -53,9 +53,19 @@ const content = `# ${siteConfig.name}
 
 Site trilingue : français (par défaut), anglais, arabe. URL canoniques : ${SITE}/fr/, ${SITE}/en/, ${SITE}/ar/.
 
-## Hébergements
+Capacités disponibles : 2, 4 ou 6 personnes par appartement (+ jusqu'à 2 personnes supplémentaires avec supplément).
 
-- [Tous les appartements](${SITE}/fr/apartments/) : ${allApartments.length} logements meublés, capacités 2 à 6 personnes
+## Pages principales
+
+- [Accueil](${SITE}/fr/) : présentation de la résidence, carte du site
+- [Liste des appartements](${SITE}/fr/apartments/) : ${allApartments.length} logements meublés — filtres par type, étage et prix
+- [Galerie photos](${SITE}/fr/gallery/) : images des appartements, extérieurs, plages
+- [Blog](${SITE}/fr/blog/) : guides pratiques sur Skikda, réservation, tarifs, règles de vie
+- [Règlement intérieur](${SITE}/fr/reglement/) : horaires, tabac, animaux, calme, documents requis
+- [Contact](${SITE}/fr/contact/) : adresse, WhatsApp, Telegram, téléphone, plan d'accès
+
+## Appartements individuels
+
 ${allApartments
   .map(
     (a) =>
@@ -63,14 +73,7 @@ ${allApartments
   )
   .join("\n")}
 
-## Pages principales
-
-- [Accueil](${SITE}/fr/) : présentation de la résidence, carte du site
-- [Galerie photos](${SITE}/fr/gallery/) : images des appartements, extérieurs, plages
-- [Contact](${SITE}/fr/contact/) : adresse, WhatsApp, Telegram, téléphone, plan d'accès
-- [Règlement intérieur](${SITE}/fr/reglement/) : règles de vie, check-in, paiement
-
-## Blog (${blog.length} article${blog.length > 1 ? "s" : ""})
+## Articles de blog (${blog.length} article${blog.length > 1 ? "s" : ""})
 
 ${
   blog.length

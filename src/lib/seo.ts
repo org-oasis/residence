@@ -66,6 +66,9 @@ export function buildMeta({
       hrefLang: altLang,
       href: buildLocalizedUrl(altLang, pathname),
     });
+    if (altLang !== lang) {
+      tags.push({ property: "og:locale:alternate", content: ogLocaleFor(altLang) });
+    }
   }
   tags.push({
     tagName: "link",

@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocalizedHref } from "@/lib/i18n";
 
+const menuAriaLabels = {
+  fr: { open: "Ouvrir le menu", close: "Fermer le menu" },
+  en: { open: "Open menu", close: "Close menu" },
+  ar: { open: "فتح القائمة", close: "إغلاق القائمة" },
+} as const;
+
 export default function Navbar() {
   const { t, language } = useLanguage();
   const loc = useLocalizedHref();
@@ -62,7 +68,14 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         <div className="md:hidden flex items-center space-x-2">
           <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-full">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="rounded-full"
+            aria-label={mobileMenuOpen ? menuAriaLabels[language].close : menuAriaLabels[language].open}
+            aria-expanded={mobileMenuOpen}
+          >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>

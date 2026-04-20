@@ -115,7 +115,7 @@ export default function TestimonialsSection() {
                         />
                       ))}
                     </div>
-                    <h4 className="text-sm md:text-lg font-semibold text-center md:text-left">{testimonial.name}</h4>
+                    <p className="text-sm md:text-lg font-semibold text-center md:text-left">{testimonial.name}</p>
                     <p className="text-xs md:text-sm text-muted-foreground text-center md:text-left">{testimonial.location}</p>
                   </div>
 
@@ -154,13 +154,18 @@ export default function TestimonialsSection() {
                     setActiveIndex(index);
                     setTimeout(() => setIsAnimating(false), 500);
                   }}
-                  className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
-                    activeIndex === index
-                      ? "bg-primary w-4 md:w-6"
-                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                  }`}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   aria-label={`Go to testimonial ${index + 1}`}
-                />
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`block h-2 md:h-3 rounded-full transition-all ${
+                      activeIndex === index
+                        ? "bg-primary w-4 md:w-6"
+                        : "w-2 md:w-3 bg-muted-foreground/40 hover:bg-muted-foreground/60"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 
