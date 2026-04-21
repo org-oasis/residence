@@ -1,5 +1,5 @@
 
-import { useState, useRef } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { useLocalizedHref } from "@/lib/i18n";
 import {
@@ -19,8 +19,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getFeatureIcon } from "@/lib/iconUtils";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ApartmentDetailsDialog from "./ApartmentDetailsDialog";
-import CalendarAvailability from "./CalendarAvailability";
+const ApartmentDetailsDialog = lazy(() => import("./ApartmentDetailsDialog"));
+const CalendarAvailability = lazy(() => import("./CalendarAvailability"));
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 export interface ApartmentProps {
@@ -255,7 +255,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
             <span className="whitespace-nowrap">{t.apartments.filters.viewDetails}</span>
           </Button>
           <Button
-            className="btn-primary bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto"
+            className="btn-primary bg-green-700 hover:bg-green-800 text-white w-full sm:w-auto"
             onClick={handleCalendarClick}
           >
             <FaCalendarAlt className="h-4 w-4 mr-2 shrink-0" />
@@ -288,7 +288,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
             </svg>
           </Button>
           <Button
-            className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg transition-colors duration-200"
+            className="bg-green-700 hover:bg-green-800 text-white p-3 rounded-lg transition-colors duration-200"
             onClick={() => window.open('https://wa.me/' + (apartment.contactPhone || '213561472990') + '?text=' + encodeURIComponent((t.contact.messagePrefix || 'Hello, I\'m interested in') + ' "' + t.apartmentNames[`apartment${apartment.id}_name` as keyof typeof t.apartmentNames] + '" [N°' + apartment.id + ']'), '_blank')}
             title="WhatsApp"
           >
@@ -313,11 +313,15 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
         </div>
       </div>
 
-      <ApartmentDetailsDialog
-        apartment={apartment}
-        isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-      />
+      {isDialogOpen && (
+        <Suspense fallback={null}>
+          <ApartmentDetailsDialog
+            apartment={apartment}
+            isOpen={isDialogOpen}
+            onOpenChange={setIsDialogOpen}
+          />
+        </Suspense>
+      )}
       {/* Loading Overlay */}
       <Dialog open={calendarLoading} onOpenChange={() => {}}>
         <DialogContent className="max-w-sm w-full">
@@ -332,22 +336,26 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
           </div>
         </DialogContent>
       </Dialog>
-      <Dialog open={calendarOpen} onOpenChange={setCalendarOpen}>
-        <DialogContent className="w-fit max-w-[95vw] p-0">
-          <DialogHeader className="px-4 py-3 text-center sm:text-center">
-            <DialogTitle className="text-center sm:text-center">{t.apartments.availability || 'Availability'}</DialogTitle>
-          </DialogHeader>
-          <div className="px-4 pb-4">
-            <CalendarAvailability
-              apartmentId={apartment.id}
-              label={t.apartments.availability || 'Availability'}
-              availableLabel={t.apartments.available || 'Available'}
-              unavailableLabel={t.apartments.unavailable || 'Unavailable'}
-              apartmentName={t.apartmentNumber[apartment.id as keyof typeof t.apartmentNumber] || `${t.apartmentNumber.appartement} ${t.apartmentNumber.numero} ${apartment.id}`}
-            />
-          </div>
-        </DialogContent>
-      </Dialog>
+      {(calendarLoading || calendarOpen) && (
+        <Dialog open={calendarOpen} onOpenChange={setCalendarOpen}>
+          <DialogContent className="w-fit max-w-[95vw] p-0">
+            <DialogHeader className="px-4 py-3 text-center sm:text-center">
+              <DialogTitle className="text-center sm:text-center">{t.apartments.availability || 'Availability'}</DialogTitle>
+            </DialogHeader>
+            <div className="px-4 pb-4">
+              <Suspense fallback={null}>
+                <CalendarAvailability
+                  apartmentId={apartment.id}
+                  label={t.apartments.availability || 'Availability'}
+                  availableLabel={t.apartments.available || 'Available'}
+                  unavailableLabel={t.apartments.unavailable || 'Unavailable'}
+                  apartmentName={t.apartmentNumber[apartment.id as keyof typeof t.apartmentNumber] || `${t.apartmentNumber.appartement} ${t.apartmentNumber.numero} ${apartment.id}`}
+                />
+              </Suspense>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

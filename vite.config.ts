@@ -2,18 +2,12 @@ import { defineConfig } from "vite";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
-import Sitemap from "vite-plugin-sitemap";
-import { allApartments } from "./src/data/appData";
-import { BLOG_ARTICLES } from "./src/lib/blog-data.generated";
 
-const LOCALES = ["fr", "en", "ar"] as const;
-const STATIC_PATHS = ["", "/apartments", "/gallery", "/contact", "/reglement", "/blog"];
-const APT_PATHS = allApartments.map((a) => `/apartments/${a.slug}`);
-const baseSitemap = LOCALES.flatMap((lang) =>
-  [...STATIC_PATHS, ...APT_PATHS].map((p) => `/${lang}${p}`),
-);
-const blogSitemap = BLOG_ARTICLES.map((a) => `/${a.lang}/blog/${a.slug}`);
-const sitemapRoutes = [...baseSitemap, ...blogSitemap];
+// Sitemap and robots.txt are generated in the prebuild step by
+// scripts/generate-sitemap.mjs, which writes into public/ and is then
+// copied into build/client/ by Vite's static asset handling. This replaces
+// vite-plugin-sitemap, whose closeBundle hook fired before react-router v7
+// created build/client/ and so crashed the build with ENOENT.
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
@@ -22,18 +16,7 @@ export default defineConfig(() => ({
     host: "::",
     port: 5173,
   },
-  plugins: [
-    tailwindcss(),
-    reactRouter(),
-    Sitemap({
-      hostname: "https://residence-oasis.com",
-      dynamicRoutes: sitemapRoutes,
-      exclude: ["/__spa-fallback", "/"],
-      changefreq: "weekly",
-      outDir: "build/client",
-      readable: true,
-    }),
-  ],
+  plugins: [tailwindcss(), reactRouter()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

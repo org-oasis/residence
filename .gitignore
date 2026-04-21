@@ -21,6 +21,8 @@ docs/
 # ============================================================
 src/lib/blog-data.generated.ts
 public/llms.txt
+public/sitemap.xml
+public/robots.txt
 
 # ============================================================
 # Environment & secrets (NEVER commit)
