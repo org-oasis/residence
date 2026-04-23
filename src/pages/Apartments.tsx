@@ -1,8 +1,7 @@
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ApartmentCard, { ApartmentProps } from "@/components/ApartmentCard";
+import ApartmentCard from "@/components/ApartmentCard";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,8 +12,10 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { allApartments, PRICE_EUR_MIN, PRICE_EUR_MAX, PRICE_DZD_MIN, PRICE_DZD_MAX } from "@/data/appData";
-import { ChevronDown, ChevronUp, Filter } from "lucide-react";
+import { useApartmentFilters } from "@/hooks/useApartmentFilters";
+import { allApartments, PRICE_EUR_MIN, PRICE_EUR_MAX, COMMON_FEATURES } from "@/data/appData";
+import { getFeatureIcon } from "@/lib/iconUtils";
+import { ChevronDown, ChevronUp, Filter } from "@/components/icons";
 import type { MetaFunction } from "react-router";
 import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
 import { buildMeta } from "@/lib/seo";
@@ -40,38 +41,21 @@ export const meta: MetaFunction = ({ params }) => {
 
 export default function Apartments() {
   const { t } = useLanguage();
-  const [filteredApartments, setFilteredApartments] = useState<ApartmentProps[]>(allApartments);
-  const [typeFilter, setTypeFilter] = useState<string>("all");
-  const [locationFilter, setLocationFilter] = useState<string>("all");
-  const [priceMax, setPriceMax] = useState<number>(PRICE_EUR_MAX);
-  const [priceDzdMax, setPriceDzdMax] = useState<number>(PRICE_DZD_MAX);
+  const filters = useApartmentFilters();
   const [showFilters, setShowFilters] = useState<boolean>(false);
-
-  // Apply filters
-  useEffect(() => {
-    let result = allApartments;
-
-    // Filter by apartment type
-    if (typeFilter !== "all") {
-      result = result.filter(apt => apt.type.includes(typeFilter));
-    }
-
-    // Filter by location
-    if (locationFilter !== "all") {
-      result = result.filter(apt => apt.location === locationFilter);
-    }
-
-    // Filter by price max (Euro)
-    result = result.filter(apt => apt.priceeur <= priceMax);
-
-    // Filter by price max (DZD)
-    result = result.filter(apt => apt.pricedz <= priceDzdMax);
-
-    setFilteredApartments(result);
-  }, [typeFilter, locationFilter, priceMax, priceDzdMax]);
-
-  // Get unique locations for filter
-  const locations = ["all", ...new Set(allApartments.map(apt => apt.location))];
+  const {
+    typeFilter,
+    floorFilter,
+    priceMax,
+    capacityMin,
+    setTypeFilter,
+    setFloorFilter,
+    setPriceMax,
+    setCapacityMin,
+    reset: resetFilters,
+    filtered: filteredApartments,
+    floorOptions: floors,
+  } = filters;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -79,7 +63,7 @@ export default function Apartments() {
 
       <main className="flex-1 pt-20">
         {/* Header Section */}
-        <section className="relative py-10 bg-linear-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
+        <section className="relative py-10 bg-linear-to-r from-sea-light to-white overflow-hidden">
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -88,6 +72,24 @@ export default function Apartments() {
               <p className="text-muted-foreground text-lg mb-6">
                 {t.apartments.subtitle}
               </p>
+
+              {/* Common features bandeau — évite la duplication sur chaque card. Seuls les features spécifiques (jacuzzi, terrasse, etc.) restent visibles sur chaque logement. */}
+              <div className="mt-6">
+                <div className="text-xs uppercase tracking-wider text-muted-foreground mb-3 font-medium">
+                  {t.apartments.commonFeaturesTitle}
+                </div>
+                <ul className="flex flex-wrap items-center justify-center gap-2">
+                  {COMMON_FEATURES.map((feature) => (
+                    <li
+                      key={feature}
+                      className="inline-flex items-center gap-1.5 text-sm bg-white/70 backdrop-blur-sm border border-border px-3 py-1.5 rounded-full"
+                    >
+                      <span className="text-primary">{getFeatureIcon(feature, "h-6 w-6")}</span>
+                      <span>{t.features[feature as keyof typeof t.features] || feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -103,7 +105,7 @@ export default function Apartments() {
           <div className="container">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <Filter className="w-5 h-5" />
+                <Filter className="w-6 h-6" />
                 <span className="font-medium">{t.apartments.filters.showing} {filteredApartments.length} {t.apartments.filters.of} {allApartments.length} {t.apartments.filters.accommodations}</span>
               </div>
               <Button
@@ -113,12 +115,12 @@ export default function Apartments() {
               >
                 {showFilters ? (
                   <>
-                    <ChevronUp className="w-4 h-4" />
+                    <ChevronUp className="w-6 h-6" />
                     {t.apartments.filters.hideFilters}
                   </>
                 ) : (
                   <>
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-6 h-6" />
                     {t.apartments.filters.showFilters}
                   </>
                 )}
@@ -147,72 +149,67 @@ export default function Apartments() {
                     </Select>
                   </div>
 
-                  {/* Location Filter */}
+                  {/* Floor Filter */}
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      {t.apartments.filters.location}
+                      {t.apartments.filters.floor}
                     </label>
-                    <Select value={locationFilter} onValueChange={setLocationFilter}>
+                    <Select value={floorFilter} onValueChange={setFloorFilter}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder={t.apartments.filters.location} />
+                        <SelectValue placeholder={t.apartments.filters.floor} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">{t.apartments.filters.allLocations}</SelectItem>
-                        {locations.filter(loc => loc !== "all").map(location => (
-                          <SelectItem key={location} value={location}>
-                            {t.locations[location] || location}
+                        <SelectItem value="all">{t.apartments.filters.allFloors}</SelectItem>
+                        {floors.filter(f => f !== "all").map(floor => (
+                          <SelectItem key={floor} value={floor}>
+                            {t.floors[floor as keyof typeof t.floors] || floor}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
 
-                  {/* Price Range Filters */}
-                  <div className="space-y-4">
-                    {/* Euro Price Range Filter */}
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        {t.apartments.filters.priceRange}: ≤ €{priceMax}
-                      </label>
-                      <Slider
-                        defaultValue={[PRICE_EUR_MAX]}
-                        min={PRICE_EUR_MIN}
-                        max={PRICE_EUR_MAX}
-                        step={5}
-                        value={[priceMax]}
-                        onValueChange={([val]) => setPriceMax(val)}
-                        className="my-4 rtl"
-                        style={{ direction: 'rtl' }}
-                      />
-                    </div>
-
-                    {/* DZD Price Range Filter */}
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        {t.apartments.filters.priceRange}: ≤ DZD{priceDzdMax.toLocaleString()}
-                      </label>
-                      <Slider
-                        defaultValue={[PRICE_DZD_MAX]}
-                        min={PRICE_DZD_MIN}
-                        max={PRICE_DZD_MAX}
-                        step={500}
-                        value={[priceDzdMax]}
-                        onValueChange={([val]) => setPriceDzdMax(val)}
-                        className="my-4 rtl"
-                        style={{ direction: 'rtl' }}
-                      />
-                    </div>
+                  {/* Capacity Filter — P1 Karim et P3 Fatima cherchent "6+ personnes" */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {t.apartments.filters.minCapacity}
+                    </label>
+                    <Select value={capacityMin} onValueChange={setCapacityMin}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder={t.apartments.filters.allCapacities} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{t.apartments.filters.allCapacities}</SelectItem>
+                        <SelectItem value="2">2+</SelectItem>
+                        <SelectItem value="4">4+</SelectItem>
+                        <SelectItem value="6">6+</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
+
+                  {/* Price Range — un seul slider (€ canonique, DZD suit le tier) */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {t.apartments.filters.priceRange}: ≤ €{priceMax}
+                    </label>
+                    <Slider
+                      defaultValue={[PRICE_EUR_MAX]}
+                      min={PRICE_EUR_MIN}
+                      max={PRICE_EUR_MAX}
+                      step={5}
+                      value={[priceMax]}
+                      onValueChange={([val]) => setPriceMax(val)}
+                      className="my-4"
+                    />
+                  </div>
+
                 </div>
 
                 <div className="flex justify-end mt-6">
                   <Button
                     variant="outline"
                     onClick={() => {
-                      setTypeFilter("all");
-                      setLocationFilter("all");
-                      setPriceMax(PRICE_EUR_MAX);
-                      setPriceDzdMax(PRICE_DZD_MAX);
+                      resetFilters();
                     }}
                   >
                     {t.apartments.filters.resetFilters}
@@ -239,10 +236,7 @@ export default function Apartments() {
                 <Button
                   variant="outline"
                   onClick={() => {
-                    setTypeFilter("all");
-                    setLocationFilter("all");
-                    setPriceMax(150);
-                    setPriceDzdMax(25000);
+                    resetFilters();
                   }}
                 >
                   {t.apartments.filters.resetFilters}

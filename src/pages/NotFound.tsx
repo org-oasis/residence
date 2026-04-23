@@ -1,10 +1,11 @@
 
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import type { MetaFunction } from "react-router";
 import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
+import { Home } from "@/components/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { log } from "@/lib/logger";
 import { dictFor, isLang, DEFAULT_LANG, useLocalizedHref, type Lang } from "@/lib/i18n";
 import { buildMeta } from "@/lib/seo";
 
@@ -26,10 +27,7 @@ const NotFound = () => {
   const loc = useLocalizedHref();
 
   useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
+    log.warn("404: non-existent route", { pathname: location.pathname });
   }, [location.pathname]);
 
   return (
@@ -41,8 +39,8 @@ const NotFound = () => {
           {t.notFound.description}
         </p>
         <Button asChild className="btn-primary">
-          <Link to={loc("/")}>
-            <Home className="mr-2 h-5 w-5" />
+          <Link viewTransition to={loc("/")}>
+            <Home className="mr-2 h-6 w-6" />
             {t.notFound.returnHome}
           </Link>
         </Button>

@@ -1,12 +1,11 @@
-import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import ApartmentCard, { ApartmentProps } from "@/components/ApartmentCard";
+import ApartmentCard from "@/components/ApartmentCard";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { ArrowRight, CookingPot, Snowflake, Wifi, Utensils, Waves, LifeBuoy } from "lucide-react";
+import { Link } from "react-router";
+import { ArrowRight, CookingPot, Snowflake, Wifi, Utensils, Waves, LifeBuoy } from "@/components/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocalizedHref } from "@/lib/i18n";
 import { featuredApartments, siteConfig } from "@/data/appData";
@@ -35,32 +34,32 @@ export default function Index() {
   // Feature items
   const features = [
     {
-      icon: <Waves className="h-8 w-8 text-primary" />,
+      icon: <Waves className="h-9 w-9 text-primary" />,
       title: t.home.amenities.features.beachfront.title,
       description: t.home.amenities.features.beachfront.description
     },
     {
-      icon: <LifeBuoy className="h-8 w-8 text-primary" />,
+      icon: <LifeBuoy className="h-9 w-9 text-primary" />,
       title: t.home.amenities.features.pools.title,
       description: t.home.amenities.features.pools.description
     },
     {
-      icon: <Utensils className="h-8 w-8 text-primary" />,
+      icon: <Utensils className="h-9 w-9 text-primary" />,
       title: t.home.amenities.features.restaurant.title,
       description: t.home.amenities.features.restaurant.description
     },
     {
-      icon: <Wifi className="h-8 w-8 text-primary" />,
+      icon: <Wifi className="h-9 w-9 text-primary" />,
       title: t.home.amenities.features.wifi.title,
       description: t.home.amenities.features.wifi.description
     },
     {
-      icon: <CookingPot className="h-8 w-8 text-primary" />,
+      icon: <CookingPot className="h-9 w-9 text-primary" />,
       title: t.home.amenities.features.kitchen.title,
       description: t.home.amenities.features.kitchen.description
     },
     {
-      icon: <Snowflake className="h-8 w-8 text-primary" />,
+      icon: <Snowflake className="h-9 w-9 text-primary" />,
       title: t.home.amenities.features.ac.title,
       description: t.home.amenities.features.ac.description
     }
@@ -92,8 +91,8 @@ export default function Index() {
                   {t.home.welcome.description2}
                 </p>
                 <Button asChild className="btn-primary">
-                  <Link to={loc("/apartments")}>
-                    {t.home.welcome.learnMore} <ArrowRight className="ml-2 h-4 w-4" />
+                  <Link viewTransition to={loc("/apartments")}>
+                    {t.home.welcome.learnMore} <ArrowRight className="ml-2 h-6 w-6" />
                   </Link>
                 </Button>
               </div>
@@ -151,8 +150,8 @@ export default function Index() {
 
             <div className="text-center mt-12">
               <Button asChild className="btn-primary">
-                <Link to="/apartments">
-                  {t.home.featuredApartments.viewAll} <ArrowRight className="ml-2 h-4 w-4" />
+                <Link viewTransition to={loc("/apartments")}>
+                  {t.home.featuredApartments.viewAll} <ArrowRight className="ml-2 h-6 w-6" />
                 </Link>
               </Button>
             </div>

@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { X } from "@/components/icons";
 import { createPortal } from "react-dom";
 
 interface FullscreenImageViewerProps {
@@ -30,7 +30,15 @@ export default function FullscreenImageViewer({
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 
-  // Handle keyboard navigation
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  }, [images.length]);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  }, [images.length]);
+
+  // Keyboard navigation: Escape closes, arrow keys cycle.
   useEffect(() => {
     if (!isOpen) return;
 
@@ -50,17 +58,7 @@ export default function FullscreenImageViewer({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
-
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  }, [isOpen, onClose, goToPrevious, goToNext]);
 
   const handleClose = () => {
     onClose();

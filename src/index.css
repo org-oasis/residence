@@ -1,16 +1,34 @@
 
 @import 'tailwindcss';
 
-/* Uniform page fade-in: every <main> mounts with the same 0.6s ease-out fade.
-   Single source of truth — no need to sprinkle animate-fade-in everywhere. */
-main {
-  animation: fade-in 0.6s ease-out;
+/* Inter-route animations powered by the browser View Transitions API.
+   Activated per <Link viewTransition> in Navbar / Footer / cards.
+   Default browser crossfade is fine; this rule only smooths timing. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: ease-out;
+  }
 }
 
-/* Apply the same fade to Radix dialog content (apartment details, calendar, etc.)
-   !important overrides Radix's default faster animate-in shorthand. */
-[role="dialog"][data-state="open"] {
-  animation: fade-in 0.6s ease-out !important;
+/* Radix dialog — pure opacity fade for content + overlay (no translate / zoom).
+   No Tailwind animate-* classes on Dialog components: this rule is the only animation. */
+[role="dialog"][data-state="open"],
+.oasis-dialog-overlay[data-state="open"] {
+  animation: dialog-fade-in 200ms ease-out;
+}
+[role="dialog"][data-state="closed"],
+.oasis-dialog-overlay[data-state="closed"] {
+  animation: dialog-fade-out 150ms ease-in;
+}
+@keyframes dialog-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes dialog-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 /* Blog article typography */
@@ -102,8 +120,6 @@ main {
 }
 
 @plugin 'tailwindcss-animate';
-
-@custom-variant dark (&:is(.dark *));
 
 @utility container {
   margin-inline: auto;
@@ -312,7 +328,7 @@ main {
 }
 
 @utility glass-card {
-  @apply bg-white/70 dark:bg-black/30 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-xl shadow-lg;
+  @apply bg-white/70 backdrop-blur-lg border border-white/20 rounded-xl shadow-lg;
 }
 
 @utility wave-animation {
@@ -383,61 +399,6 @@ main {
   &::-webkit-scrollbar-button {
     display: none;
   }
-  /* Dark mode adjustments */
-  .dark & {
-    scrollbar-color: hsl(var(--primary) / 0.4) transparent;
-  }
-  .dark &::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary) / 0.7) 0%,
-      hsl(var(--primary) / 0.5) 100%
-    );
-    border: 1px solid hsl(var(--primary) / 0.3);
-  }
-  .dark &::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary) / 0.9) 0%,
-      hsl(var(--primary) / 0.7) 100%
-    );
-  }
-  .dark &::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary)) 0%,
-      hsl(var(--primary) / 0.9) 100%
-    );
-  }
-}
-
-@utility dark {
-  /* Dark mode adjustments */
-  & .custom-scrollbar {
-    scrollbar-color: hsl(var(--primary) / 0.4) transparent;
-  }
-  & .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary) / 0.7) 0%,
-      hsl(var(--primary) / 0.5) 100%
-    );
-    border: 1px solid hsl(var(--primary) / 0.3);
-  }
-  & .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary) / 0.9) 0%,
-      hsl(var(--primary) / 0.7) 100%
-    );
-  }
-  & .custom-scrollbar::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary)) 0%,
-      hsl(var(--primary) / 0.9) 100%
-    );
-  }
 }
 
 @layer base {
@@ -463,27 +424,6 @@ main {
     --ring: 191 70% 35%;
     --radius: 0.5rem;
   }
-  .dark {
-    --background: 191 40% 8%;
-    --foreground: 46 60% 92%;
-    --card: 191 50% 12%;
-    --card-foreground: 46 60% 92%;
-    --popover: 191 50% 12%;
-    --popover-foreground: 46 60% 92%;
-    --primary: 44 75% 65%;
-    --primary-foreground: 191 60% 10%;
-    --secondary: 191 30% 18%;
-    --secondary-foreground: 46 60% 92%;
-    --muted: 191 30% 15%;
-    --muted-foreground: 46 40% 70%;
-    --accent: 183 45% 35%;
-    --accent-foreground: 46 60% 92%;
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 46 60% 92%;
-    --border: 191 30% 22%;
-    --input: 191 30% 22%;
-    --ring: 44 75% 65%;
-  }
 }
 
 @layer base {
@@ -497,240 +437,6 @@ main {
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
   }
-}
-
-/* Modern react-calendar styles (merged and deduped) */
-.react-calendar {
-  background: hsl(var(--background)) !important;
-  border-radius: 0 !important;
-  border: 1px solid hsl(var(--border)) !important;
-  box-shadow: none !important;
-  font-family: inherit !important;
-  width: 320px !important;
-  height: 320px !important;
-  max-width: 320px !important;
-  min-width: 320px !important;
-}
-
-@media (min-width: 768px) {
-  .react-calendar {
-    padding: 0rem !important;
-    width: 400px !important;
-    height: auto !important;
-    max-width: 400px !important;
-    border-radius: 0 !important;
-    border: 1px solid hsl(var(--border)) !important;
-  }
-}
-.react-calendar__navigation {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  background: var(--color-primary) !important;
-  border-radius: 0 !important;
-  padding: 0.5rem !important;
-  margin-bottom: 0 !important;
-}
-.react-calendar__navigation button {
-  background: none !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0.3rem 0.7rem !important;
-  font-weight: 700 !important;
-  font-size: 1.2rem !important;
-  transition: background 0.2s !important;
-}
-.react-calendar__navigation button:enabled:hover {
-  background: rgba(255,255,255,0.15) !important;
-}
-.react-calendar__navigation__label {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  font-size: 1.3rem !important;
-  font-weight: bold !important;
-  color: #fff !important;
-  letter-spacing: 0.1em !important;
-  min-width: 120px !important;
-  justify-content: center !important;
-  text-transform: capitalize !important;
-}
-.react-calendar__month-view__weekdays {
-  text-align: center !important;
-  text-transform: uppercase !important;
-  font-size: 0.9rem !important;
-  color: hsl(var(--muted-foreground)) !important;
-  background: hsl(var(--muted)) !important;
-  font-weight: 600 !important;
-  border-radius: 0 !important;
-}
-.react-calendar__month-view__weekdays__weekday {
-  padding: 0.5rem 0 0.5rem 0 !important;
-  text-decoration: none !important;
-  border-bottom: none !important;
-  text-decoration-line: none !important;
-  text-decoration-style: none !important;
-  text-decoration-color: transparent !important;
-}
-
-/* Remove underlines from all weekday elements */
-.react-calendar__month-view__weekdays__weekday,
-.react-calendar__month-view__weekdays__weekday *,
-.react-calendar__month-view__weekdays abbr,
-.react-calendar__month-view__weekdays * {
-  text-decoration: none !important;
-  text-decoration-line: none !important;
-  text-decoration-style: none !important;
-  text-decoration-color: transparent !important;
-  border-bottom: none !important;
-  border: none !important;
-}
-
-/* Force remove all underlines from calendar weekdays */
-.react-calendar__month-view__weekdays {
-  text-decoration: none !important;
-}
-
-.react-calendar__month-view__weekdays * {
-  text-decoration: none !important;
-  text-decoration-line: none !important;
-  text-decoration-style: none !important;
-  text-decoration-color: transparent !important;
-  border-bottom: none !important;
-  border: none !important;
-}
-.react-calendar__tile {
-  background: none !important;
-  border-radius: 50% !important;
-  transition: background 0.2s, color 0.2s !important;
-  font-size: 1rem !important;
-  padding: 0.5rem 0 !important;
-  position: relative !important;
-}
-.react-calendar__tile--active,
-.react-calendar__tile--range,
-.react-calendar__tile--rangeStart,
-.react-calendar__tile--rangeEnd {
-  background: var(--color-primary) !important;
-  color: #fff !important;
-}
-.react-calendar__tile--now {
-  background: #eee !important;
-  color: var(--color-primary) !important;
-  border: 2px solid var(--color-primary) !important;
-}
-.react-calendar__tile:disabled {
-  color: #bbb !important;
-  background: none !important;
-  opacity: 0.5 !important;
-}
-.react-calendar__tile--range {
-  background: color-mix(in srgb, var(--color-primary) 60%, #fff 40%) !important;
-  color: #fff !important;
-}
-.react-calendar__tile--rangeStart,
-.react-calendar__tile--rangeEnd {
-  background: var(--color-primary) !important;
-  color: #fff !important;
-  font-weight: bold !important;
-}
-/* Dot marker for events/availability */
-.react-calendar__tile .dot-marker {
-  display: block !important;
-  margin: 0 auto !important;
-  margin-top: 0.2rem !important;
-  width: 0.4rem !important;
-  height: 0.4rem !important;
-  border-radius: 50% !important;
-}
-.react-calendar__tile .dot-marker.available {
-  background: #22c55e !important; /* Tailwind green-500 */
-}
-.react-calendar__tile .dot-marker.unavailable {
-  background: #ef4444 !important; /* Tailwind red-500 */
-}
-.calendar-day-number {
-  position: relative;
-  z-index: 2;
-  color: #222;
-  font-weight: 500;
-}
-.calendar-day-unavailable {
-  color: #bbb !important;
-  text-decoration: line-through;
-  opacity: 0.8;
-  font-weight: 500;
-}
-
-/* Clean and minimalist admin selected date styling */
-.admin-selected-date {
-  background: hsl(var(--primary) / 0.1) !important;
-  border: 2px solid hsl(var(--primary)) !important;
-  color: hsl(var(--primary)) !important;
-  font-weight: 600 !important;
-}
-
-/* Make selected and hovered tiles square, not round */
-.react-calendar__tile,
-.react-calendar__tile--active,
-.react-calendar__tile--now,
-.react-calendar__tile--range,
-.react-calendar__tile--rangeStart,
-.react-calendar__tile--rangeEnd {
-  border-radius: 0 !important;
-}
-
-/* Ensure all dates have the same text color (including weekends) */
-.react-calendar__tile {
-  color: hsl(var(--foreground)) !important;
-}
-
-/* Override any weekend-specific colors */
-.react-calendar__tile--weekend {
-  color: hsl(var(--foreground)) !important;
-}
-
-/* Ensure consistent color for all date tiles */
-.react-calendar__month-view__days__day {
-  color: hsl(var(--foreground)) !important;
-}
-
-
-/* Month/year selector tiles (year/month view) */
-.react-calendar__year-view__months__month,
-.react-calendar__decade-view__years__year,
-.react-calendar__century-view__decades__decade {
-  border-radius: 0 !important;
-}
-/* Make month/year header inline (not stacked) */
-.react-calendar__navigation__label {
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
-html[lang='ar'], body[lang='ar'], [dir='rtl'] {
-  text-align: left;
-  font-family: 'Neue Helvetica', 'Cairo', 'Noto Naskh Arabic', 'Inter', sans-serif;
-  direction: ltr;
-}
-
-/* Force left-to-right layout for Arabic text */
-html[lang='ar'] *,
-body[lang='ar'] *,
-[dir='rtl'] * {
-  direction: ltr !important;
-  text-align: left !important;
-}
-
-/* Arabic Calendar Font Overrides for Gregorian Calendar */
-html[lang='ar'] .react-calendar__navigation__label {
-  font-family: 'Cairo', 'Noto Naskh Arabic', 'Inter', sans-serif;
-}
-
-html[lang='ar'] .react-calendar__month-view__weekdays__weekday {
-  font-family: 'Cairo', 'Noto Naskh Arabic', 'Inter', sans-serif;
 }
 
 /* Seasonal Pricing Typography - Similar to image style */
@@ -759,4 +465,64 @@ html[lang='ar'] .react-calendar__month-view__weekdays__weekday {
   color: #2d3748;
   line-height: 1.4;
   letter-spacing: 0.025em;
+}
+
+/* ========== Booking calendar (react-day-picker v9) ========== */
+/* Default library theme kept — only booking visualization & note label styled. */
+
+.rdp-shell {
+  font-family: inherit;
+}
+
+/* Keep 3 months on a single row on desktop */
+.rdp-shell .rdp-months {
+  flex-wrap: nowrap;
+}
+
+/* Booked days — public view */
+.rdp-shell .rdp-booked-public {
+  background-color: rgb(254 226 226);
+  color: rgb(239 68 68);
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+/* Booked days — admin view */
+.rdp-shell .rdp-booked-admin {
+  background-color: rgb(17 24 39);
+  color: rgb(255 255 255);
+  font-weight: 500;
+}
+
+/* Day button must anchor the absolutely-positioned note label */
+.rdp-shell .rdp-day_button {
+  position: relative;
+}
+
+/* Admin note label pinned to bottom-center of the booked range.
+   Width = --note-span × cell width (capped to end of the current week by the component)
+   so multi-day bookings get a single centered label spanning the whole run. */
+.rdp-shell .rdp-note-label {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: calc(var(--note-span, 1) * 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font-size: 7px;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgb(255 255 255);
+  padding: 0 4px;
+  z-index: 20;
+}
+
+.rdp-shell .rdp-note-label > span {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

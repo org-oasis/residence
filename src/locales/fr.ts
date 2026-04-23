@@ -100,13 +100,14 @@ export const fr = {
     "7": "Appartement N°7"
   },
   hero: {
-    subtitle: "HÉBERGEMENTS MODERNES PROCHES DE LA MER",
-    title: "Découvrez la côte de Skikda",
-    description: "Venez à la découverte de nos appartements modernes proches des plages, offrant un confort inégalé et une proximité des complexes touristiques 5★",
+    subtitle: "VOTRE APPARTEMENT À FILFILA, SKIKDA",
+    title: "À 700 m de la mer à Filfila",
+    description: "Résidence récente, propre et moderne, propriétaire à l'écoute. Appartements climatisés, Wi-Fi fibre 240 Mbps, parking de rue. Réservation rapide par WhatsApp : acompte CCP d'une nuit, solde en DA ou € à l'arrivée.",
     exploreGallery: "Regarder la Galerie",
     exploreApartments: "Explorer les Appartements",
     scrollDown: "Défiler Vers le Bas",
     imageAlt: "Vue de la côte méditerranéenne depuis la Résidence Oasis à Filfila, Skikda",
+    trustLine: "Réservation rapide · Solde à l'arrivée · Aucune caution",
     welcomeImage1Alt: "Vue sur la mer depuis la résidence",
     welcomeImage2Alt: "Plage de Filfila à proximité",
     welcomeImage3Alt: "Littoral algérien de Skikda"
@@ -141,20 +142,20 @@ export const fr = {
     welcome: {
       subtitle: "Bienvenue à la Résidence Oasis",
       title: "Hébergements modernes proches des plages de Skikda",
-      description1: "Nichée sur la côte méditerranéenne immaculée, la Résidence Oasis offre une collection exquise d'appartements modernes. Nos hébergements allient design élégant et confort, créant le cadre parfait pour une escapade inoubliable.",
-      description2: "Que vous recherchiez une évasion romantique, des vacances en famille ou une retraite paisible, notre gamme diversifiée d'hébergements répond à toutes les préférences et besoins. Chaque espace est conçu avec soin pour offrir un cadre de vie chaleureux, fonctionnel et élégant, où chaque détail a été pensé pour conjuguer confort moderne et atmosphère apaisante.",
+      description1: "Située sur la côte méditerranéenne de Filfila, à 20 km de Skikda et 100 km de Constantine, la Résidence Oasis regroupe des appartements modernes pour familles, couples et groupes d'amis. Climatisation neuve, parking de rue, plage à 700 mètres.",
+      description2: "Studio, F2, F2 avec jacuzzi privatif ou F3 avec terrasse : nos sept logements accueillent de 2 à 8 personnes. Résidence récente au ménage soigné, propriétaire disponible et à l'écoute. Climatisation neuve, Wi-Fi fibre 240 Mbps, cuisine entièrement équipée, lave-vaisselle. Réservation directe par WhatsApp, acompte CCP d'une nuit, solde en DA ou € à l'arrivée.",
       learnMore: "En Savoir Plus"
     },
     featuredApartments: {
       subtitle: "Nos Hébergements",
       title: "★ Top Appartements ★",
-      description: "Découvrez nos options d'hébergement les plus populaires, chacune offrant un mélange parfait de confort, de style et d'élégance.",
+      description: "Du studio cosy au F3 familial avec terrasse, découvrez les logements les plus demandés de Filfila. Réservation rapide par WhatsApp, acompte CCP d'une nuit, solde à l'arrivée.",
       viewAll: "Voir Tous les Appartements"
     },
     amenities: {
       subtitle: "Services de la Résidence",
-      title: "Découvrez le Meilleur",
-      description: "Profitez des installations et services à proximité pour rendre votre séjour exceptionnel.",
+      title: "Tout ce qui compte sur place",
+      description: "Mer à 700 mètres, parking de rue, Wi-Fi fibre 240 Mbps : votre séjour à Filfila est équipé pour la famille comme pour le télétravail.",
       features: {
         beachfront: {
           title: "Emplacement proche de la Mer",
@@ -208,8 +209,8 @@ export const fr = {
       twoPlus: "2+ invités",
       threePlus: "3+ invités",
       fourPlus: "4+ invités",
-      location: "Emplacement",
-      allLocations: "Tous les étages",
+      floor: "Étage",
+      allFloors: "Tous les étages",
       priceRange: "Gamme de Prix",
       showing: "Affichage",
       of: "de",
@@ -222,15 +223,77 @@ export const fr = {
       viewDetails: "Détails",
       features: "caractéristiques",
       more: "plus",
-      allTypes: "Tous les types"
+      allTypes: "Tous les types",
+      minCapacity: "Capacité minimum",
+      allCapacities: "Toute capacité"
     },
+    commonFeaturesTitle: "Tous nos logements contiennent",
     availability: "Disponibilités",
     available: "Disponible",
     unavailable: "Indisponible",
     loadingCalendar: "Chargement du calendrier",
     loadingData: "Chargement des disponibilité...",
     saving: "Enregistrement...",
+    calendar: {
+      addBooking: "Ajouter une réservation",
+      editBooking: "Modifier la réservation",
+      deleteBooking: "Supprimer",
+      blockSelection: "Bloquer la sélection",
+      clearSelection: "Annuler la sélection",
+      noteLabel: "Note (visible admin uniquement)",
+      notePlaceholder: "Nom du client, source, commentaire...",
+      noteHelp: "Cette note n'est jamais affichée aux visiteurs du site.",
+      deleteConfirm: "Supprimer définitivement cette réservation ?",
+      save: "Enregistrer",
+      cancel: "Annuler",
+      existingBookings: "Réservations en cours",
+      selectedCount: "{n} date(s) sélectionnée(s)",
+    },
     bookOnAirbnb: "Réserver sur Airbnb",
+    bookOnWhatsapp: "Réserver sur WhatsApp",
+    bookNow: "Réserver maintenant",
+    seeAlsoOnAirbnb: "Voir aussi sur Airbnb ↗",
+    perPerson: "par personne",
+    trust: {
+      noDeposit: "Réservation directe",
+      noSecurity: "Sans caution",
+      payOnArrival: "Paiement à l'arrivée",
+      fastResponse: "Réponse rapide",
+      gatedResidence: "Climatisation",
+      freeParking: "Parking",
+      fastWifi: "Wi-Fi",
+    },
+    bookingSteps: {
+      title: "Réservez en 4 étapes",
+      step1Title: "WhatsApp",
+      step1Desc: "Vous nous écrivez avec vos dates et le nombre de personnes",
+      step2Title: "Confirmation",
+      step2Desc: "Nous bloquons le logement pendant 24h et vous envoyons la fiche d'arrivée avec le RIB CCP",
+      step3Title: "Avance par virement CCP",
+      step3Desc: "Le paiement d'une nuit par virement CCP dans les 24h valide la réservation. Passé ce délai, les dates sont rouvertes.",
+      step4Title: "Solde à l'arrivée",
+      step4Desc: "Le reste se règle à l'arrivée, en DA ou en €",
+    },
+    faq: {
+      title: "Questions fréquentes",
+      q1: "Faut-il verser une avance ?",
+      a1: "Oui, une avance d'une nuit par virement CCP est demandée pour valider votre réservation. Le logement est bloqué 24h le temps du virement ; passé ce délai, les dates sont rouvertes. Le solde se paie à l'arrivée en DA ou en €. Aucune caution, aucun frais caché.",
+      q2: "Y a-t-il une caution à bloquer ?",
+      a2: "Aucune caution. Aucun blocage de carte. Vous payez ce qui est convenu, c'est tout.",
+      q3: "Quelle est la distance à la plage ?",
+      a3: "La plage de Filfila est à environ 700 mètres, soit 10 minutes à pied par le sentier longeant la côte. Plusieurs commerces et restaurants se trouvent en chemin.",
+      q4: "Le Wi-Fi fonctionne-t-il vraiment ?",
+      a4: "Fibre 240 Mbps testée régulièrement, stable dans tous les logements. Idéal pour Zoom, streaming et télétravail.",
+      q5: "Acceptez-vous les familles avec enfants ?",
+      a5: "Bien sûr. Familles, mamans seules avec enfants, grands-parents avec petits-enfants, tous bienvenus. La résidence est conçue pour les séjours familiaux.",
+      q6: "Peut-on venir avec plus de personnes que la capacité indiquée ?",
+      a6: "La capacité affichée est celle recommandée pour un confort optimal. Vous pouvez ajouter jusqu'à 2 personnes supplémentaires par appartement, moyennant un supplément de 1 000 DA ou 5 € par personne et par nuit.",
+    },
+    capacityPolicy: {
+      note: "Capacité recommandée · +2 personnes acceptées moyennant 1 000 DA / 5 € par personne et par nuit.",
+      tooltip: "+2 personnes possibles · 1 000 DA / 5 € par personne et par nuit",
+      ariaLabel: "Politique de capacité",
+    },
   },
   gallery: {
     title: "Galerie Photo",
@@ -281,7 +344,7 @@ export const fr = {
       },
       parking: {
         question: "Y a-t-il un parking disponible à l'établissement ?",
-        answer: "Oui, nous offrons un parking gratuit pour tous les clients."
+        answer: "Parking de rue gratuit, disponible juste en face de la résidence. Il s'agit d'un stationnement simple, sans gardien ni clôture. Aucun souci signalé ces dernières années."
       },
       pets: {
         question: "Les animaux de compagnie sont-ils autorisés dans les appartements ?",
@@ -289,11 +352,11 @@ export const fr = {
       },
       restaurant: {
         question: "Y a-t-il un restaurant disponible à l'établissement ?",
-        answer: "L'établissement ne dispose pas de restaurant, mais vous trouverez plusieurs restaurants et cafés à proximité immédiate, accessibles à pied en quelques minutes."
+        answer: "L'établissement ne dispose pas de restaurant, mais vous trouverez plusieurs restaurants et cafés dans les environs, accessibles en voiture en quelques minutes."
       },
-      transfers: {
-        question: "Offrez-vous des transferts aéroport ?",
-        answer: "Oui, nous offrons des transferts aéroport moyennant des frais supplémentaires. Veuillez nous contacter au moins 24 heures avant votre arrivée pour organiser le transport."
+      capacity: {
+        question: "Peut-on être plus de personnes que la capacité indiquée ?",
+        answer: "La capacité affichée garantit le confort optimal de chaque appartement. Vous pouvez ajouter jusqu'à 2 personnes supplémentaires moyennant 1 000 DA ou 5 € par personne et par nuit. Cette option est à confirmer au moment de la réservation."
       },
       amenities: {
         question: "Quels services sont disponibles à l'établissement ?",
@@ -311,7 +374,7 @@ export const fr = {
       description: "Appartement spacieux idéal pour une petite famille, avec cuisine équipée."
     },
     "3": {
-      name: "F2 Suite Jacuzzi & Sauna Norvégien",
+      name: "F2 Jacuzzi & Sauna",
       description: "Appartement moderne élégant, design moderne et spacieux avec un magnifique jacuzzi premium pour une détente optimale."
     },
     "4": {
@@ -327,27 +390,27 @@ export const fr = {
       description: "Appartement confortable, paisible et élégant, avec cuisine équipée et salon séjour."
     },
     "7": {
-      name: "F3 Deluxe Suite Terrasse Privée",
+      name: "F3 Terrasse Privée",
       description: "Appartement luxe, finition premium, terrasse privative, cuisine équipée et deluxe, salle de bain et toilettes séparées."
     }
   },
   apartmentNames: {
     apartment1_name: "Studio Deluxe",
     apartment2_name: "F2 Double Classique",
-    apartment3_name: "F2 Suite Jacuzzi & Sauna Norvégien",
+    apartment3_name: "F2 Jacuzzi & Sauna",
     apartment4_name: "F2 Double Classique",
     apartment5_name: "F2 Double Classique",
     apartment6_name: "F2 Deluxe Double",
-    apartment7_name: "F3 Deluxe Suite Terrasse Privée"
+    apartment7_name: "F3 Terrasse Privée"
   },
   apartmentDescriptionsShort: {
-    apartment1_description: "Studio élégant avec équipements modernes, cuisine équipée et salle de bain privative.",
-    apartment2_description: "Appartement spacieux idéal pour une petite famille, avec cuisine équipée.",
-    apartment3_description: "Appartement moderne élégant, design moderne et spacieux avec un magnifique jacuzzi premium pour une détente optimale.",
-    apartment4_description: "Appartement deluxe, moderne et confortable, cuisine équipée.",
-    apartment5_description: "Appartement moderne et confortable avec équipements modernes et cuisine équipée.",
-    apartment6_description: "Appartement confortable, paisible et élégant, avec cuisine équipée et salon séjour.",
-    apartment7_description: "Appartement luxe, finition premium, terrasse privative, cuisine équipée et deluxe, salle de bain et toilettes séparées."
+    apartment1_description: "Studio meublé moderne au 1er étage, dans une résidence récente au ménage soigné. Climatisation neuve, Wi-Fi fibre 240 Mbps, cuisine équipée et salle de bain privative. Propriétaire disponible et à l'écoute pour un séjour bord de mer sans accroc.",
+    apartment2_description: "F2 moderne au 1er étage dans une résidence récente, parfaitement propre. Chambre séparée, cuisine équipée, climatisation neuve et Wi-Fi fibre 240 Mbps. Propriétaire réactif par WhatsApp. Idéal pour un couple ou une petite famille en bord de mer.",
+    apartment3_description: "F2 Suite avec jacuzzi privatif et sauna au 1er étage, dans une résidence récente et impeccable. Climatisation neuve, Wi-Fi fibre 240 Mbps, cuisine équipée. Séjour premium bord de mer avec un propriétaire disponible et à l'écoute.",
+    apartment4_description: "F2 moderne au 2e étage dans une résidence récente, parfaitement propre. Chambre séparée, cuisine équipée, climatisation neuve et Wi-Fi fibre 240 Mbps. Propriétaire réactif par WhatsApp. Idéal pour un couple ou une petite famille en bord de mer.",
+    apartment5_description: "F2 moderne au 2e étage dans une résidence récente, parfaitement propre. Chambre séparée, cuisine équipée, climatisation neuve et Wi-Fi fibre 240 Mbps. Propriétaire réactif par WhatsApp. Idéal pour un couple ou une petite famille en bord de mer.",
+    apartment6_description: "F2 moderne au 2e étage dans une résidence récente, parfaitement propre. Chambre séparée, cuisine équipée, climatisation neuve et Wi-Fi fibre 240 Mbps. Propriétaire réactif par WhatsApp. Idéal pour un couple ou une petite famille en bord de mer.",
+    apartment7_description: "F3 avec terrasse privative au 3e étage, dans une résidence récente au ménage soigné. 2 chambres, cuisine équipée, lave-vaisselle, volets électriques, Wi-Fi fibre 240 Mbps. Capacité 6 personnes, propriétaire sérieux et disponible par WhatsApp."
   },
   features: {
     "Wi-Fi": "Wi-Fi",
@@ -360,16 +423,19 @@ export const fr = {
     "Freezer": "Congélateur",
     "Washing Machine": "Machine à laver",
     "Jacuzzi": "Jacuzzi",
+    "Sauna": "Sauna",
     "TV": "Télévision",
     "Microwave": "Micro-ondes",
     "Terrace": "Terrasse",
     "Balcony": "Balcon",
-    "Dishwasher": "Lave-vaisselle"
+    "Dishwasher": "Lave-vaisselle",
+    "Electric Shutters": "Volets électriques",
+    "Private Balcony": "Balcon privé"
   },
-  locations: {
-    "floor1": "Étage 1",
-    "floor2": "Étage 2",
-    "floor3": "Étage 3 (seul)"
+  floors: {
+    "1": "Étage 1",
+    "2": "Étage 2",
+    "3": "Étage 3"
   },
   apartmentTypes: {
     "Studio": "Studio",

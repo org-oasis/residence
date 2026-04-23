@@ -1,6 +1,26 @@
 import { ApartmentProps } from "@/components/ApartmentCard";
 import { TIERS } from "./pricing";
 
+/**
+ * Features partagées par TOUS les logements de la résidence.
+ * Affichées en haut de la page Apartments comme bandeau "Tous nos logements contiennent...".
+ * Filtrées de l'affichage par carte pour éviter la duplication ; seuls les features
+ * spécifiques (F2-jacuzzi: Jacuzzi + Sauna ; F3: Volets, Balcon, Microwave, Terrace, Dishwasher) restent visibles sur la card.
+ */
+export const COMMON_FEATURES = [
+  "Wi-Fi",
+  "TV",
+  "Kitchen",
+  "Bathroom",
+  "Air Conditioning",
+  "Refrigerator",
+  "Oven",
+  "Stove",
+  "Freezer",
+  "Washing Machine",
+  "Parking",
+] as const;
+
 // Apartment data
 export const allApartments: ApartmentProps[] = [
   {
@@ -18,7 +38,7 @@ export const allApartments: ApartmentProps[] = [
       "/assets/1-STUDIO/03.avif",
       "/assets/1-STUDIO/04.avif"
     ],
-    location: "floor1",
+    floor: 1,
     type: "Studio",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1210309363040804447",
@@ -40,7 +60,7 @@ export const allApartments: ApartmentProps[] = [
       "/assets/2-F2/03.avif",
       "/assets/2-F2/04.avif"
     ],
-    location: "floor1",
+    floor: 1,
     type: "F2",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1403490902913383980",
@@ -64,7 +84,7 @@ export const allApartments: ApartmentProps[] = [
       "/assets/3-F2/05.avif",
       "/assets/3-F2/06.avif"
     ],
-    location: "floor1",
+    floor: 1,
     type: "F2-jacuzzi",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "Jacuzzi", "Sauna"],
     airbnbLink: "https://www.airbnb.fr/rooms/1406477130010047362",
@@ -88,7 +108,7 @@ export const allApartments: ApartmentProps[] = [
       "/assets/4-F2/05.avif",
       "/assets/4-F2/06.avif",
     ],
-    location: "floor2",
+    floor: 2,
     type: "F2",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-4-f2-moderne",
@@ -113,7 +133,7 @@ export const allApartments: ApartmentProps[] = [
       "/assets/5-F2/06.avif",
       "/assets/5-F2/07.avif"
     ],
-    location: "floor2",
+    floor: 2,
     type: "F2",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-5-f2-moderne",
@@ -137,7 +157,7 @@ export const allApartments: ApartmentProps[] = [
       "/assets/6-F2/05.avif",
       "/assets/6-F2/06.avif"
     ],
-    location: "floor2",
+    floor: 2,
     type: "F2",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-6-f2-moderne",
@@ -163,9 +183,9 @@ export const allApartments: ApartmentProps[] = [
       "/assets/7-F3/07.avif",
       "/assets/7-F3/08.avif"
     ],
-    location: "floor3",
+    floor: 3,
     type: "F3",
-    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "TV", "Microwave", "Terrace", "Dishwasher"],
+    features: ["Wi-Fi", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "TV", "Microwave", "Terrace", "Dishwasher", "Electric Shutters", "Private Balcony"],
     airbnbLink: "https://www.airbnb.fr/h/residence-oasis-7-f3-terrasse-privee",
     contactPhone: "213561472990",
     slug: "f3-terrasse-7"

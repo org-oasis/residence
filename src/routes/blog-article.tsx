@@ -1,6 +1,6 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router";
 import type { MetaFunction } from "react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@/components/icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -73,11 +73,11 @@ export default function BlogArticle() {
       <Navbar />
       <main className="flex-1 pt-24 pb-12">
         <article className="container max-w-3xl">
-          <Link
+          <Link viewTransition
             to={loc("/blog")}
             className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-6"
           >
-            <ArrowLeft className="h-4 w-4 mr-1" />
+            <ArrowLeft className="h-6 w-6 mr-1" />
             {t.nav.blog}
           </Link>
 

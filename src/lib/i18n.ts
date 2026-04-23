@@ -25,10 +25,16 @@ export function dirFor(lang: Lang): "rtl" | "ltr" {
   return lang === "ar" ? "rtl" : "ltr";
 }
 
+/**
+ * Builds an in-app URL prefixed with the active language.
+ * Always returns a trailing-slash URL to match the prerendered file layout
+ * (`/<lang>/<path>/index.html`) and avoid the GitHub Pages 301 redirect that
+ * appends the trailing slash on refresh.
+ */
 export function localizedHref(lang: Lang, path: string): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  if (clean === "/") return `/${lang}`;
-  return `/${lang}${clean}`;
+  const withSlash = clean === "/" ? "/" : clean.endsWith("/") ? clean : `${clean}/`;
+  return withSlash === "/" ? `/${lang}/` : `/${lang}${withSlash}`;
 }
 
 export function useLang(): Lang {
@@ -46,7 +52,7 @@ export function useSwitchLanguage() {
   const location = useLocation();
   return (next: Lang) => {
     const stripped = location.pathname.replace(/^\/(fr|en|ar)(\/|$)/, "/");
-    const path = stripped === "/" ? `/${next}` : `/${next}${stripped}`;
+    const path = stripped === "/" ? `/${next}/` : `/${next}${stripped}`;
     navigate(path + location.search + location.hash);
   };
 }

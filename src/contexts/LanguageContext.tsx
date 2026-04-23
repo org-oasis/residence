@@ -1,10 +1,4 @@
-import type { ReactNode } from "react";
-import {
-  dictFor,
-  useLang,
-  useSwitchLanguage,
-  type Lang,
-} from "@/lib/i18n";
+import { dictFor, useLang, useSwitchLanguage, type Lang } from "@/lib/i18n";
 import { en } from "@/locales/en";
 
 type Translations = typeof en;
@@ -15,10 +9,11 @@ export interface LanguageContextValue {
   t: Translations;
 }
 
-// Backwards-compat shim: existing code calls useLanguage() with no Provider.
-// All language state is now URL-driven via useLang() / useSwitchLanguage().
-export const LanguageProvider = ({ children }: { children: ReactNode }) => <>{children}</>;
-
+/**
+ * Language hook — URL-driven (no provider needed).
+ * Reads language from the current pathname via `useLang()` and exposes the
+ * matching dictionary plus a `setLanguage` action that swaps the URL prefix.
+ */
 export function useLanguage(): LanguageContextValue {
   const language = useLang();
   const setLanguage = useSwitchLanguage();

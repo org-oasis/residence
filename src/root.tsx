@@ -6,9 +6,8 @@ import {
   ScrollRestoration,
   useLocation,
 } from "react-router";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { dirFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
 import "@fontsource-variable/inter";
 import "@fontsource/playfair-display/400.css";
@@ -66,10 +65,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function Root() {
   return (
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <Outlet />
-    </TooltipProvider>
+    <ErrorBoundary>
+      <TooltipProvider>
+        <Outlet />
+      </TooltipProvider>
+    </ErrorBoundary>
   );
 }

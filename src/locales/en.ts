@@ -100,13 +100,14 @@ export const en = {
     "7": "Apartment N°7"
   },
   hero: {
-    subtitle: "MODERN ACCOMMODATIONS NEAR THE SEA",
-    title: "Discover the Coast of Skikda",
-    description: "Come discover our modern apartments near the beaches, offering unparalleled comfort and proximity to 5★ tourist complexes",
+    subtitle: "YOUR APARTMENT IN FILFILA, SKIKDA",
+    title: "700 m from the sea in Filfila",
+    description: "A recent, clean and modern residence with a responsive owner. Air-conditioned apartments, 240 Mbps fibre Wi-Fi, street parking. Fast WhatsApp booking: 1-night CCP deposit, balance in DA or € on arrival.",
     exploreGallery: "View Gallery",
     exploreApartments: "Explore Apartments",
     scrollDown: "Scroll Down",
     imageAlt: "View of the Mediterranean coast from Oasis Residence in Filfila, Skikda",
+    trustLine: "Fast booking · Balance on arrival · No security hold",
     welcomeImage1Alt: "Sea view from the residence",
     welcomeImage2Alt: "Filfila beach nearby",
     welcomeImage3Alt: "Algerian coastline of Skikda"
@@ -141,20 +142,20 @@ export const en = {
     welcome: {
       subtitle: "Welcome to Oasis Residence",
       title: "Modern Accommodations Near Skikda Beaches",
-      description1: "Nestled on the pristine Mediterranean coastline, Oasis Residence offers an exquisite collection of modern apartments. Our accommodations combine elegant design with comfort, creating the perfect setting for an unforgettable getaway.",
-      description2: "Whether you're seeking a romantic escape, a family vacation, or a peaceful retreat, our diverse range of accommodations caters to every preference and need. Each space is thoughtfully designed to provide a warm, functional and elegant living environment, where every detail has been considered to combine modern comfort and a soothing atmosphere.",
+      description1: "Located on the Mediterranean coast of Filfila, 20 km from Skikda and 100 km from Constantine, Oasis Residence brings together modern apartments for families, couples and groups of friends. New air conditioning, free street parking, beach at 700 metres.",
+      description2: "Studio, F2, F2 with private jacuzzi or F3 with terrace: our seven units host from 2 to 8 guests. A recent residence with meticulous housekeeping and a responsive, reachable owner. New air conditioning, 240 Mbps fibre Wi-Fi, fully fitted kitchen, dishwasher. Direct booking by WhatsApp, 1-night CCP deposit, balance in DA or € on arrival.",
       learnMore: "Learn More"
     },
     featuredApartments: {
       subtitle: "Our Accommodations",
       title: "★ Top Apartments ★",
-      description: "Discover our most popular accommodation options, each offering a perfect blend of comfort, style and elegance.",
+      description: "From cosy studio to family F3 with terrace, discover the most requested units in Filfila. Fast WhatsApp booking, 1-night CCP deposit, balance on arrival.",
       viewAll: "View All Apartments"
     },
     amenities: {
       subtitle: "Residence Services",
-      title: "Discover The Best",
-      description: "Enjoy nearby facilities and services to make your stay exceptional.",
+      title: "Everything that matters on site",
+      description: "Sea at 700 metres, street parking, 240 Mbps fibre Wi-Fi: your stay in Filfila is equipped for family time as well as remote work.",
       features: {
         beachfront: {
           title: "Location Near the Sea",
@@ -208,8 +209,8 @@ export const en = {
       twoPlus: "2+ guests",
       threePlus: "3+ guests",
       fourPlus: "4+ guests",
-      location: "Location",
-      allLocations: "All floors",
+      floor: "Floor",
+      allFloors: "All floors",
       priceRange: "Price Range",
       showing: "Showing",
       of: "of",
@@ -222,15 +223,77 @@ export const en = {
       viewDetails: "Details",
       features: "features",
       more: "more",
-      allTypes: "All types"
+      allTypes: "All types",
+      minCapacity: "Minimum capacity",
+      allCapacities: "Any capacity"
     },
+    commonFeaturesTitle: "Every apartment includes",
     availability: "Availability",
     available: "Available",
     unavailable: "Unavailable",
     loadingCalendar: "Loading Calendar",
     loadingData: "Loading availabilities...",
     saving: "Saving...",
+    calendar: {
+      addBooking: "Add booking",
+      editBooking: "Edit booking",
+      deleteBooking: "Delete",
+      blockSelection: "Block selection",
+      clearSelection: "Clear selection",
+      noteLabel: "Note (admin-only)",
+      notePlaceholder: "Guest name, source, comment...",
+      noteHelp: "This note is never shown to site visitors.",
+      deleteConfirm: "Permanently delete this booking?",
+      save: "Save",
+      cancel: "Cancel",
+      existingBookings: "Current bookings",
+      selectedCount: "{n} date(s) selected",
+    },
     bookOnAirbnb: "Book on Airbnb",
+    bookOnWhatsapp: "Book on WhatsApp",
+    bookNow: "Book now",
+    seeAlsoOnAirbnb: "Also on Airbnb ↗",
+    perPerson: "per person",
+    trust: {
+      noDeposit: "Direct booking",
+      noSecurity: "No security hold",
+      payOnArrival: "Pay on arrival",
+      fastResponse: "Fast response",
+      gatedResidence: "Air Conditioning",
+      freeParking: "Parking",
+      fastWifi: "Wi-Fi",
+    },
+    bookingSteps: {
+      title: "Book in 4 steps",
+      step1Title: "WhatsApp",
+      step1Desc: "You message us with dates and number of guests",
+      step2Title: "Confirmation",
+      step2Desc: "We hold the apartment for 24h and send the check-in details with the CCP bank info",
+      step3Title: "CCP bank transfer",
+      step3Desc: "Paying one night by CCP transfer within 24h confirms your booking. Past that, the dates are reopened.",
+      step4Title: "Balance on arrival",
+      step4Desc: "Remaining amount paid on arrival, in DZD or EUR",
+    },
+    faq: {
+      title: "Frequently asked questions",
+      q1: "Do I need to pay a deposit?",
+      a1: "Yes, one night paid by CCP bank transfer is requested to confirm your booking. The apartment is held for 24h during the transfer; past that, the dates are reopened. The balance is paid on arrival in DZD or EUR. No security hold, no hidden fees.",
+      q2: "Is there a security hold?",
+      a2: "No security hold. No card blocking. You pay only what is agreed.",
+      q3: "How far is the beach?",
+      a3: "Filfila beach is about 700 metres away, roughly a 10-minute walk along the coastal path. Several shops and restaurants are on the way.",
+      q4: "Does the Wi-Fi really work?",
+      a4: "240 Mbps fibre, tested regularly, stable in every unit. Ideal for Zoom, streaming and remote work.",
+      q5: "Do you accept families with children?",
+      a5: "Of course. Families, single moms with children, grandparents with grandchildren, all welcome. The residence is designed for family stays.",
+      q6: "Can I come with more guests than the listed capacity?",
+      a6: "The listed capacity is the recommended one for optimal comfort. You may add up to 2 extra guests per apartment, at an additional 1,000 DA or €5 per person per night.",
+    },
+    capacityPolicy: {
+      note: "Recommended capacity · Up to 2 extra guests accepted at 1,000 DA / €5 per person per night.",
+      tooltip: "+2 extra guests allowed · 1,000 DA / €5 per person per night",
+      ariaLabel: "Capacity policy",
+    },
   },
   gallery: {
     title: "Photo Gallery",
@@ -281,7 +344,7 @@ export const en = {
       },
       parking: {
         question: "Is parking available at the property?",
-        answer: "Yes, we offer free parking for all guests."
+        answer: "Free street parking right in front of the residence. It is simple kerbside parking, no guard and no fence. No issue has been reported in recent years."
       },
       pets: {
         question: "Are pets allowed in the apartments?",
@@ -289,11 +352,11 @@ export const en = {
       },
       restaurant: {
         question: "Is there a restaurant available at the property?",
-        answer: "The property does not have a restaurant, but you will find several restaurants and cafes in the immediate vicinity, accessible on foot in just a few minutes."
+        answer: "The property does not have a restaurant, but you will find several restaurants and cafes nearby, accessible by car in just a few minutes."
       },
-      transfers: {
-        question: "Do you offer airport transfers?",
-        answer: "Yes, we offer airport transfers for an additional fee. Please contact us at least 24 hours before your arrival to arrange transportation."
+      capacity: {
+        question: "Can we be more guests than the listed capacity?",
+        answer: "The listed capacity ensures optimal comfort for each apartment. You may add up to 2 extra guests at a fee of 1,000 DA or €5 per person per night. This option must be confirmed at booking."
       },
       amenities: {
         question: "What services are available at the property?",
@@ -311,7 +374,7 @@ export const en = {
       description: "Spacious apartment ideal for a small family, with equipped kitchen."
     },
     "3": {
-      name: "F2 Suite Jacuzzi & Norwegian Sauna",
+      name: "F2 Suite Jacuzzi & Sauna",
       description: "Modern elegant apartment with contemporary design and premium jacuzzi."
     },
     "4": {
@@ -327,27 +390,27 @@ export const en = {
       description: "Comfortable, peaceful and elegant apartment, with equipped kitchen and living room."
     },
     "7": {
-      name: "F3 Deluxe Suite Private Terrace",
+      name: "F3 Private Terrace",
       description: "Luxury apartment with premium finishes, private terrace, equipped and deluxe kitchen, separate bathroom and toilet."
     }
   },
   apartmentNames: {
     apartment1_name: "Studio Deluxe",
     apartment2_name: "F2 Double Classic",
-    apartment3_name: "F2 Suite Jacuzzi & Norwegian Sauna",
+    apartment3_name: "F2 Suite Jacuzzi & Sauna",
     apartment4_name: "F2 Double Classic",
     apartment5_name: "F2 Double Classic",
     apartment6_name: "F2 Deluxe Double",
-    apartment7_name: "F3 Deluxe Suite Private Terrace"
+    apartment7_name: "F3 Private Terrace"
   },
   apartmentDescriptionsShort: {
-    apartment1_description: "Elegant studio with modern amenities, equipped kitchen and private bathroom.",
-    apartment2_description: "Spacious apartment ideal for a small family, with equipped kitchen.",
-    apartment3_description: "Modern elegant apartment with contemporary design and spacious layout featuring a magnificent premium jacuzzi for optimal relaxation.",
-    apartment4_description: "Deluxe apartment, modern and comfortable, with equipped kitchen.",
-    apartment5_description: "Modern and comfortable apartment with contemporary amenities and equipped kitchen.",
-    apartment6_description: "Comfortable, peaceful and elegant apartment, with equipped kitchen and living room.",
-    apartment7_description: "Luxury apartment with premium finishes, private terrace, equipped and deluxe kitchen, separate bathroom and toilet."
+    apartment1_description: "Modern furnished studio on the 1st floor in a recent, well-kept residence. New air conditioning, 240 Mbps fibre Wi-Fi, equipped kitchen and private bathroom. Responsive, attentive owner for a smooth seaside stay.",
+    apartment2_description: "Modern F2 on the 1st floor in a recent, spotless residence. Separate bedroom, equipped kitchen, new air conditioning and 240 Mbps fibre Wi-Fi. Responsive owner via WhatsApp. Ideal for a couple or small family by the sea.",
+    apartment3_description: "F2 Suite with private jacuzzi and sauna on the 1st floor, in a recent and immaculate residence. New air conditioning, 240 Mbps fibre Wi-Fi, equipped kitchen. Premium seaside stay with a reachable, attentive owner.",
+    apartment4_description: "Modern F2 on the 2nd floor in a recent, spotless residence. Separate bedroom, equipped kitchen, new air conditioning and 240 Mbps fibre Wi-Fi. Responsive owner via WhatsApp. Ideal for a couple or small family by the sea.",
+    apartment5_description: "Modern F2 on the 2nd floor in a recent, spotless residence. Separate bedroom, equipped kitchen, new air conditioning and 240 Mbps fibre Wi-Fi. Responsive owner via WhatsApp. Ideal for a couple or small family by the sea.",
+    apartment6_description: "Modern F2 on the 2nd floor in a recent, spotless residence. Separate bedroom, equipped kitchen, new air conditioning and 240 Mbps fibre Wi-Fi. Responsive owner via WhatsApp. Ideal for a couple or small family by the sea.",
+    apartment7_description: "F3 with private terrace on the 3rd floor, in a recent, well-kept residence. 2 bedrooms, equipped kitchen, dishwasher, electric shutters, 240 Mbps fibre Wi-Fi. Capacity 6, reliable owner available on WhatsApp."
   },
   features: {
     "Wi-Fi": "Wi-Fi",
@@ -364,12 +427,15 @@ export const en = {
     "Microwave": "Microwave",
     "Terrace": "Terrace",
     "Balcony": "Balcony",
-    "Dishwasher": "Dishwasher"
+    "Dishwasher": "Dishwasher",
+    "Sauna": "Sauna",
+    "Electric Shutters": "Electric shutters",
+    "Private Balcony": "Private balcony"
   },
-  locations: {
-    "floor1": "Floor 1",
-    "floor2": "Floor 2",
-    "floor3": "Floor 3 (only)"
+  floors: {
+    "1": "Floor 1",
+    "2": "Floor 2",
+    "3": "Floor 3 (only)"
   },
   apartmentTypes: {
     "Studio": "Studio",

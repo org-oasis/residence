@@ -1,12 +1,12 @@
-
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import type { Lang } from "@/lib/i18n";
 
-type Language = {
-  code: string;
+interface Language {
+  code: Lang;
   name: string;
   flag: string;
-};
+}
 
 const languages: Language[] = [
   { code: "fr", name: "Français", flag: "🇫🇷" },
@@ -18,12 +18,12 @@ export default function LanguageSelector() {
   const { language, setLanguage } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
-  // This effect is to ensure hydration doesn't cause issues
+  // Hydration guard: avoid mismatched render between SSG and client.
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleLanguageChange = (langCode: string) => {
+  const handleLanguageChange = (langCode: Lang) => {
     setLanguage(langCode);
   };
 

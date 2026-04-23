@@ -21,7 +21,7 @@ export interface TierPricing {
 
 /** Base nightly rate + capacity per apartment tier (high-season reference). */
 export const TIERS = {
-  studio: { eur: 40, dzd: 10000, capacity: 2 },
+  studio: { eur: 40, dzd: 10000, capacity: 3 },
   f2: { eur: 45, dzd: 12000, capacity: 4 },
   f2jacuzzi: { eur: 70, dzd: 20000, capacity: 4 },
   f3: { eur: 110, dzd: 30000, capacity: 6 },

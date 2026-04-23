@@ -1,9 +1,7 @@
 
-import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { FaWhatsapp, FaTelegram, FaPhone } from "react-icons/fa";
+import { MapPin, Phone, Clock, Whatsapp, Telegram, Users } from "@/components/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { contactInfo } from "@/data/appData";
 import type { MetaFunction } from "react-router";
@@ -16,7 +14,7 @@ const FAQ_KEYS = [
   "parking",
   "pets",
   "restaurant",
-  "transfers",
+  "capacity",
   "amenities",
 ] as const;
 
@@ -53,7 +51,7 @@ export default function Contact() {
 
       <main className="flex-1 pt-20">
         {/* Header Section */}
-        <section className="relative py-10 bg-linear-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
+        <section className="relative py-10 bg-linear-to-r from-sea-light to-white overflow-hidden">
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -72,7 +70,7 @@ export default function Contact() {
                   aria-label="WhatsApp"
                   className="flex flex-col items-center group"
                 >
-                  <FaWhatsapp className="w-14 h-14 text-green-500 group-hover:scale-110 group-active:scale-95 transition-transform drop-shadow-lg" />
+                  <Whatsapp className="w-12 h-12 text-green-500 group-hover:scale-110 group-active:scale-95 transition-transform drop-shadow-lg" />
                   <span className="mt-2 text-base font-medium text-green-700">WhatsApp</span>
                 </a>
                 {/* Telegram */}
@@ -83,7 +81,7 @@ export default function Contact() {
                   aria-label="Telegram"
                   className="flex flex-col items-center group"
                 >
-                  <FaTelegram className="w-14 h-14 text-blue-500 group-hover:scale-110 group-active:scale-95 transition-transform drop-shadow-lg" />
+                  <Telegram className="w-12 h-12 text-blue-500 group-hover:scale-110 group-active:scale-95 transition-transform drop-shadow-lg" />
                   <span className="mt-2 text-base font-medium text-blue-700">Telegram</span>
                 </a>
                 {/* Phone */}
@@ -92,7 +90,7 @@ export default function Contact() {
                   aria-label="Phone"
                   className="flex flex-col items-center group"
                 >
-                  <FaPhone className="w-14 h-14 text-primary group-hover:scale-110 group-active:scale-95 transition-transform drop-shadow-lg" />
+                  <Phone className="w-12 h-12 text-primary group-hover:scale-110 group-active:scale-95 transition-transform drop-shadow-lg" />
                   <span className="mt-2 text-base font-medium text-primary">Appeler</span>
                 </a>
               </div>
@@ -115,7 +113,7 @@ export default function Contact() {
                 <div className="glass-card p-6 space-y-6 h-[400px] flex flex-col justify-center">
                   <div className="flex items-start">
                     <div className="shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <MapPin className="h-5 w-5 text-primary" />
+                      <MapPin className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.address}</h3>
@@ -129,7 +127,7 @@ export default function Contact() {
 
                   <div className="flex items-start">
                     <div className="shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <Phone className="h-5 w-5 text-primary" />
+                      <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.phone}</h3>
@@ -140,7 +138,7 @@ export default function Contact() {
 
                   <div className="flex items-start">
                     <div className="shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <Clock className="h-5 w-5 text-primary" />
+                      <Clock className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.receptionHours}</h3>
@@ -186,35 +184,35 @@ export default function Contact() {
               {[
                 {
                   questionKey: "checkInOut",
-                  icon: <Clock className="h-5 w-5 text-primary" />
+                  icon: <Clock className="h-6 w-6 text-primary" />
                 },
                 {
                   questionKey: "parking",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
+                  icon: <MapPin className="h-6 w-6 text-primary" />
                 },
                 {
                   questionKey: "pets",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
+                  icon: <MapPin className="h-6 w-6 text-primary" />
                 },
                 {
                   questionKey: "restaurant",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
+                  icon: <MapPin className="h-6 w-6 text-primary" />
                 },
                 {
-                  questionKey: "transfers",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
+                  questionKey: "capacity",
+                  icon: <Users className="h-6 w-6 text-primary" />
                 },
                 {
                   questionKey: "amenities",
-                  icon: <MapPin className="h-5 w-5 text-primary" />
+                  icon: <MapPin className="h-6 w-6 text-primary" />
                 },
               ].map((faq, index) => (
                 <div key={index} className="glass-card p-6">
                   <h3 className="font-semibold text-lg mb-2">
-                    {t.contact.questions[faq.questionKey].question}
+                    {t.contact.questions[faq.questionKey as keyof typeof t.contact.questions].question}
                   </h3>
                   <p className="text-muted-foreground">
-                    {t.contact.questions[faq.questionKey].answer}
+                    {t.contact.questions[faq.questionKey as keyof typeof t.contact.questions].answer}
                   </p>
                 </div>
               ))}

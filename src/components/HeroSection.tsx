@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { Link } from "react-router";
+import { ChevronDown } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocalizedHref } from "@/lib/i18n";
@@ -30,15 +30,19 @@ export default function HeroSection() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 shadow-xs">
             {t.hero.title}
           </h1>
-          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto shadow-xs">
+          <p className="text-lg text-white/90 mb-4 max-w-2xl mx-auto shadow-xs">
             {t.hero.description}
+          </p>
+          {/* Phase 3 — trust line: leve objections #1, #2, #10 du persona doc (P1, P3, P5, P6) */}
+          <p className="text-sm md:text-base text-white/80 mb-8 max-w-2xl mx-auto tracking-wide">
+            {t.hero.trustLine}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" variant="heroSolid" className="min-w-[200px] rounded-full hover:scale-105 transition-transform">
-              <Link to={loc("/gallery")}>{t.hero.exploreGallery}</Link>
+              <Link viewTransition to={loc("/gallery")}>{t.hero.exploreGallery}</Link>
             </Button>
             <Button asChild variant="hero" size="lg" className="min-w-[200px] rounded-full hover:scale-105 transition-transform">
-              <Link to={loc("/apartments")}>{t.hero.exploreApartments}</Link>
+              <Link viewTransition to={loc("/apartments")}>{t.hero.exploreApartments}</Link>
             </Button>
           </div>
         </div>

@@ -1,86 +1,68 @@
-import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Star } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { testimonials, Testimonial } from "@/data/appData";
+import { testimonials } from "@/data/appData";
+
+const ROTATION_MS = 8000;
+const MIN_SWIPE_PX = 50;
 
 export default function TestimonialsSection() {
   const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartRef = useRef<number | null>(null);
+  const touchEndRef = useRef<number | null>(null);
 
-  // Minimum swipe distance (in px)
-  const minSwipeDistance = 50;
+  // Auto-rotation: one timer per (activeIndex, isPaused). Idiomatic effect,
+  // no setInterval, naturally pauses on hover/focus and resets on user interaction.
+  useEffect(() => {
+    if (isPaused || testimonials.length <= 1) return;
+    if (typeof window === "undefined") return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+    const timer = window.setTimeout(() => {
+      setActiveIndex((i) => (i + 1) % testimonials.length);
+    }, ROTATION_MS);
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, isPaused]);
 
-  const nextTestimonial = () => {
-    if (isAnimating) return;
-
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
-
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  };
-
-  const prevTestimonial = () => {
-    if (isAnimating) return;
-
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  };
+  const next = () => setActiveIndex((i) => (i + 1) % testimonials.length);
+  const prev = () =>
+    setActiveIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    touchEndRef.current = null;
+    touchStartRef.current = e.targetTouches[0].clientX;
   };
-
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    touchEndRef.current = e.targetTouches[0].clientX;
   };
-
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      nextTestimonial();
-    }
-    if (isRightSwipe) {
-      prevTestimonial();
-    }
+    const start = touchStartRef.current;
+    const end = touchEndRef.current;
+    if (start === null || end === null) return;
+    const distance = start - end;
+    if (distance > MIN_SWIPE_PX) next();
+    else if (distance < -MIN_SWIPE_PX) prev();
   };
-
-  useEffect(() => {
-    const interval = setInterval(nextTestimonial, 8000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section className="section bg-muted py-10">
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {t.testimonials.title}
-          </h2>
-          <p className="text-muted-foreground">
-            {t.testimonials.description}
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.testimonials.title}</h2>
+          <p className="text-muted-foreground">{t.testimonials.description}</p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div
+          className="relative max-w-4xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={() => setIsPaused(false)}
+        >
           <div
-            ref={containerRef}
             className="relative min-h-[400px] md:min-h-[250px]"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
@@ -89,13 +71,14 @@ export default function TestimonialsSection() {
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.id}
+                aria-hidden={activeIndex !== index}
                 className={cn(
-                  "absolute inset-0 glass-card p-4 md:p-8 lg:p-10 transition-all duration-500",
+                  "absolute inset-0 glass-card p-4 md:p-8 lg:p-10 transition-all duration-500 ease-out",
                   activeIndex === index
                     ? "opacity-100 translate-x-0 z-10"
                     : index < activeIndex
                       ? "opacity-0 -translate-x-full z-0"
-                      : "opacity-0 translate-x-full z-0"
+                      : "opacity-0 translate-x-full z-0",
                 )}
               >
                 <div className="flex flex-col md:flex-row gap-4 md:gap-6 h-full">
@@ -115,8 +98,12 @@ export default function TestimonialsSection() {
                         />
                       ))}
                     </div>
-                    <p className="text-sm md:text-lg font-semibold text-center md:text-left">{testimonial.name}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground text-center md:text-left">{testimonial.location}</p>
+                    <p className="text-sm md:text-lg font-semibold text-center md:text-left">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-xs md:text-sm text-muted-foreground text-center md:text-left">
+                      {testimonial.location}
+                    </p>
                   </div>
 
                   <div className="flex-1 flex items-start md:items-center">
@@ -136,46 +123,44 @@ export default function TestimonialsSection() {
 
           <div className="flex justify-between mt-6 md:mt-8">
             <button
-              onClick={prevTestimonial}
+              type="button"
+              onClick={prev}
               className="p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
-              disabled={isAnimating}
+              aria-label="Previous testimonial"
             >
-              <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
-              <span className="sr-only">Previous testimonial</span>
+              <ChevronLeft className="h-6 w-6" />
             </button>
 
             <div className="flex space-x-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => {
-                    if (isAnimating) return;
-                    setIsAnimating(true);
-                    setActiveIndex(index);
-                    setTimeout(() => setIsAnimating(false), 500);
-                  }}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
                   className="inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   aria-label={`Go to testimonial ${index + 1}`}
+                  aria-current={activeIndex === index}
                 >
                   <span
                     aria-hidden="true"
-                    className={`block h-2 md:h-3 rounded-full transition-all ${
+                    className={cn(
+                      "block h-2 md:h-3 rounded-full transition-all",
                       activeIndex === index
                         ? "bg-primary w-4 md:w-6"
-                        : "w-2 md:w-3 bg-muted-foreground/40 hover:bg-muted-foreground/60"
-                    }`}
+                        : "w-2 md:w-3 bg-muted-foreground/40 hover:bg-muted-foreground/60",
+                    )}
                   />
                 </button>
               ))}
             </div>
 
             <button
-              onClick={nextTestimonial}
+              type="button"
+              onClick={next}
               className="p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
-              disabled={isAnimating}
+              aria-label="Next testimonial"
             >
-              <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
-              <span className="sr-only">Next testimonial</span>
+              <ChevronRight className="h-6 w-6" />
             </button>
           </div>
         </div>

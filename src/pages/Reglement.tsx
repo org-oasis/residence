@@ -1,5 +1,5 @@
 import type { MetaFunction } from "react-router";
-import { Clock, Cigarette, PawPrint, Volume2, Users, FileCheck, Wrench, Shield } from "lucide-react";
+import { Clock, Cigarette, PawPrint, Volume2, Users, FileCheck, Wrench, Shield } from "@/components/icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -43,7 +43,7 @@ export default function Reglement() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 pt-20">
-        <section className="relative py-10 bg-gradient-to-r from-sea-light to-white dark:from-sea-dark dark:to-background overflow-hidden">
+        <section className="relative py-10 bg-gradient-to-r from-sea-light to-white overflow-hidden">
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center animate-fade-in">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -72,7 +72,7 @@ export default function Reglement() {
                 >
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Icon className="h-5 w-5 text-primary" />
+                      <Icon className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h2 className="text-lg font-semibold mb-2">

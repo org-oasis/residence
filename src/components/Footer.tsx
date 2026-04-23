@@ -1,6 +1,6 @@
 
-import { Link } from "react-router-dom";
-import { Facebook, MessageCircle, Send, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router";
+import { Facebook, MessageCircle, Send, Phone, MapPin } from "@/components/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocalizedHref } from "@/lib/i18n";
 import { contactInfo, siteConfig } from "@/data/appData";
@@ -47,7 +47,7 @@ export default function Footer() {
                 { name: t.nav.contact, path: loc("/contact") },
               ].map((link) => (
                 <li key={link.name}>
-                  <Link
+                  <Link viewTransition
                     to={link.path}
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
@@ -62,7 +62,7 @@ export default function Footer() {
             <h4 className="text-xl font-bold mb-4">{t.footer.contact}</h4>
             <ul className="space-y-3">
               <li className="flex items-start">
-                <MapPin className="w-5 h-5 mr-2 mt-0.5 text-primary" />
+                <MapPin className="w-6 h-6 mr-2 mt-0.5 text-primary" />
                 <span className="text-muted-foreground">
                   {contactInfo.address.street}<br />
                   {contactInfo.address.city}<br />
@@ -70,16 +70,16 @@ export default function Footer() {
                 </span>
               </li>
               <li className="flex items-center">
-                <Phone className="w-5 h-5 mr-2 text-primary" />
+                <Phone className="w-6 h-6 mr-2 text-primary" />
                 <span className="text-muted-foreground">{contactInfo.phone.primary}</span>
               </li>
               <li className="flex items-center">
-                <Phone className="w-5 h-5 mr-2 text-primary" />
+                <Phone className="w-6 h-6 mr-2 text-primary" />
                 <span className="text-muted-foreground">{contactInfo.phone.secondary}</span>
               </li>
 {/*
               <li className="flex items-center">
-                <Mail className="w-5 h-5 mr-2 text-primary" />
+                <Mail className="w-6 h-6 mr-2 text-primary" />
                 <span className="text-muted-foreground">info@residenceoasis.com</span>
               </li>
 */}

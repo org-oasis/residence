@@ -1,77 +1,115 @@
+import type { ReactElement } from "react";
 import {
-  FaUsers,
-  FaExpand,
-  FaMapMarkerAlt,
-  FaBath,
-  FaWifi,
-  FaTv,
-  FaWind,
-  FaHome,
-  FaWater,
-  FaSnowflake,
-  FaFire,
-  FaTint
-} from "react-icons/fa";
-import { FaKitchenSet } from "react-icons/fa6";
-import { PiOvenBold } from "react-icons/pi";
-import {
-  MdKitchen,
-  MdLocalLaundryService,
-  MdBalcony,
-  MdMicrowave,
-  MdKitchen as MdOven
-} from "react-icons/md";
-import { BiFridge } from "react-icons/bi";
+  Bath,
+  CookingPot,
+  Wifi,
+  Tv,
+  Snowflake,
+  WashingMachine,
+  Balcony,
+  HotTub,
+  Oven,
+  Stove,
+  Microwave,
+  Refrigerator,
+  Dishwasher,
+  Parking,
+  Sauna,
+  Blinds,
+  Utensils,
+  type IconProps,
+} from "@/components/icons";
 
-export const getFeatureIcon = (feature: string, size: string = "h-3.5 w-3.5") => {
+type IconComponent = (props: IconProps) => ReactElement;
+
+/**
+ * Map a feature (in any supported locale) to an SVG icon component.
+ * Icons come from `src/components/icons/` — no third-party icon library.
+ */
+export const getFeatureIcon = (
+  feature: string,
+  size: string = "h-6 w-6",
+): ReactElement => {
   const iconClass = size;
-  
+  const Component = resolveIcon(feature);
+  return <Component className={iconClass} />;
+};
+
+function resolveIcon(feature: string): IconComponent {
   switch (feature.toLowerCase()) {
     case "bathroom":
     case "salle de bain":
-      return <FaBath className={iconClass} />;
+      return Bath;
+
     case "kitchen":
     case "full kitchen":
     case "cuisine":
     case "cuisine complète":
-      return <FaKitchenSet className={iconClass} />;
+      return CookingPot;
+
     case "wi-fi":
-      return <FaWifi className={iconClass} />;
+    case "wifi":
+      return Wifi;
+
     case "tv":
-      return <FaTv className={iconClass} />;
+      return Tv;
+
     case "air conditioning":
     case "climatisation":
-      return <FaWind className={iconClass} />;
+      return Snowflake;
+
     case "washing machine":
     case "machine à laver":
-      return <MdLocalLaundryService className={iconClass} />;
+      return WashingMachine;
+
     case "balcony":
     case "terrace":
     case "balcon":
     case "terrasse":
-      return <MdBalcony className={iconClass} />;
+    case "private balcony":
+    case "balcon privé":
+      return Balcony;
+
     case "jacuzzi":
-      return <FaWater className={iconClass} />;
+      return HotTub;
+
     case "oven":
     case "four":
-      return <PiOvenBold className={iconClass} />;
+      return Oven;
+
     case "stove":
     case "plaque de cuisson":
-      return <FaFire className={iconClass} />;
+      return Stove;
+
     case "microwave":
     case "micro-ondes":
-      return <MdMicrowave className={iconClass} />;
+      return Microwave;
+
     case "refrigerator":
     case "frigo":
     case "réfrigérateur":
-      return <BiFridge className={iconClass} />;
-    case "congélateur":
+      return Refrigerator;
+
     case "freezer":
-      return <FaSnowflake className={iconClass} />;
+    case "congélateur":
+      return Snowflake;
+
     case "dishwasher":
     case "lave-vaisselle":
-      return <FaTint className={iconClass} />;
+      return Dishwasher;
+
+    case "sauna":
+      return Sauna;
+
+    case "parking":
+      return Parking;
+
+    case "electric shutters":
+    case "volets électriques":
+    case "volets electriques":
+      return Blinds;
+
     default:
-      return <FaHome className={iconClass} />;
+      return Utensils;
   }
-}; 
+}
