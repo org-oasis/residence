@@ -207,13 +207,13 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
 
       {/* Calendar modal — direct open, fade animations via CSS override */}
       <Dialog open={calendarOpen} onOpenChange={setCalendarOpen}>
-        <DialogContent className="w-fit max-w-[95vw] p-0">
+        <DialogContent className="w-[calc(100vw-1rem)] max-w-[420px] sm:w-fit sm:max-w-[95vw] p-0">
           <DialogHeader className="px-4 py-3 text-center sm:text-center">
             <DialogTitle className="text-center sm:text-center">
               {t.apartments.availability || "Availability"}
             </DialogTitle>
           </DialogHeader>
-          <div className="px-4 pb-4">
+          <div className="px-2 pb-3 sm:px-4 sm:pb-4 overflow-x-auto">
             <Suspense fallback={null}>
               <CalendarAvailability apartmentId={apartment.id} apartmentName={apartmentLabel} />
             </Suspense>

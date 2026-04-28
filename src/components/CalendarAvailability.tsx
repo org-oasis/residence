@@ -189,7 +189,7 @@ export default function CalendarAvailability({
     <div className="flex flex-col items-center w-full">
       {apartmentName && (
         <div className="text-center mb-4">
-          <span className="bg-secondary text-secondary-foreground font-semibold text-base px-4 py-2 rounded-full shadow-xs border border-secondary/20">
+          <span className="bg-secondary text-secondary-foreground font-semibold text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-xs border border-secondary/20">
             {apartmentName}
           </span>
         </div>
@@ -197,7 +197,7 @@ export default function CalendarAvailability({
 
       {fetchError && <div className="text-xs text-red-600 mb-2">{fetchError}</div>}
 
-      <div className="rdp-shell" dir={language === "ar" ? "rtl" : "ltr"}>
+      <div className="rdp-shell mx-auto" dir={language === "ar" ? "rtl" : "ltr"}>
         {isAdmin ? (
           <DayPicker
             mode="multiple"

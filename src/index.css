@@ -472,11 +472,21 @@
 
 .rdp-shell {
   font-family: inherit;
+  max-width: 100%;
 }
 
 /* Keep 3 months on a single row on desktop */
 .rdp-shell .rdp-months {
   flex-wrap: nowrap;
+}
+
+/* Mobile and small tablets: shrink RDP cells so a single month fits within
+   the dialog (which is `100vw - 1rem` capped at 420px on small screens). */
+@media (max-width: 640px) {
+  .rdp-shell {
+    --rdp-day-width: 38px;
+    --rdp-day-height: 38px;
+  }
 }
 
 /* Booked days — public view */
