@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "bun scripts/generate-blog-data.mjs",
+    "predev": "bun scripts/generate-blog-data.mjs && bun scripts/generate-image-variants.mjs",
     "dev": "react-router dev",
-    "prebuild": "bun scripts/generate-og.mjs && bun scripts/generate-blog-data.mjs && bun scripts/generate-llms.mjs && bun scripts/generate-sitemap.mjs",
+    "prebuild": "bun scripts/generate-og.mjs && bun scripts/generate-blog-data.mjs && bun scripts/generate-llms.mjs && bun scripts/generate-sitemap.mjs && bun scripts/generate-image-variants.mjs",
     "build": "react-router build",
     "og": "bun scripts/generate-og.mjs",
     "blog:gen": "bun scripts/generate-blog-data.mjs",
+    "images:gen": "bun scripts/generate-image-variants.mjs",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "react-router serve ./build/client"
   },

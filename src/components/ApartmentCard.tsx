@@ -19,6 +19,7 @@ import {
 import OverlayFeatures from "./apartment-card/OverlayFeatures";
 import SeasonalPricing from "./apartment-card/SeasonalPricing";
 import ContactButtons from "./apartment-card/ContactButtons";
+import { ResponsiveImage } from "./ResponsiveImage";
 
 const CalendarAvailability = lazy(() => import("./CalendarAvailability"));
 
@@ -80,9 +81,10 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
 
         <OverlayFeatures features={specificFeatures} />
 
-        <img
+        <ResponsiveImage
           src={apartment.image}
           alt={translatedName}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           loading="lazy"
           className={cn(
             "w-full h-full object-cover transition-transform duration-700 cursor-pointer",

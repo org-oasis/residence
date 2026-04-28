@@ -65,7 +65,7 @@ export default function Footer() {
                 <MapPin className="w-6 h-6 mr-2 mt-0.5 text-primary" />
                 <span className="text-muted-foreground">
                   {contactInfo.address.street}<br />
-                  {contactInfo.address.city}<br />
+                  {contactInfo.address.locality}, {contactInfo.address.region} {contactInfo.address.postalCode}<br />
                   {contactInfo.address.country}
                 </span>
               </li>

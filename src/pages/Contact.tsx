@@ -119,7 +119,7 @@ export default function Contact() {
                       <h3 className="font-semibold mb-1">{t.contact.address}</h3>
                       <p className="text-muted-foreground">
                         {contactInfo.address.street}<br />
-                        {contactInfo.address.city}<br />
+                        {contactInfo.address.locality}, {contactInfo.address.region} {contactInfo.address.postalCode}<br />
                         {contactInfo.address.country}
                       </p>
                     </div>

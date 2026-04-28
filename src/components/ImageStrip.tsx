@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Maximize2 } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import FullscreenImageViewer from "./FullscreenImageViewer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { ResponsiveImage } from "./ResponsiveImage";
 
 interface ImageStripProps {
   images: string[];
@@ -51,12 +52,14 @@ export default function ImageStrip({ images, alt, className }: ImageStripProps) 
               )}
               aria-label={`${alt} - Image ${index + 1}`}
             >
-              <img
+              <ResponsiveImage
                 src={image}
                 alt={`${alt} - ${index + 1}`}
+                sizes="(max-width: 768px) 90vw, 600px"
                 loading={index < 2 ? "eager" : "lazy"}
-                width="800"
-                height="600"
+                fetchPriority={index === 0 ? "high" : "auto"}
+                width={800}
+                height={600}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <span className="absolute top-3 right-3 bg-black/50 hover:bg-black/70 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">

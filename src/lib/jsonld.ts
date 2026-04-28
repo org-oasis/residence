@@ -30,8 +30,10 @@ export function buildLodgingBusiness(): JsonLd {
     address: {
       "@type": "PostalAddress",
       streetAddress: contactInfo.address.street,
-      addressLocality: contactInfo.address.city,
-      addressCountry: "DZ",
+      addressLocality: contactInfo.address.locality,
+      addressRegion: contactInfo.address.region,
+      postalCode: contactInfo.address.postalCode,
+      addressCountry: contactInfo.address.countryCode,
     },
     geo: {
       "@type": "GeoCoordinates",

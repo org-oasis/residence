@@ -303,8 +303,11 @@ export const testimonials: Testimonial[] = [
 export const contactInfo = {
   address: {
     street: "Villa N°17, Route Bouzaaroura",
-    city: "Filfila, Skikda, 21000",
-    country: "Algérie"
+    locality: "Filfila",
+    region: "Skikda",
+    postalCode: "21000",
+    country: "Algérie",
+    countryCode: "DZ",
   },
   phone: {
     primary: "+213 5 61 47 29 90 (WhatsApp/Telegram)",
