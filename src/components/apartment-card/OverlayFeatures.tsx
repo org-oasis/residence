@@ -59,13 +59,12 @@ export default function OverlayFeatures({ features }: Props) {
         const label = group.labels.join(" · ");
         return (
           <Tooltip key={i}>
-            <TooltipTrigger asChild>
-              <span
-                className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-black/35 text-white backdrop-blur-sm border border-white/25 cursor-help shadow-sm"
-                aria-label={label}
-              >
-                <group.Icon className="h-6 w-6" />
-              </span>
+            <TooltipTrigger
+              type="button"
+              className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-black/35 text-white backdrop-blur-sm border border-white/25 cursor-help shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              aria-label={label}
+            >
+              <group.Icon className="h-6 w-6" aria-hidden="true" />
             </TooltipTrigger>
             <TooltipContent className="text-xs">{label}</TooltipContent>
           </Tooltip>

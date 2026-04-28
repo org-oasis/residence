@@ -68,6 +68,13 @@ export interface BreadcrumbItem {
   url: string;
 }
 
+function ensureTrailingSlash(url: string): string {
+  // Skip if URL has a query/hash, or already ends with `/`.
+  if (url.endsWith("/")) return url;
+  if (url.includes("?") || url.includes("#")) return url;
+  return `${url}/`;
+}
+
 export function buildBreadcrumbList(items: BreadcrumbItem[]): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -76,7 +83,10 @@ export function buildBreadcrumbList(items: BreadcrumbItem[]): JsonLd {
       "@type": "ListItem",
       position: idx + 1,
       name: item.name,
-      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
+      // Append trailing slash so the URL matches the canonical (avoids GH Pages 301).
+      item: ensureTrailingSlash(
+        item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
+      ),
     })),
   };
 }

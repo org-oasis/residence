@@ -16,9 +16,16 @@ export interface SeoInput {
 }
 
 function buildLocalizedUrl(lang: Lang, pathname: string): string {
-  const clean = pathname === "" || pathname === "/" ? "" : pathname;
-  // Always append trailing slash — matches GitHub Pages' actual URL shape
-  // (directory-style URLs) and avoids the 301 roundtrip Google otherwise follows.
+  // Normalise input then always append a single trailing slash. Matches the
+  // prerendered file layout (`/<lang>/<path>/index.html`) and avoids both the
+  // GitHub Pages 301 (no-slash → with-slash) and accidental `//` double-slashes.
+  let clean = pathname.trim();
+  if (clean === "" || clean === "/") {
+    clean = "";
+  } else {
+    if (!clean.startsWith("/")) clean = `/${clean}`;
+    if (clean.endsWith("/")) clean = clean.slice(0, -1);
+  }
   return `${SITE_URL}/${lang}${clean}/`;
 }
 

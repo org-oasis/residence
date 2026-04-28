@@ -18,10 +18,15 @@ const routes = [...baseLocalized, ...blogPaths];
 
 const today = new Date().toISOString().slice(0, 10);
 
+// Always emit URLs with a trailing slash — matches the prerendered file layout
+// (`<lang>/<path>/index.html`) and avoids the GitHub Pages 301 (no-slash → with-slash)
+// that Search Console flags as "Erreur liée à des redirections".
+const withTrailingSlash = (path) => (path.endsWith("/") ? path : `${path}/`);
+
 const urlset = routes
   .map(
     (path) => `  <url>
-    <loc>${HOSTNAME}${path}</loc>
+    <loc>${HOSTNAME}${withTrailingSlash(path)}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
