@@ -311,7 +311,6 @@ export const contactInfo = {
   },
   phone: {
     primary: "+213 5 61 47 29 90 (WhatsApp/Telegram)",
-    secondary: "+213 6 96 12 38 00 (WhatsApp/Telegram)"
   },
   email: "...",
   social: {

@@ -73,10 +73,6 @@ export default function Footer() {
                 <Phone className="w-6 h-6 mr-2 text-primary" />
                 <span className="text-muted-foreground">{contactInfo.phone.primary}</span>
               </li>
-              <li className="flex items-center">
-                <Phone className="w-6 h-6 mr-2 text-primary" />
-                <span className="text-muted-foreground">{contactInfo.phone.secondary}</span>
-              </li>
 {/*
               <li className="flex items-center">
                 <Mail className="w-6 h-6 mr-2 text-primary" />

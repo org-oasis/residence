@@ -132,7 +132,6 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.phone}</h3>
                       <p className="text-muted-foreground">{contactInfo.phone.primary}</p>
-                      <p className="text-muted-foreground">{contactInfo.phone.secondary}</p>
                     </div>
                   </div>
 
