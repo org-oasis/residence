@@ -9,11 +9,6 @@ import {
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { dirFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
-import "@fontsource-variable/inter";
-import "@fontsource/playfair-display/400.css";
-import "@fontsource/playfair-display/500.css";
-import "@fontsource/playfair-display/600.css";
-import "@fontsource/playfair-display/700.css";
 import "./index.css";
 
 function langFromPath(pathname: string): Lang {
