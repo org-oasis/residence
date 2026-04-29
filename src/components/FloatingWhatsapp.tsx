@@ -23,7 +23,7 @@ export default function FloatingWhatsapp() {
       aria-label="WhatsApp"
       className="fixed bottom-5 end-5 z-40 inline-flex items-center justify-center h-14 w-14 rounded-full bg-[#25D366] text-white shadow-lg hover:scale-105 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366] transition-all"
     >
-      <Whatsapp className="h-9 w-9" aria-hidden="true" />
+      <Whatsapp className="h-7 w-7" aria-hidden="true" />
     </a>
   );
 }

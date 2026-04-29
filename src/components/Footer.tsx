@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { Facebook, MessageCircle, Send, Phone, MapPin } from "@/components/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocalizedHref } from "@/lib/i18n";
-import { contactInfo, siteConfig } from "@/data/appData";
+import { contactInfo, googleMapsUrl, siteConfig } from "@/data/appData";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -63,15 +63,47 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin className="w-6 h-6 mr-2 mt-0.5 text-primary" />
-                <span className="text-muted-foreground">
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   {contactInfo.address.street}<br />
                   {contactInfo.address.locality}, {contactInfo.address.region} {contactInfo.address.postalCode}<br />
                   {contactInfo.address.country}
-                </span>
+                </a>
               </li>
               <li className="flex items-center">
                 <Phone className="w-6 h-6 mr-2 text-primary" />
-                <span className="text-muted-foreground">{contactInfo.phone.primary}</span>
+                <a
+                  href={`tel:${contactInfo.phone.primary.replace(/[^+\d]/g, "")}`}
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {contactInfo.phone.primary}
+                </a>
+              </li>
+              <li className="flex items-center">
+                <MessageCircle className="w-6 h-6 mr-2 text-primary" />
+                <a
+                  href={contactInfo.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  WhatsApp
+                </a>
+              </li>
+              <li className="flex items-center">
+                <Send className="w-6 h-6 mr-2 text-primary" />
+                <a
+                  href={contactInfo.social.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  @residence_oasis
+                </a>
               </li>
 {/*
               <li className="flex items-center">

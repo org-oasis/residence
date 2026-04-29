@@ -101,8 +101,8 @@ export const ar = {
   },
   hero: {
     subtitle: "شقتك في فلفلة، سكيكدة",
-    title: "على بُعد 700 م من البحر في فلفلة",
-    description: "بين Rusica Park و Royal Tulip، إقامتكم العصرية في قلب فلفلة. شقق مكيّفة، واي فاي ألياف 240 ميغابت، موقف سيارات. حجز مباشر عبر واتساب : تسبيق ليلة واحدة عبر CCP، الباقي بالدينار أو باليورو عند الوصول.",
+    title: "على بُعد 700م من البحر",
+    description: "بين Rusica Park 4★ و Royal Tulip 5★، إقامة Résidence Oasis العصرية تقدم عدة شقق متاحة (Studio، F2، F3)، تقع في حي جان دارك بسكيكدة : قطاع سكني هادئ وآمن.",
     exploreGallery: "عرض المعرض",
     exploreApartments: "استكشاف الشقق",
     scrollDown: "مرر للأسفل",
@@ -110,7 +110,25 @@ export const ar = {
     trustLine: "حجز سريع · الباقي عند الوصول · بدون ضمان",
     welcomeImage1Alt: "إطلالة على البحر من الإقامة",
     welcomeImage2Alt: "شاطئ جان دارك القريب",
-    welcomeImage3Alt: "الساحل الجزائري لسكيكدة"
+    welcomeImage3Alt: "الساحل الجزائري لسكيكدة",
+    reviews: {
+      basedOn: "بناءً على {count} تقييم",
+      viewOnGoogle: "عرض على Google",
+    },
+    features: {
+      ownerAvailable: "المالك متاح",
+      beachByCar: "الشاطئ على بُعد دقيقتين",
+      wifiFibre: "واي فاي ألياف بصرية",
+      airConditioning: "تكييف",
+      freeParking: "موقف مجاني",
+      whatsappDirect: "واتساب",
+      callDirect: "اتصال",
+    },
+    trustItems: {
+      fastBooking: "حجز سريع",
+      payOnArrival: "الرصيد عند الوصول",
+      noDeposit: "بدون ضمان",
+    },
   },
   footer: {
     description: "شقق حديثة مجهزة بالقرب من الشواطئ، توفر مزيجًا مثاليًا من الراحة والأناقة لعطلات الأحلام.",

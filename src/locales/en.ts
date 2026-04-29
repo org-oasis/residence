@@ -101,8 +101,8 @@ export const en = {
   },
   hero: {
     subtitle: "YOUR APARTMENT IN FILFILA, SKIKDA",
-    title: "700 m from the sea in Filfila",
-    description: "Between Rusica Park and the Royal Tulip, your modern residence in the heart of Filfila. Air-conditioned apartments, 240 Mbps fibre Wi-Fi, parking. Direct WhatsApp booking: 1-night CCP deposit, balance in DA or € on arrival.",
+    title: "700m from the sea",
+    description: "Between Rusica Park 4★ and Royal Tulip 5★, the modern Résidence Oasis offers several available apartments (Studio, F2, F3), located in the Jeanne d'Arc district of Skikda: a quiet and secure residential area.",
     exploreGallery: "View Gallery",
     exploreApartments: "Explore Apartments",
     scrollDown: "Scroll Down",
@@ -110,7 +110,25 @@ export const en = {
     trustLine: "Fast booking · Balance on arrival · No security hold",
     welcomeImage1Alt: "Sea view from the residence",
     welcomeImage2Alt: "Jeanne D'Arc beach nearby",
-    welcomeImage3Alt: "Algerian coastline of Skikda"
+    welcomeImage3Alt: "Algerian coastline of Skikda",
+    reviews: {
+      basedOn: "Based on {count} reviews",
+      viewOnGoogle: "View on Google",
+    },
+    features: {
+      ownerAvailable: "Owner on call",
+      beachByCar: "Beach in 2 min",
+      wifiFibre: "Fibre optic Wi-Fi",
+      airConditioning: "Air conditioning",
+      freeParking: "Free parking",
+      whatsappDirect: "WhatsApp",
+      callDirect: "Call",
+    },
+    trustItems: {
+      fastBooking: "Fast booking",
+      payOnArrival: "Pay on arrival",
+      noDeposit: "No deposit",
+    },
   },
   footer: {
     description: "Modern equipped apartments near the beaches, offering the perfect blend of comfort and elegance for dream vacations.",

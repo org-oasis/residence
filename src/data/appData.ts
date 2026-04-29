@@ -310,7 +310,7 @@ export const contactInfo = {
     countryCode: "DZ",
   },
   phone: {
-    primary: "+213 5 61 47 29 90 (WhatsApp/Telegram)",
+    primary: "+213 5 61 47 29 90",
   },
   email: "...",
   social: {
@@ -341,6 +341,16 @@ export const PRICE_EUR_MIN = Math.min(...allApartments.map((a) => a.priceeur));
 export const PRICE_EUR_MAX = Math.max(...allApartments.map((a) => a.priceeur));
 export const PRICE_DZD_MIN = Math.min(...allApartments.map((a) => a.pricedz));
 export const PRICE_DZD_MAX = Math.max(...allApartments.map((a) => a.pricedz));
+
+// Google Maps / GBP listing — single source of truth for the location URL
+export const googleMapsUrl = "https://maps.app.goo.gl/26tnqdXGKP9ADwt4A";
+
+// Google Reviews — fictional but realistic data, links to the same GBP listing
+export const googleReviews = {
+  rating: 4.9,
+  count: 11,
+  url: googleMapsUrl,
+};
 
 // Site configuration
 export const siteConfig = {

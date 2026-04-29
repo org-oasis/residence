@@ -101,8 +101,8 @@ export const fr = {
   },
   hero: {
     subtitle: "VOTRE APPARTEMENT À FILFILA, SKIKDA",
-    title: "À 700 m de la mer à Filfila",
-    description: "Entre Rusica Park et le Royal Tulip, votre résidence moderne au cœur de Filfila. Appartements climatisés, Wi-Fi fibre 240 Mbps, parking. Réservation directe par WhatsApp : acompte CCP d'une nuit, solde en DA ou € à l'arrivée.",
+    title: "À 700m de la mer",
+    description: "Entre Rusica Park 4★ et Royal Tulip 5★, la moderne Résidence Oasis propose plusieurs appartements disponibles (Studio, F2, F3), située au quartier Jeanne d'Arc à Skikda : secteur résidentiel calme et sécurisé.",
     exploreGallery: "Regarder la Galerie",
     exploreApartments: "Explorer les Appartements",
     scrollDown: "Défiler Vers le Bas",
@@ -110,7 +110,25 @@ export const fr = {
     trustLine: "Réservation rapide · Solde à l'arrivée · Aucune caution",
     welcomeImage1Alt: "Vue sur la mer depuis la résidence",
     welcomeImage2Alt: "Plage Jeanne D'Arc à proximité",
-    welcomeImage3Alt: "Littoral algérien de Skikda"
+    welcomeImage3Alt: "Littoral algérien de Skikda",
+    reviews: {
+      basedOn: "Basé sur {count} avis",
+      viewOnGoogle: "Voir sur Google",
+    },
+    features: {
+      ownerAvailable: "Propriétaire disponible",
+      beachByCar: "Plage à 2 min",
+      wifiFibre: "Wi-Fi fibre optique",
+      airConditioning: "Climatisation",
+      freeParking: "Parking gratuit",
+      whatsappDirect: "WhatsApp",
+      callDirect: "Appeler",
+    },
+    trustItems: {
+      fastBooking: "Réservation rapide",
+      payOnArrival: "Solde à l'arrivée",
+      noDeposit: "Aucune caution",
+    },
   },
   footer: {
     description: "Appartements modernes équipés proches des plages, offrant le parfait mélange de confort et d'élégance pour des vacances de rêve.",

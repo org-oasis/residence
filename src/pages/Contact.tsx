@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MapPin, Phone, Clock, Whatsapp, Telegram, Users } from "@/components/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { contactInfo } from "@/data/appData";
+import { contactInfo, googleMapsUrl } from "@/data/appData";
 import type { MetaFunction } from "react-router";
 import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
 import { buildMeta } from "@/lib/seo";
@@ -107,21 +107,26 @@ export default function Contact() {
         {/* Contact Information & Map */}
         <section className="section py-10">
           <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:items-stretch">
               {/* Contact Information */}
               <div className="animate-fade-in [animation-delay:100ms]">
-                <div className="glass-card p-6 space-y-6 h-[400px] flex flex-col justify-center">
+                <div className="glass-card p-6 space-y-6 h-full flex flex-col justify-center">
                   <div className="flex items-start">
                     <div className="shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.address}</h3>
-                      <p className="text-muted-foreground">
+                      <a
+                        href={googleMapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                      >
                         {contactInfo.address.street}<br />
                         {contactInfo.address.locality}, {contactInfo.address.region} {contactInfo.address.postalCode}<br />
                         {contactInfo.address.country}
-                      </p>
+                      </a>
                     </div>
                   </div>
 
@@ -131,7 +136,46 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{t.contact.phone}</h3>
-                      <p className="text-muted-foreground">{contactInfo.phone.primary}</p>
+                      <a
+                        href={`tel:${contactInfo.phone.primary.replace(/[^+\d]/g, "")}`}
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {contactInfo.phone.primary}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                      <Whatsapp className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">WhatsApp</h3>
+                      <a
+                        href={contactInfo.social.whatsapp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {contactInfo.phone.primary.split("(")[0].trim()}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                      <Telegram className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Telegram</h3>
+                      <a
+                        href={contactInfo.social.telegram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        @residence_oasis
+                      </a>
                     </div>
                   </div>
 
@@ -153,7 +197,7 @@ export default function Contact() {
 
               {/* Map */}
               <div className="animate-fade-in [animation-delay:300ms]">
-                <div className="h-[400px] rounded-xl overflow-hidden">
+                <div className="h-full min-h-[400px] rounded-xl overflow-hidden">
                   <iframe
                     src={contactInfo.map.embedUrl}
                     width="100%"
