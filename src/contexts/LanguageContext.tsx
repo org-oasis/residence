@@ -1,5 +1,5 @@
 import { dictFor, useLang, useSwitchLanguage, type Lang } from "@/lib/i18n";
-import { en } from "@/locales/en";
+import type { en } from "@/locales/en";
 
 type Translations = typeof en;
 

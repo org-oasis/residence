@@ -109,13 +109,12 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
                     type="button"
                     onClick={(e) => e.stopPropagation()}
                     className="inline-flex items-center justify-end gap-1.5 text-white text-sm cursor-help"
-                    aria-label={t.apartments.capacityPolicy.ariaLabel}
                   >
-                    <Users className="h-6 w-6" />
+                    <Users className="h-6 w-6" aria-hidden="true" />
                     <span>
                       {apartment.capacity} {t.apartments.filters.guests}
                     </span>
-                    <Info className="h-3 w-3 opacity-75" />
+                    <Info className="h-3 w-3 opacity-75" aria-hidden="true" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent className="max-w-[240px] text-xs leading-snug">

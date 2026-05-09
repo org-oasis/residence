@@ -64,12 +64,14 @@ export default function HeroSection() {
                   {googleReviews.rating.toFixed(1)}
                 </div>
                 <div
+                  role="img"
                   className="flex justify-center gap-1 mb-2"
                   aria-label={`${googleReviews.rating} / 5`}
                 >
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
+                      aria-hidden="true"
                       className="w-5 h-5"
                       style={{ fill: "#fbbf24", color: "#fbbf24" }}
                     />
@@ -158,7 +160,7 @@ export default function HeroSection() {
                   href={contactInfo.social.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-1.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-full px-3 py-2 text-sm transition-colors"
+                  className="flex items-center justify-center gap-1.5 bg-green-700 hover:bg-green-800 text-white font-medium rounded-full px-3 py-2 text-sm transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   {t.hero.features.whatsappDirect}

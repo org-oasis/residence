@@ -1,0 +1,17 @@
+/* TEAM */
+Owner: Résidence Oasis
+WhatsApp: +213 5 61 47 29 90
+Telegram: https://t.me/residence_oasis
+Facebook: https://www.facebook.com/profile.php?id=61578022628802
+Location: Filfila, Skikda, Algeria
+
+/* SITE */
+Last update: 2026-05-09
+Languages: French (default), English, Arabic
+Standards: HTML5, CSS3, JSON-LD, llms.txt, hreflang, robots.txt
+Components: React 19, React Router 7, Tailwind CSS v4, Radix UI
+Software: Bun, Vite, sharp
+Hosting: GitHub Pages behind Cloudflare
+
+/* THANKS */
+Built with care for guests of the Algerian Mediterranean coast.

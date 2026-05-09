@@ -102,6 +102,10 @@ export default function Index() {
                   <img
                     src={siteConfig.heroImage}
                     alt={t.hero.welcomeImage1Alt}
+                    width={1000}
+                    height={577}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -109,6 +113,10 @@ export default function Index() {
                   <img
                     src={siteConfig.heroImage2}
                     alt={t.hero.welcomeImage2Alt}
+                    width={320}
+                    height={249}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -116,6 +124,10 @@ export default function Index() {
                   <img
                     src={siteConfig.heroImage3}
                     alt={t.hero.welcomeImage3Alt}
+                    width={280}
+                    height={218}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
