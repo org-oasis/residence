@@ -1,0 +1,38 @@
+name: Sync Airbnb calendars
+
+on:
+  schedule:
+    # Every 3 hours; Airbnb bookings then appear on the site without a redeploy
+    # (the calendar reads Supabase live from the browser).
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: airbnb-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Sync Airbnb iCal feeds into Supabase
+        run: bun scripts/sync-airbnb.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          AIRBNB_STUDIO_1_CALENDAR: ${{ secrets.AIRBNB_STUDIO_1_CALENDAR }}
+          AIRBNB_F2_2_CALENDAR: ${{ secrets.AIRBNB_F2_2_CALENDAR }}
+          AIRBNB_F2_3_CALENDAR: ${{ secrets.AIRBNB_F2_3_CALENDAR }}
+          AIRBNB_F2_4_CALENDAR: ${{ secrets.AIRBNB_F2_4_CALENDAR }}
+          AIRBNB_F2_5_CALENDAR: ${{ secrets.AIRBNB_F2_5_CALENDAR }}
+          AIRBNB_F2_6_CALENDAR: ${{ secrets.AIRBNB_F2_6_CALENDAR }}
+          AIRBNB_F3_7_CALENDAR: ${{ secrets.AIRBNB_F3_7_CALENDAR }}

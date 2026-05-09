@@ -18,6 +18,7 @@ import {
 } from "@/components/icons";
 import OverlayFeatures from "./apartment-card/OverlayFeatures";
 import SeasonalPricing from "./apartment-card/SeasonalPricing";
+import { currentSeasonKey, eurFrom, rateDzd, tierForType } from "@/data/pricing";
 import ContactButtons from "./apartment-card/ContactButtons";
 import { ResponsiveImage } from "./ResponsiveImage";
 
@@ -55,6 +56,10 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
       apartment.description as keyof typeof t.apartmentDescriptionsShort
     ] || "";
   const detailHref = loc(`/apartments/${apartment.slug}`);
+  // Nightly rate for the season active today. Prerendered HTML carries the
+  // build-day rate; the weekly scheduled rebuild keeps it aligned with the
+  // season windows, and hydration corrects it client-side on boundary days.
+  const currentRateDz = rateDzd(tierForType(apartment.type), currentSeasonKey());
   const goToDetail = () => navigate(detailHref);
 
   const specificFeatures = apartment.features.filter(
@@ -155,22 +160,25 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
           </p>
         )}
 
-        {/* Price — DA first, € + per-person secondary */}
+        {/* Price — current-season rate in DA, € + per-person secondary */}
         <div className="flex flex-col items-center pt-2">
           <div className="flex items-baseline gap-1">
             <span className="text-2xl font-bold">
-              {apartment.pricedz.toLocaleString("fr-DZ")} DA
+              {currentRateDz.toLocaleString("fr-DZ")} DA
             </span>
             <span className="text-muted-foreground text-sm">/ {t.booking.summary.night}</span>
           </div>
           <div className="text-sm text-muted-foreground mt-1">
-            ≈ €{apartment.priceeur} · ~
-            {Math.round(apartment.pricedz / apartment.capacity).toLocaleString("fr-DZ")} DA /{" "}
+            ≈ €{eurFrom(currentRateDz)} · ~
+            {Math.round(currentRateDz / apartment.capacity).toLocaleString("fr-DZ")} DA /{" "}
             {t.apartments.perPerson}
+          </div>
+          <div className="mt-1.5 inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-800">
+            {t.apartments.weeklyDiscount}
           </div>
         </div>
 
-        <SeasonalPricing type={apartment.type} basePriceDz={apartment.pricedz} />
+        <SeasonalPricing type={apartment.type} />
 
         <hr className="my-4" />
 

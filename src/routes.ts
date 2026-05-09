@@ -14,6 +14,7 @@ export default [
       { path: "reglement", file: "pages/Reglement.tsx" },
       { path: "blog", file: "routes/blog-index.tsx" },
       { path: "blog/:slug", file: "routes/blog-article.tsx" },
+      { path: "legal/:slug", file: "pages/Legal.tsx" },
       { path: "*", file: "pages/NotFound.tsx", id: "lang-not-found" },
     ],
   },

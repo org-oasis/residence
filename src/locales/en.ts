@@ -31,7 +31,21 @@ export const en = {
       description: "Practical advice for planning your stay in Skikda: where to stay, what to do, beaches, transport, food and beachfront tips."
     },
     apartmentDetailSuffix: "| Oasis Residence Skikda",
-    blogArticleSuffix: "| Oasis Residence Blog"
+    blogArticleSuffix: "| Oasis Residence Blog",
+    legal: {
+      mentionsLegales: {
+        title: "Legal Notice | Oasis Residence Skikda",
+        description: "Legal notice for Oasis Residence: site publisher, hosting, intellectual property and contact details."
+      },
+      confidentialite: {
+        title: "Privacy Policy | Oasis Residence Skikda",
+        description: "How Oasis Residence collects, uses and protects your personal data when you book via WhatsApp or Telegram."
+      },
+      conditions: {
+        title: "Terms and Conditions | Oasis Residence Skikda",
+        description: "Booking terms, CCP deposit, cancellation, check-in/check-out and stay rules at Oasis Residence in Filfila, Skikda."
+      }
+    }
   },
   nav: {
     home: "Home",
@@ -211,13 +225,17 @@ export const en = {
     pricing: "Pricing",
     pricingPerNight: "Rate per night",
     seasonalPricing: "Seasonal Pricing",
-    september1to15: "September 1st to 15th",
-    september15toEnd: "September 15th to 30th",
-    fromOctober: "From October onwards",
-    discount: "Discounted",
-    reduced: "Reduced",
-    veryReduced: "Very Reduced",
-    extremelyReduced: "Extremely Reduced",
+    priceFrom: "From",
+    currentPeriod: "Now",
+    weeklyDiscount: "−10% from 7 nights",
+    seasons: {
+      base: "Rest of the year",
+      juneEarly: "June 1 – 15",
+      juneLate: "June 15 – 30",
+      summer: "July – August",
+      septEarly: "September 1 – 15",
+      septLate: "September 15 – 30",
+    },
     featuresAndAmenities: "Features & Amenities",
     filters: {
       guests: "Guests",
@@ -449,6 +467,95 @@ export const en = {
     "Sauna": "Sauna",
     "Electric Shutters": "Electric shutters",
     "Private Balcony": "Private balcony"
+  },
+  legal: {
+    label: "Legal information",
+    lastUpdated: "Last updated",
+    mentionsLegales: {
+      title: "Legal Notice",
+      subtitle: "Information about the site's publisher and host.",
+      lastUpdated: "May 10, 2026",
+      sections: [
+        {
+          heading: "Publisher",
+          body: "Oasis Residence — short-term rental property.\nAddress: Villa No. 17, Route Bouzaaroura, Filfila, Skikda 21000, Algeria.\nContact: WhatsApp +213 5 61 47 29 90 — Telegram @residence_oasis.\nPublication director: owner of Oasis Residence."
+        },
+        {
+          heading: "Hosting",
+          body: "The residence-oasis.com site is hosted by GitHub Pages (GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA), with CDN proxy provided by Cloudflare, Inc. (101 Townsend St, San Francisco, CA 94107, USA)."
+        },
+        {
+          heading: "Intellectual Property",
+          body: "All site content (text, photos, logos, design) is the exclusive property of Oasis Residence or its partners. Reproduction, representation or distribution without prior written authorization is prohibited. Third-party brands cited (Rusica Park, Royal Tulip, Airbnb, WhatsApp, Telegram) remain the property of their respective owners."
+        },
+        {
+          heading: "Liability",
+          body: "Oasis Residence strives to ensure the accuracy of information published (rates, amenities, availability). However, this information may change; only confirmation via WhatsApp or Telegram is binding for a booking. The residence cannot be held responsible for temporary site unavailability or improper use by a third party."
+        },
+        {
+          heading: "Contact",
+          body: "For any inquiries about this legal notice, contact us via WhatsApp +213 5 61 47 29 90."
+        }
+      ]
+    },
+    confidentialite: {
+      title: "Privacy Policy",
+      subtitle: "Data collected, purposes, retention and your rights.",
+      lastUpdated: "May 10, 2026",
+      sections: [
+        {
+          heading: "Data Collected",
+          body: "The residence-oasis.com site has no online booking form and no analytics cookies. The only personal data processed are those you voluntarily share via WhatsApp, Telegram or phone: name, phone number, dates and number of guests."
+        },
+        {
+          heading: "Purpose",
+          body: "Your data is used solely to confirm your booking, organize your arrival, and send you a CCP deposit receipt. No data is used for marketing or sold to third parties."
+        },
+        {
+          heading: "Cookies and Trackers",
+          body: "The site uses no third-party cookies (no Google Analytics, Meta Pixel or tracking tools). The only local storage is the language preference (French/English/Arabic), kept in browser localStorage."
+        },
+        {
+          heading: "Retention Period",
+          body: "WhatsApp/Telegram exchanges related to a booking are kept for the legal accounting period (10 years for CCP payment receipts), then deleted."
+        },
+        {
+          heading: "Your Rights",
+          body: "Under Algerian law 18-07 and the EU GDPR, you have the right to access, rectify and delete your data. To exercise this right, contact us via WhatsApp +213 5 61 47 29 90."
+        }
+      ]
+    },
+    conditions: {
+      title: "Terms and Conditions",
+      subtitle: "Booking, payment, cancellation and stay rules.",
+      lastUpdated: "May 10, 2026",
+      sections: [
+        {
+          heading: "Booking",
+          body: "Bookings are made via WhatsApp (+213 5 61 47 29 90), Telegram (@residence_oasis) or phone. Availability is confirmed within 24 hours. No booking is firm until the deposit has been received."
+        },
+        {
+          heading: "Deposit and Payment",
+          body: "A deposit equivalent to one night is required by CCP transfer within 24 hours to confirm the booking. The balance is paid on arrival, in Algerian dinars (DZD) or euros (EUR). No security deposit, no hidden fees."
+        },
+        {
+          heading: "Cancellation",
+          body: "Free cancellation up to 7 days before arrival: deposit fully refunded. Between 7 and 48 hours before arrival: deposit retained. Less than 48 hours or no-show: first night charged."
+        },
+        {
+          heading: "Check-in and Check-out",
+          body: "Arrival from 2:00 PM. Departure by 12:00 PM (noon). Early arrival or late departure may be arranged subject to availability. A valid ID is required for each adult."
+        },
+        {
+          heading: "Capacity and Extra Guests",
+          body: "The displayed capacity is the recommended capacity. You may add up to 2 extra people per apartment for 1,000 DZD or 5 EUR per person per night, to be confirmed at booking."
+        },
+        {
+          heading: "Stay Rules",
+          body: "The residence enforces internal rules detailed on the Rules page (hours, smoking, pets, quiet hours, events). Violations may lead to termination of the stay without refund."
+        }
+      ]
+    }
   },
   floors: {
     "1": "Floor 1",

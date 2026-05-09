@@ -1,4 +1,5 @@
 import { Link, Navigate, useParams } from "react-router";
+import { currentSeasonKey, rateDzd, tierForType } from "@/data/pricing";
 import {
   Users,
   Expand,
@@ -153,7 +154,10 @@ export default function ApartmentDetail() {
                 <InfoTile
                   icon={<Price className="h-6 w-6 text-primary" />}
                   label={t.apartments.pricingPerNight}
-                  value={`€${apartment.priceeur} · ${apartment.pricedz} DZD`}
+                  value={`${rateDzd(
+                    tierForType(apartment.type),
+                    currentSeasonKey(),
+                  ).toLocaleString("fr-DZ")} DA`}
                 />
               </div>
             </div>

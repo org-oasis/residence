@@ -2,34 +2,29 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "@/components/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-type ApartmentType = "Studio" | "F2" | "F2-jacuzzi" | "F3";
-
-/** Seasonal nightly rate (DZD) per apartment tier and pricing tier. */
-const SEASONAL_PRICES: Record<ApartmentType, { sept1to15: string; sept15plus: string; october: string }> = {
-  Studio: { sept1to15: "7000 DA", sept15plus: "5500 DA", october: "4500 DA" },
-  F2: { sept1to15: "8000 DA", sept15plus: "6000 DA", october: "5000 DA" },
-  "F2-jacuzzi": { sept1to15: "13000 DA", sept15plus: "12000 DA", october: "10000 DA" },
-  F3: { sept1to15: "20000 DA", sept15plus: "17000 DA", october: "13000 DA" },
-};
+import {
+  SEASON_DISPLAY_ORDER,
+  currentSeasonKey,
+  rateDzd,
+  tierForType,
+} from "@/data/pricing";
 
 interface Props {
+  /** Apartment type as stored in appData (e.g. "Studio", "F2-jacuzzi"). */
   type: string;
-  basePriceDz: number;
 }
 
-function priceFor(type: string): { sept1to15: string; sept15plus: string; october: string } {
-  return (SEASONAL_PRICES[type as ApartmentType] ?? {
-    sept1to15: "N/A",
-    sept15plus: "N/A",
-    october: "N/A",
-  });
-}
-
-export default function SeasonalPricing({ type, basePriceDz }: Props) {
+/**
+ * Collapsible seasonal rate grid for one apartment tier, driven entirely by
+ * SEASON_RATES_DZD in src/data/pricing.ts. The row matching today's season is
+ * highlighted; this is safe for prerendering because the panel only renders
+ * after a client-side click (open starts false).
+ */
+export default function SeasonalPricing({ type }: Props) {
   const { t } = useLanguage();
   const [open, setOpen] = useState(false);
-  const prices = priceFor(type);
+  const tier = tierForType(type);
+  const activeSeason = currentSeasonKey();
   const night = `/ ${t.booking.summary.night}`;
 
   return (
@@ -45,55 +40,37 @@ export default function SeasonalPricing({ type, basePriceDz }: Props) {
 
       {open && (
         <div className="mt-2 p-4 bg-linear-to-r from-blue-50 to-teal-50 rounded-lg border border-blue-100 animate-fade-in">
-          <PricingRow
-            date={t.apartments.september1to15}
-            badge={t.apartments.reduced}
-            oldPrice={`${basePriceDz} DA`}
-            newPrice={`${prices.sept1to15} ${night}`}
-          />
-          <PricingRow
-            date={t.apartments.september15toEnd}
-            badge={t.apartments.veryReduced}
-            oldPrice={prices.sept1to15}
-            newPrice={`${prices.sept15plus} ${night}`}
-          />
-          <div className="mt-3 pt-3 border-t border-blue-200">
-            <PricingRow
-              date={t.apartments.fromOctober}
-              badge={t.apartments.extremelyReduced}
-              newPrice={`${prices.october} ${night}`}
-            />
+          <ul className="space-y-1">
+            {SEASON_DISPLAY_ORDER.map((season) => {
+              const isActive = season === activeSeason;
+              return (
+                <li
+                  key={season}
+                  className={`flex items-center justify-between gap-2 rounded-md px-2 py-1.5 ${
+                    isActive ? "bg-white/80 ring-1 ring-emerald-300" : ""
+                  }`}
+                >
+                  <span className="seasonal-pricing-date flex items-center gap-2">
+                    {t.apartments.seasons[season]}
+                    {isActive && (
+                      <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full font-medium">
+                        {t.apartments.currentPeriod}
+                      </span>
+                    )}
+                  </span>
+                  <span className="seasonal-pricing-price whitespace-nowrap">
+                    {rateDzd(tier, season).toLocaleString("fr-DZ")} DA{" "}
+                    <span className="text-gray-500 text-xs">{night}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          <div className="mt-3 pt-3 border-t border-blue-200 text-center text-sm font-medium text-emerald-700">
+            {t.apartments.weeklyDiscount}
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-interface RowProps {
-  date: string;
-  badge: string;
-  oldPrice?: string;
-  newPrice: string;
-}
-
-function PricingRow({ date, badge, oldPrice, newPrice }: RowProps) {
-  return (
-    <div className="mb-3">
-      <div className="flex items-center justify-between mb-2">
-        <div className="seasonal-pricing-date">{date}</div>
-        <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
-          {badge}
-        </div>
-      </div>
-      <div className="text-center">
-        <div className="flex items-center justify-center gap-2">
-          {oldPrice && (
-            <span className="seasonal-pricing-price line-through text-gray-500">{oldPrice}</span>
-          )}
-          <span className="seasonal-pricing-price">{newPrice}</span>
-        </div>
-      </div>
     </div>
   );
 }

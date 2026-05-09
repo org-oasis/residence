@@ -343,7 +343,7 @@ export const PRICE_DZD_MIN = Math.min(...allApartments.map((a) => a.pricedz));
 export const PRICE_DZD_MAX = Math.max(...allApartments.map((a) => a.pricedz));
 
 // Google Maps / GBP listing — single source of truth for the location URL
-export const googleMapsUrl = "https://maps.app.goo.gl/26tnqdXGKP9ADwt4A";
+export const googleMapsUrl = "https://maps.app.goo.gl/yzCbNecz2QeQAXCC6";
 
 // Google Reviews — fictional but realistic data, links to the same GBP listing
 export const googleReviews = {
