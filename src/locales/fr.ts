@@ -31,7 +31,21 @@ export const fr = {
       description: "Conseils pratiques pour préparer votre séjour à Skikda : où loger, que faire, plages, transports, gastronomie et bons plans en bord de mer."
     },
     apartmentDetailSuffix: "| Résidence Oasis Skikda",
-    blogArticleSuffix: "| Blog Résidence Oasis"
+    blogArticleSuffix: "| Blog Résidence Oasis",
+    legal: {
+      mentionsLegales: {
+        title: "Mentions légales | Résidence Oasis Skikda",
+        description: "Mentions légales de la Résidence Oasis : éditeur du site, hébergement, propriété intellectuelle et coordonnées de contact."
+      },
+      confidentialite: {
+        title: "Politique de confidentialité | Résidence Oasis Skikda",
+        description: "Comment la Résidence Oasis collecte, utilise et protège vos données personnelles lors de votre réservation par WhatsApp ou Telegram."
+      },
+      conditions: {
+        title: "Conditions générales de vente | Résidence Oasis Skikda",
+        description: "Conditions de réservation, acompte CCP, annulation, check-in/check-out et règles de séjour à la Résidence Oasis à Filfila, Skikda."
+      }
+    }
   },
   nav: {
     home: "Accueil",
@@ -449,6 +463,95 @@ export const fr = {
     "Dishwasher": "Lave-vaisselle",
     "Electric Shutters": "Volets électriques",
     "Private Balcony": "Balcon privé"
+  },
+  legal: {
+    label: "Informations légales",
+    lastUpdated: "Dernière mise à jour",
+    mentionsLegales: {
+      title: "Mentions légales",
+      subtitle: "Informations relatives à l'éditeur et à l'hébergeur du site.",
+      lastUpdated: "10 mai 2026",
+      sections: [
+        {
+          heading: "Éditeur du site",
+          body: "Résidence Oasis — résidence professionnelle de location courte durée.\nAdresse : Villa N°17, Route Bouzaaroura, Filfila, Skikda 21000, Algérie.\nContact : WhatsApp +213 5 61 47 29 90 — Telegram @residence_oasis.\nDirecteur de la publication : propriétaire de la Résidence Oasis."
+        },
+        {
+          heading: "Hébergement",
+          body: "Le site residence-oasis.com est hébergé par GitHub Pages (GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA), avec proxy CDN assuré par Cloudflare, Inc. (101 Townsend St, San Francisco, CA 94107, USA)."
+        },
+        {
+          heading: "Propriété intellectuelle",
+          body: "L'ensemble des contenus du site (textes, photographies, logos, design) est la propriété exclusive de la Résidence Oasis ou de ses partenaires. Toute reproduction, représentation ou diffusion sans autorisation écrite préalable est interdite. Les marques tierces citées (Rusica Park, Royal Tulip, Airbnb, WhatsApp, Telegram) restent la propriété de leurs détenteurs respectifs."
+        },
+        {
+          heading: "Limitation de responsabilité",
+          body: "La Résidence Oasis s'efforce d'assurer l'exactitude des informations diffusées (tarifs, équipements, disponibilités). Néanmoins, ces informations peuvent évoluer ; seule la confirmation par WhatsApp ou Telegram fait foi pour une réservation. La résidence ne peut être tenue responsable d'une indisponibilité temporaire du site ou d'un usage non conforme par un tiers."
+        },
+        {
+          heading: "Contact",
+          body: "Pour toute demande relative aux mentions légales, contactez-nous via WhatsApp +213 5 61 47 29 90."
+        }
+      ]
+    },
+    confidentialite: {
+      title: "Politique de confidentialité",
+      subtitle: "Données collectées, finalités, conservation et droits.",
+      lastUpdated: "10 mai 2026",
+      sections: [
+        {
+          heading: "Données collectées",
+          body: "Le site residence-oasis.com ne dispose pas de formulaire de réservation en ligne ni de cookies analytiques. Les seules données personnelles traitées sont celles que vous nous transmettez volontairement par WhatsApp, Telegram ou téléphone : nom, numéro de téléphone, dates et nombre de personnes pour le séjour."
+        },
+        {
+          heading: "Finalité du traitement",
+          body: "Vos données servent uniquement à confirmer votre réservation, organiser votre arrivée, et vous adresser un reçu d'acompte CCP. Aucune donnée n'est utilisée à des fins marketing ni revendue."
+        },
+        {
+          heading: "Cookies et traceurs",
+          body: "Le site n'utilise aucun cookie tiers (pas de Google Analytics, Meta Pixel, ou outil de tracking). Le seul stockage local est la préférence de langue (français/anglais/arabe), conservée dans le localStorage du navigateur."
+        },
+        {
+          heading: "Durée de conservation",
+          body: "Les échanges WhatsApp/Telegram liés à une réservation sont conservés pendant la durée légale comptable (10 ans pour les justificatifs de paiement CCP), puis supprimés."
+        },
+        {
+          heading: "Vos droits",
+          body: "Conformément à la loi algérienne 18-07 et au RGPD européen, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez-nous par WhatsApp +213 5 61 47 29 90."
+        }
+      ]
+    },
+    conditions: {
+      title: "Conditions générales de vente",
+      subtitle: "Réservation, paiement, annulation et règles de séjour.",
+      lastUpdated: "10 mai 2026",
+      sections: [
+        {
+          heading: "Réservation",
+          body: "La réservation s'effectue par WhatsApp (+213 5 61 47 29 90), Telegram (@residence_oasis) ou téléphone. Les disponibilités sont confirmées sous 24 h. Aucune réservation n'est ferme tant que l'acompte n'a pas été reçu."
+        },
+        {
+          heading: "Acompte et paiement",
+          body: "Un acompte équivalent à une nuit est demandé par virement CCP dans les 24 h pour valider la réservation. Le solde se règle à l'arrivée, en dinars algériens (DA) ou en euros (€). Aucune caution, aucun frais caché."
+        },
+        {
+          heading: "Annulation",
+          body: "Annulation gratuite jusqu'à 7 jours avant l'arrivée : l'acompte est remboursé intégralement. Entre 7 et 48 h avant l'arrivée : l'acompte est conservé. Moins de 48 h ou no-show : la première nuit est due."
+        },
+        {
+          heading: "Check-in et check-out",
+          body: "Arrivée à partir de 14h00. Départ jusqu'à 12h00. Une arrivée anticipée ou un départ tardif peuvent être organisés selon la disponibilité. Une pièce d'identité valide est demandée pour chaque adulte."
+        },
+        {
+          heading: "Capacité et personnes supplémentaires",
+          body: "La capacité affichée est la capacité recommandée. Vous pouvez ajouter jusqu'à 2 personnes par appartement moyennant 1 000 DA ou 5 € par personne et par nuit, à confirmer à la réservation."
+        },
+        {
+          heading: "Règles de séjour",
+          body: "La résidence applique un règlement intérieur consultable sur la page Règlement (horaires, tabac, animaux, calme nocturne, événements). Le non-respect du règlement peut entraîner la résiliation du séjour sans remboursement."
+        }
+      ]
+    }
   },
   floors: {
     "1": "Étage 1",

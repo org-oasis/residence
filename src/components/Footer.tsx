@@ -115,7 +115,38 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 mt-8 text-center text-muted-foreground">
+        <div className="border-t border-border pt-8 mt-8 text-center text-muted-foreground space-y-3">
+          <nav aria-label={t.legal.label}>
+            <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
+              <li>
+                <Link
+                  viewTransition
+                  to={loc("/legal/mentions-legales")}
+                  className="hover:text-primary transition-colors"
+                >
+                  {t.legal.mentionsLegales.title}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  viewTransition
+                  to={loc("/legal/confidentialite")}
+                  className="hover:text-primary transition-colors"
+                >
+                  {t.legal.confidentialite.title}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  viewTransition
+                  to={loc("/legal/conditions")}
+                  className="hover:text-primary transition-colors"
+                >
+                  {t.legal.conditions.title}
+                </Link>
+              </li>
+            </ul>
+          </nav>
           <p>&copy; {currentYear} {siteConfig.name}. {t.footer.allRights}</p>
         </div>
       </div>

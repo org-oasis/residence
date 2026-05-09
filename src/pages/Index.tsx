@@ -12,7 +12,21 @@ import { featuredApartments, siteConfig } from "@/data/appData";
 import type { MetaFunction } from "react-router";
 import { dictFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
 import { buildMeta } from "@/lib/seo";
-import { buildLodgingBusiness, buildWebSite } from "@/lib/jsonld";
+import {
+  buildFaqPage,
+  buildLodgingBusiness,
+  buildOrganization,
+  buildWebSite,
+} from "@/lib/jsonld";
+
+const HOME_FAQ_KEYS = [
+  "checkInOut",
+  "parking",
+  "pets",
+  "restaurant",
+  "capacity",
+  "amenities",
+] as const;
 
 export const meta: MetaFunction = ({ params }) => {
   const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
@@ -23,7 +37,17 @@ export const meta: MetaFunction = ({ params }) => {
     title: t.seo.home.title,
     description: t.seo.home.description,
     image: "/og/og-home.png",
-    jsonLd: [buildWebSite(), buildLodgingBusiness()],
+    jsonLd: [
+      buildWebSite(),
+      buildOrganization(),
+      buildLodgingBusiness(),
+      buildFaqPage(
+        HOME_FAQ_KEYS.map((key) => ({
+          question: t.contact.questions[key].question,
+          answer: t.contact.questions[key].answer,
+        })),
+      ),
+    ],
   });
 };
 

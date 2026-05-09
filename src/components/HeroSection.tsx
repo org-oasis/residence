@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import {
   Car,
   ChevronDown,
-  MessageCircle,
+  Whatsapp,
   Parking,
   Phone,
   Snowflake,
@@ -55,7 +55,7 @@ export default function HeroSection() {
 
       <div className="relative min-h-screen flex items-center justify-center py-24 lg:py-12 animate-fade-in">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr_260px] gap-6 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr_300px] gap-6 lg:gap-8 items-center">
           {/* LEFT — Google Reviews */}
           <aside className="order-2 lg:order-1 mx-auto lg:mx-0 w-full max-w-xs lg:max-w-none">
             <div className="bg-black/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 text-white shadow-lg">
@@ -162,7 +162,7 @@ export default function HeroSection() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-1.5 bg-green-700 hover:bg-green-800 text-white font-medium rounded-full px-3 py-2 text-sm transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <Whatsapp className="w-4 h-4" />
                   {t.hero.features.whatsappDirect}
                 </a>
                 <a

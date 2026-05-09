@@ -8,10 +8,12 @@ const ROOT = resolve(import.meta.dirname, "..");
 const HOSTNAME = "https://residence-oasis.com";
 const LOCALES = ["fr", "en", "ar"];
 const STATIC_PATHS = ["", "/apartments", "/gallery", "/contact", "/reglement", "/blog"];
+const LEGAL_SLUGS = ["mentions-legales", "confidentialite", "conditions"];
+const LEGAL_PATHS = LEGAL_SLUGS.map((s) => `/legal/${s}`);
 const APT_PATHS = allApartments.map((a) => `/apartments/${a.slug}`);
 
 const baseLocalized = LOCALES.flatMap((lang) =>
-  [...STATIC_PATHS, ...APT_PATHS].map((p) => `/${lang}${p}`),
+  [...STATIC_PATHS, ...APT_PATHS, ...LEGAL_PATHS].map((p) => `/${lang}${p}`),
 );
 const blogPaths = BLOG_ARTICLES.map((a) => `/${a.lang}/blog/${a.slug}`);
 const routes = [...baseLocalized, ...blogPaths];
@@ -40,9 +42,37 @@ ${urlset}
 </urlset>
 `;
 
+// Explicit allowlist for AI / LLM crawlers — required signal for AI-visibility
+// audits (RoastMyUrl, AI Overview readiness). Implicit `User-agent: * Allow: /`
+// is not enough: auditors look for per-agent entries.
+const AI_BOTS = [
+  "GPTBot",
+  "ChatGPT-User",
+  "OAI-SearchBot",
+  "ClaudeBot",
+  "Claude-Web",
+  "anthropic-ai",
+  "Google-Extended",
+  "PerplexityBot",
+  "Perplexity-User",
+  "CCBot",
+  "cohere-ai",
+  "Applebot",
+  "Applebot-Extended",
+  "meta-externalagent",
+  "Bytespider",
+  "DuckAssistBot",
+  "YouBot",
+  "Diffbot",
+  "Amazonbot",
+];
+
+const aiBotBlock = AI_BOTS.map((ua) => `User-agent: ${ua}\nAllow: /\n`).join("\n");
+
 const robots = `User-agent: *
 Allow: /
 
+${aiBotBlock}
 Sitemap: ${HOSTNAME}/sitemap.xml
 `;
 

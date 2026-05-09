@@ -2,8 +2,46 @@ import { useEffect } from "react";
 import type { MetaFunction } from "react-router";
 import { SITE_URL } from "@/lib/seo";
 import { LOCALES, DEFAULT_LANG, isLang } from "@/lib/i18n";
-import { buildLodgingBusiness, buildWebSite } from "@/lib/jsonld";
-import { contactInfo } from "@/data/appData";
+import {
+  buildFaqPage,
+  buildLodgingBusiness,
+  buildOrganization,
+  buildWebSite,
+} from "@/lib/jsonld";
+import { contactInfo, googleMapsUrl, googleReviews } from "@/data/appData";
+
+const HOME_FAQ = [
+  {
+    question: "Où se trouve la Résidence Oasis exactement ?",
+    answer:
+      "La résidence est située à Filfila, à 20 km à l'est de Skikda et à 100 km de Constantine. Plage Jeanne d'Arc à 700 m, complexes touristiques Rusica Park et Royal Tulip à proximité immédiate.",
+  },
+  {
+    question: "Quels types d'appartements proposez-vous à Filfila ?",
+    answer:
+      "Sept appartements meublés : un studio (3 pers.), quatre F2 modernes (4 pers.), un F2 avec jacuzzi privatif et sauna (4 pers.), et un F3 de 132 m² avec terrasse privée (6 pers.). Tous équipés cuisine, climatisation neuve, Wi-Fi fibre 240 Mbps.",
+  },
+  {
+    question: "Comment réserver depuis l'étranger ?",
+    answer:
+      "Réservation directe par WhatsApp (+213 5 61 47 29 90) ou Telegram (@residence_oasis). Acompte d'une nuit par virement CCP dans les 24 h, solde à l'arrivée en dinars algériens (DA) ou en euros (€). Aucune caution, aucun frais caché.",
+  },
+  {
+    question: "Quels sont les tarifs ?",
+    answer:
+      "Les tarifs vont de 40 €/nuit (10 000 DA) pour le studio à 110 €/nuit (30 000 DA) pour le F3 avec terrasse privée. F2 standard à partir de 45 €/nuit, F2 avec jacuzzi à 70 €/nuit.",
+  },
+  {
+    question: "Y a-t-il un appartement avec jacuzzi à Skikda ?",
+    answer:
+      "Oui, l'appartement F2 Jacuzzi & Sauna (44 m², 4 personnes) propose un jacuzzi privatif et un sauna intégrés à l'appartement. Disponible à Filfila à 700 m de la plage Jeanne d'Arc.",
+  },
+  {
+    question: "Le Wi-Fi est-il rapide pour le télétravail ?",
+    answer:
+      "Oui, fibre optique 240 Mbps avec un modem dédié par étage pour répartir la charge. Adapté à Zoom, Google Meet, streaming 4K et appels vidéo simultanés.",
+  },
+];
 
 /**
  * Root URL handler at "/".
@@ -62,7 +100,9 @@ export const meta: MetaFunction = () => {
     { name: "twitter:description", content: DESCRIPTION },
     { name: "twitter:image", content: ogImage },
     { "script:ld+json": buildWebSite() } as never,
+    { "script:ld+json": buildOrganization() } as never,
     { "script:ld+json": buildLodgingBusiness() } as never,
+    { "script:ld+json": buildFaqPage(HOME_FAQ) } as never,
   ];
 };
 
@@ -119,6 +159,55 @@ export default function RootRedirect() {
           Furnished beachfront apartments. شقق مفروشة على البحر.
         </p>
       </header>
+
+      <aside
+        className="mb-10 flex flex-wrap items-center justify-center gap-3 text-sm"
+        aria-label="Avis et présence en ligne"
+      >
+        <a
+          href={googleReviews.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-400/40 bg-amber-50 text-amber-900 hover:bg-amber-100"
+          aria-label={`Note Google ${googleReviews.rating} sur 5, basée sur ${googleReviews.count} avis`}
+        >
+          <span aria-hidden="true">★</span>
+          <span className="font-semibold">{googleReviews.rating} / 5</span>
+          <span className="text-xs">Google · {googleReviews.count} avis</span>
+        </a>
+        <a
+          href={googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/5"
+        >
+          📍 <span>Google Maps</span>
+        </a>
+        <a
+          href={contactInfo.social.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/5"
+        >
+          f <span>Facebook</span>
+        </a>
+        <a
+          href={contactInfo.social.telegram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/5"
+        >
+          ✈ <span>Telegram</span>
+        </a>
+        <a
+          href="https://www.airbnb.fr/rooms/1210309363040804447"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/5"
+        >
+          🏠 <span>Airbnb</span>
+        </a>
+      </aside>
 
       <nav
         aria-label="Choisir la langue / Choose language / اختر اللغة"
@@ -180,7 +269,96 @@ export default function RootRedirect() {
         </article>
       </section>
 
-      <footer className="mt-12 text-xs text-muted-foreground">
+      <section
+        className="mt-12 max-w-3xl mx-auto text-left"
+        aria-label="Pourquoi choisir la Résidence Oasis"
+      >
+        <h2 className="text-xl font-semibold mb-4 text-center">
+          Pourquoi la Résidence Oasis à Filfila
+        </h2>
+        <ul className="grid gap-3 sm:grid-cols-2 text-sm">
+          <li className="border-l-2 border-primary/30 pl-3">
+            <strong>Aucune caution.</strong> Pas de blocage de carte, pas de
+            frais cachés.
+          </li>
+          <li className="border-l-2 border-primary/30 pl-3">
+            <strong>Acompte CCP d'une nuit.</strong> Solde réglé à l'arrivée en
+            DA ou en €.
+          </li>
+          <li className="border-l-2 border-primary/30 pl-3">
+            <strong>Propriétaire disponible.</strong> Réponse WhatsApp en moins
+            d'une heure en haute saison.
+          </li>
+          <li className="border-l-2 border-primary/30 pl-3">
+            <strong>Wi-Fi fibre 240 Mbps.</strong> Modem dédié par étage —
+            adapté Zoom, Meet, streaming 4K.
+          </li>
+          <li className="border-l-2 border-primary/30 pl-3">
+            <strong>F2 jacuzzi privatif &amp; sauna.</strong> Offre rare à
+            Skikda, idéale couples ou cure thermale.
+          </li>
+          <li className="border-l-2 border-primary/30 pl-3">
+            <strong>F3 132 m² avec terrasse privée.</strong> Jusqu'à 6
+            personnes, parfait pour les familles élargies.
+          </li>
+        </ul>
+      </section>
+
+      <section
+        className="mt-12 text-left max-w-3xl mx-auto"
+        aria-label="Questions fréquentes"
+      >
+        <h2 className="text-xl font-semibold mb-4 text-center">
+          Questions fréquentes sur Filfila et Skikda
+        </h2>
+        <dl className="space-y-4">
+          {HOME_FAQ.map((qa) => (
+            <div
+              key={qa.question}
+              className="border-l-2 border-primary/30 pl-4"
+            >
+              <dt className="font-medium text-sm">{qa.question}</dt>
+              <dd className="text-sm text-muted-foreground mt-1">
+                {qa.answer}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <nav
+        aria-label="Informations légales"
+        className="mt-10 text-xs text-muted-foreground"
+      >
+        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+          <li>
+            <a
+              href={`/${DEFAULT_LANG}/legal/mentions-legales/`}
+              className="hover:text-primary"
+            >
+              Mentions légales
+            </a>
+          </li>
+          <li>
+            <a
+              href={`/${DEFAULT_LANG}/legal/confidentialite/`}
+              className="hover:text-primary"
+            >
+              Confidentialité
+            </a>
+          </li>
+          <li>
+            <a
+              href={`/${DEFAULT_LANG}/legal/conditions/`}
+              className="hover:text-primary"
+            >
+              Conditions
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <footer className="mt-8 text-xs text-muted-foreground">
         <p>
           {addressLine} · WhatsApp{" "}
           <a href={`https://wa.me/${phoneDigits.replace("+", "")}`}>
