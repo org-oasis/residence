@@ -173,7 +173,7 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
             {Math.round(currentRateDz / apartment.capacity).toLocaleString("fr-DZ")} DA /{" "}
             {t.apartments.perPerson}
           </div>
-          <div className="mt-1.5 inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-800">
+          <div className="mt-1.5 inline-flex items-center rounded-full bg-secondary/60 px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">
             {t.apartments.weeklyDiscount}
           </div>
         </div>
