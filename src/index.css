@@ -502,6 +502,22 @@
   font-weight: 500;
 }
 
+/* Check-in / check-out shape — a booked range reads as a single pill:
+   fully rounded on the arrival day, fully rounded on the departure day,
+   continuous in between. Logical properties (start/end) keep the rounding
+   on the correct side when the calendar renders RTL (Arabic). */
+.rdp-shell .rdp-booking-start {
+  border-start-start-radius: 9999px;
+  border-end-start-radius: 9999px;
+}
+.rdp-shell .rdp-booking-end {
+  border-start-end-radius: 9999px;
+  border-end-end-radius: 9999px;
+}
+.rdp-shell .rdp-booking-standalone {
+  border-radius: 9999px;
+}
+
 /* Day button must anchor the absolutely-positioned note label */
 .rdp-shell .rdp-day_button {
   position: relative;
