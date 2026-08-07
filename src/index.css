@@ -529,7 +529,9 @@
 .rdp-shell .rdp-note-label {
   position: absolute;
   bottom: -1px;
-  left: 0;
+  /* Logical, not `left`: in Arabic the grid is RTL and a physical offset would
+     spread the label over the preceding days instead of the booking's own. */
+  inset-inline-start: 0;
   width: calc(var(--note-span, 1) * 100%);
   display: flex;
   align-items: center;
