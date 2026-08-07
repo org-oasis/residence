@@ -96,3 +96,4 @@ test-results/
 *.local
 *.bak
 *.tmp
+supabase/

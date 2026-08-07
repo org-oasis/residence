@@ -45,7 +45,7 @@ export const TIER_CAPACITY: Record<TierKey, number> = {
   studio: 3,
   f2: 4,
   f2jacuzzi: 4,
-  f3: 6,
+  f3: 8,
 };
 
 /** Season windows as MM-DD, start inclusive / end exclusive; anything else is "base". */

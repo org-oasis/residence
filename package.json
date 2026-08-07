@@ -12,6 +12,7 @@
     "blog:gen": "bun scripts/generate-blog-data.mjs",
     "images:gen": "bun scripts/generate-image-variants.mjs",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "test": "bun test",
     "preview": "react-router serve ./build/client"
   },
   "dependencies": {

@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DayPicker, type DayButtonProps } from "react-day-picker";
 import "react-day-picker/style.css";
 import { ar, enUS, fr } from "date-fns/locale";
-import { format, isSameDay, startOfDay } from "date-fns";
+import { isSameDay, startOfDay } from "date-fns";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { Lang } from "@/lib/i18n";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -11,7 +11,8 @@ import { useAdminGate } from "./calendar/useAdminGate";
 import {
   expandBookingsToDates,
   findBookingForDate,
-  isSingleDayBooking,
+  formatDateRange,
+  groupBookingsIntoStays,
   splitContiguousRuns,
 } from "./calendar/utils";
 import type { Booking, BookingRange } from "./calendar/types";
@@ -36,9 +37,15 @@ export default function CalendarAvailability({
   apartmentId,
   apartmentName,
 }: CalendarAvailabilityProps) {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const isAdmin = useAdminGate();
+
+  // Every route is prerendered to static HTML, which would freeze "today" and
+  // the desktop month count at build time and mismatch on hydration. Bookings
+  // load in the browser anyway, so the grid is worth nothing until mounted.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [dialogMode, setDialogMode] = useState<null | "create" | "edit">(null);
@@ -52,7 +59,7 @@ export default function CalendarAvailability({
     createBookingsFromRuns,
     updateBookingNote,
     deleteBooking,
-  } = useBookings(apartmentId);
+  } = useBookings(apartmentId, isAdmin);
 
   const today = useMemo(() => startOfDay(new Date()), []);
   const maxDate = useMemo(() => {
@@ -60,19 +67,44 @@ export default function CalendarAvailability({
     return new Date(d.getFullYear() + 2, 11, 31);
   }, []);
 
-  const unavailableDates = useMemo(() => expandBookingsToDates(bookings), [bookings]);
+  const unavailableDates = useMemo(
+    () => expandBookingsToDates(bookings, today),
+    [bookings, today],
+  );
+
+  // One pill per reservation: rounded on the arrival day, rounded on the last
+  // night, so two guests following one another read as two stays while a run of
+  // blocked days reads as one. A stay already under way keeps a square left
+  // edge — capping it on today would announce an arrival that is not one.
+  const shapeRuns = useMemo(
+    () =>
+      groupBookingsIntoStays(bookings)
+        .filter((stay) => stay.end >= today)
+        .map((stay) => ({
+          start: stay.start < today ? today : stay.start,
+          end: stay.end,
+          startsInPast: stay.start < today,
+        })),
+    [bookings, today],
+  );
+
+  const isStandalone = (run: { start: Date; end: Date; startsInPast: boolean }) =>
+    !run.startsInPast && isSameDay(run.start, run.end);
 
   const bookingStartDates = useMemo(
-    () => bookings.filter((b) => !isSingleDayBooking(b)).map((b) => new Date(b.start_date)),
-    [bookings],
+    () =>
+      shapeRuns
+        .filter((run) => !run.startsInPast && !isSameDay(run.start, run.end))
+        .map((run) => run.start),
+    [shapeRuns],
   );
   const bookingEndDates = useMemo(
-    () => bookings.filter((b) => !isSingleDayBooking(b)).map((b) => new Date(b.end_date)),
-    [bookings],
+    () => shapeRuns.filter((run) => !isStandalone(run)).map((run) => run.end),
+    [shapeRuns],
   );
   const bookingStandaloneDates = useMemo(
-    () => bookings.filter(isSingleDayBooking).map((b) => new Date(b.start_date)),
-    [bookings],
+    () => shapeRuns.filter(isStandalone).map((run) => run.start),
+    [shapeRuns],
   );
 
   const locale = localeMap[language];
@@ -107,13 +139,7 @@ export default function CalendarAvailability({
   };
 
   const summariseRuns = (runs: BookingRange[]): string =>
-    runs
-      .map((run) => {
-        const start = format(run.start, "dd MMM yyyy", { locale });
-        const end = format(run.end, "dd MMM yyyy", { locale });
-        return isSameDay(run.start, run.end) ? start : `${start} → ${end}`;
-      })
-      .join(" · ");
+    runs.map((run) => formatDateRange(run.start, run.end, localeCode)).join(" · ");
 
   const handleSubmitDialog = async (note: string) => {
     try {
@@ -198,7 +224,11 @@ export default function CalendarAvailability({
       {fetchError && <div className="text-xs text-red-600 mb-2">{fetchError}</div>}
 
       <div className="rdp-shell mx-auto" dir={language === "ar" ? "rtl" : "ltr"}>
-        {isAdmin ? (
+        {!mounted ? (
+          <div className="py-10 text-center text-sm text-muted-foreground">
+            {t.apartments.loadingCalendar}
+          </div>
+        ) : isAdmin ? (
           <DayPicker
             mode="multiple"
             required={false}

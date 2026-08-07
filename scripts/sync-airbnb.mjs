@@ -88,12 +88,6 @@ export function parseIcs(text) {
   return events;
 }
 
-/** Extract the reservation code (HM...) from an event description, if any. */
-export function reservationCode(description) {
-  const m = /reservations\/details\/([A-Z0-9]+)/i.exec(description ?? "");
-  return m ? m[1] : null;
-}
-
 /**
  * Map iCal events to `bookings` rows. iCal DTEND is exclusive (checkout day)
  * while the site's end_date is the last blocked day, hence the -1 day shift.
@@ -105,15 +99,22 @@ export function buildRows(apartmentId, events, todayIso) {
     const endDate = shiftIsoDate(event.endDateExclusive, -1);
     if (endDate < event.startDate || endDate < todayIso) continue;
     const uid = event.uid ?? `${event.startDate}_${event.endDateExclusive}`;
-    const code = reservationCode(event.description);
-    const summary = event.summary ?? "Busy";
+    // Nothing guest-identifying goes in `note`: Airbnb puts the reservation code
+    // and the guest's phone digits in DESCRIPTION, and this column is served to
+    // whoever queries the table. Only the kind of block is worth recording.
+    const isBlock = /not available/i.test(event.summary ?? "");
+    const externalUid = `airbnb:${apartmentId}:${uid}`;
     rows.push({
       apartment_id: apartmentId,
       start_date: event.startDate,
       end_date: endDate,
-      note: code ? `Airbnb — ${summary} (${code})` : `Airbnb — ${summary}`,
-      source: "airbnb",
-      external_uid: `airbnb:${apartmentId}:${uid}`,
+      note: isBlock ? "Airbnb — Not available" : "Airbnb — Reserved",
+      // `source` doubles as the reservation key. Blocked-off days share one, so
+      // consecutive blocks read as a single unavailable stretch; every
+      // reservation keeps its own, so two guests arriving back to back are
+      // never drawn as one stay.
+      source: isBlock ? `airbnb:${apartmentId}:block` : externalUid,
+      external_uid: externalUid,
     });
   }
   return rows;
@@ -139,7 +140,7 @@ async function syncApartment(supabase, apartmentId, icsText, todayIso, dryRun) {
     .from("bookings")
     .select("id, external_uid, start_date, end_date")
     .eq("apartment_id", apartmentId)
-    .eq("source", "airbnb")
+    .like("source", "airbnb%")
     .gte("end_date", todayIso);
   if (selectError) throw new Error(`select failed: ${selectError.message}`);
 
