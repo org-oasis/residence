@@ -4,7 +4,7 @@ on:
   schedule:
     # Every 3 hours; Airbnb bookings then appear on the site without a redeploy
     # (the calendar reads Supabase live from the browser).
-    - cron: '17 */3 * * *'
+    - cron: '0 0,7-23 * * *'
   workflow_dispatch:
 
 concurrency:

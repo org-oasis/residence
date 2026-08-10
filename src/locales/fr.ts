@@ -446,7 +446,7 @@ export const fr = {
     apartment4_description: "F2 moderne au 2e étage dans une résidence récente, parfaitement propre. Chambre séparée, cuisine équipée, climatisation neuve et Wi-Fi fibre 240 Mbps. Propriétaire réactif par WhatsApp. Idéal pour un couple ou une petite famille en bord de mer.",
     apartment5_description: "F2 moderne au 2e étage dans une résidence récente, parfaitement propre. Chambre séparée, cuisine équipée, climatisation neuve et Wi-Fi fibre 240 Mbps. Propriétaire réactif par WhatsApp. Idéal pour un couple ou une petite famille en bord de mer.",
     apartment6_description: "F2 moderne au 2e étage dans une résidence récente, parfaitement propre. Chambre séparée, cuisine équipée, climatisation neuve et Wi-Fi fibre 240 Mbps. Propriétaire réactif par WhatsApp. Idéal pour un couple ou une petite famille en bord de mer.",
-    apartment7_description: "F3 avec terrasse privative au 3e étage, dans une résidence récente au ménage soigné. 2 chambres, cuisine équipée, lave-vaisselle, volets électriques, Wi-Fi fibre 240 Mbps. Capacité 6 personnes, propriétaire sérieux et disponible par WhatsApp."
+    apartment7_description: "F3 avec terrasse privative au 3e étage, dans une résidence récente au ménage soigné. 2 chambres, cuisine équipée, lave-vaisselle, volets électriques, Wi-Fi fibre 240 Mbps. Capacité 8 personnes, propriétaire sérieux et disponible par WhatsApp."
   },
   features: {
     "Wi-Fi": "Wi-Fi",
