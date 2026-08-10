@@ -38,6 +38,21 @@ jobs:
       - name: Install dependencies (frozen lockfile)
         run: bun install --frozen-lockfile
 
+      # Typecheck and tests read src/lib/blog-data.generated.ts, which is gitignored
+      # and normally produced by prebuild — generate it before the quality gate.
+      - name: Generate blog data
+        run: bun run blog:gen
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Lint
+        run: bun run lint
+
+      # A failing test must stop the deployment, not ship a regression.
+      - name: Tests
+        run: bun test
+
       - name: Build (prebuild generates OG images + blog data, then react-router build prerenders all routes)
         run: bun run build
         env:

@@ -6,10 +6,17 @@ import {
   ScrollRestoration,
   useLocation,
 } from "react-router";
+import { useEffect } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { dirFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
+import { dictFor, dirFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
 import "./index.css";
+
+/** Only the home route paints the hero background; every other page ignores it. */
+const HOME_PATH = /^\/(fr|en|ar)\/?$/;
+
+/** Anchor target of the skip link, assigned to the page's <main> on mount. */
+const MAIN_CONTENT_ID = "main-content";
 
 function langFromPath(pathname: string): Lang {
   const m = pathname.match(/^\/(fr|en|ar)(\/|$)/);
@@ -20,6 +27,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const lang = langFromPath(pathname);
   const dir = dirFor(lang);
+  const t = dictFor(lang);
+
+  // The skip link lives here so it is the first focusable element of every page,
+  // but its target <main> is rendered by each route. Tagging it from the layout
+  // keeps the anchor working without duplicating the id in all ten page files.
+  // tabIndex=-1 is what actually moves focus (not just the scroll position) into
+  // <main> on browsers that ignore the sequential focus navigation starting point.
+  useEffect(() => {
+    const main = document.querySelector("main");
+    if (!main || main.id) return;
+    main.id = MAIN_CONTENT_ID;
+    main.tabIndex = -1;
+  }, [pathname]);
+
   return (
     <html lang={lang} dir={dir}>
       <head>
@@ -40,16 +61,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
           href="/assets/logo-only-without-bg.avif"
           type="image/avif"
         />
-        <link
-          rel="preload"
-          as="image"
-          href="/assets/COMMON/00-background.avif"
-          fetchPriority="high"
-        />
+        {/* Scoped to the home route: emitted from the shared head it cost every
+            prerendered page — including the 186 articles — a useless image fetch. */}
+        {HOME_PATH.test(pathname) && (
+          <link
+            rel="preload"
+            as="image"
+            href="/assets/COMMON/00-background.avif"
+            fetchPriority="high"
+          />
+        )}
         <Meta />
         <Links />
       </head>
       <body>
+        {/* Parked off-screen rather than hidden so screen readers still announce it;
+            start-* keeps it on the correct side once the document flips to RTL. */}
+        <a
+          href={`#${MAIN_CONTENT_ID}`}
+          className="fixed top-3 start-[-100vw] z-[100] rounded-md bg-white px-4 py-2 text-sm font-medium text-foreground shadow-lg focus:start-3"
+        >
+          {t.a11y.skipToContent}
+        </a>
         {children}
         <ScrollRestoration />
         <Scripts />

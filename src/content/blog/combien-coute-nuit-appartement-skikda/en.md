@@ -4,17 +4,17 @@ description: "Skikda apartment prices in 2026: rates by format (studio, F2, F3),
 heroAlt: "View of the Filfila coast from Oasis Residence, Skikda"
 faq:
   - q: "What is the average price for a night in a Skikda apartment?"
-    a: "Plan for €{{TIER_STUDIO_EUR}} to €{{TIER_F3_EUR}} per night ({{TIER_STUDIO_DZD}} to {{TIER_F3_DZD}} DA) depending on format and season. A studio starts at €{{TIER_STUDIO_EUR}}, a classic F2 at €{{TIER_F2_EUR}}, an F2 with jacuzzi and sauna at €{{TIER_F2JACUZZI_EUR}}, an F3 with private terrace at €{{TIER_F3_EUR}}. Rates vary noticeably between high and low season."
+    a: "Base rates start at €{{TIER_STUDIO_EUR}} per night ({{TIER_STUDIO_DZD}} DA) for a studio, €{{TIER_F2_EUR}} ({{TIER_F2_DZD}} DA) for a classic F2, €{{TIER_F2JACUZZI_EUR}} ({{TIER_F2JACUZZI_DZD}} DA) for an F2 with jacuzzi and sauna, €{{TIER_F3_EUR}} ({{TIER_F3_DZD}} DA) for an F3 with private terrace. These apply outside high season; July-August is the top step of the grid."
   - q: "What are the high-season rates in Skikda?"
-    a: "July and August concentrate demand and the highest rates. Plan for a 20 to 40 % surcharge over the F2 reference rate (€{{TIER_F2_EUR}}/night). Booking 4 to 6 weeks ahead remains the only way to secure availability over these two months."
+    a: "July and August concentrate demand and form the highest step of the seasonal grid, clearly above the base rates. The exact rate applied to each apartment for that period is shown on its own page. Booking 4 to 6 weeks ahead remains the only way to secure availability over these two months."
   - q: "Are long-stay discounts available in Skikda?"
-    a: "Yes. Stays of 7 nights or more usually get a 10 to 15 % discount. Beyond 14 nights, the discount can reach 20 to 25 %. Off-season (October to May), weekly or monthly packages are regularly offered at very attractive rates."
+    a: "Yes. At Oasis Residence, stays of 7 nights or more get a 10 % discount. That is the only tier: the discount does not increase beyond it, whatever the length. It applies in every season, on the rate of the period booked."
   - q: "When are the cheapest periods in Skikda?"
-    a: "From October to May, rates drop 40 to 60 % compared with July-August. September marks the transition: the first half stays at an average rate, the second half shifts to reduced rates. This is the best quality-price-weather sweet spot."
+    a: "From October to May, the grid falls back to its base rate, the lowest of the year. September marks the transition: the first half stays at an intermediate rate, the second half steps down again. This is the best quality-price-weather sweet spot."
   - q: "What budget for a family of 4 in Skikda in summer?"
-    a: "Over a week in July-August, a family F2 comes to around €350 to 400 per week (90,000 to 100,000 DA), excluding meals and activities. With an equipped kitchen for meals and free beaches, total stay budget stays well below an equivalent hotel."
+    a: "Count seven F2 nights at the July-August rate, minus the 10 % discount earned from 7 nights — the rate for the period is shown on each apartment page. With an equipped kitchen for meals and free beaches, total stay budget stays well below an equivalent hotel."
   - q: "How much does a night in an F3 with terrace in Skikda cost?"
-    a: "An F3 with private terrace in Filfila rents for €{{TIER_F3_EUR}} per night ({{TIER_F3_DZD}} DA) in high season. Off-season, the rate drops 30 to 50 %. Base capacity 8 people, making the per-person cost very competitive for an extended family or two couples."
+    a: "An F3 with private terrace in Filfila rents from €{{TIER_F3_EUR}} per night ({{TIER_F3_DZD}} DA), the base rate outside high season. In July-August it moves to the top step of the grid. Base capacity 8 people, making the per-person cost very competitive for an extended family or two couples."
   - q: "Should I pay in dinars or euros in Skikda?"
     a: "Both are accepted. Rates are usually displayed in both currencies. Travellers from Europe often settle the deposit in euros by transfer, the balance on site in dinars. Official exchange happens at a bank or licensed bureau; avoid the black market."
   - q: "Are Filfila rentals more expensive than central Skikda?"
@@ -35,11 +35,11 @@ faq:
 
 <h3>Seasonality: factor #1</h3>
 
-<p>July and August concentrate 60 % of annual demand, pushing rates to their peak. September and June offer an excellent weather / price compromise. October to May, rates drop 40 to 60 % and availability is wide.</p>
+<p>July and August concentrate 60 % of annual demand, pushing rates to their peak. September and June offer an excellent weather / price compromise. October to May, the grid falls back to its base rate — the lowest of the year — and availability is wide.</p>
 
 <h3>Apartment format</h3>
 
-<p>A 23 m² studio starts at <strong>€{{TIER_STUDIO_EUR}}</strong> per night, a 33 m² F2 at <strong>€{{TIER_F2_EUR}}</strong>, an F2 with jacuzzi and sauna at <strong>€{{TIER_F2JACUZZI_EUR}}</strong>, an F3 with terrace reaches <strong>€{{TIER_F3_EUR}}</strong>. The difference is justified by surface area, capacity and premium equipment (jacuzzi, Norwegian sauna, private terrace).</p>
+<p>Outside high season, a 23 m² studio starts at <strong>€{{TIER_STUDIO_EUR}}</strong> per night, a 33 m² F2 at <strong>€{{TIER_F2_EUR}}</strong>, an F2 with jacuzzi and sauna at <strong>€{{TIER_F2JACUZZI_EUR}}</strong>, an F3 with terrace at <strong>€{{TIER_F3_EUR}}</strong>. The difference is justified by surface area, capacity and premium equipment (jacuzzi, Norwegian sauna, private terrace).</p>
 
 <h3>Location</h3>
 
@@ -53,9 +53,11 @@ faq:
 
 <p>For a concrete benchmark, here is the reference pricing grid for the <strong>available studios and F2/F3 units</strong> at Oasis Residence in Filfila.</p>
 
-<h3>High-season reference grid (July-August)</h3>
+<h3>Reference grid: "from" rates</h3>
 
 {{PRICING_TABLE}}
+
+<p><em>These are the base rates, applied from October to May. They are the floor of the grid: June, July, August and September all sit above them, July-August being the highest step.</em></p>
 
 <p><em>{{EXTRA_PERSON_NOTE}}</em></p>
 
@@ -67,23 +69,25 @@ faq:
 
 <p>The <strong>Skikda high season</strong> actually only lasts 6 to 8 weeks. The rest of the year offers significantly more accessible rates with often higher stay quality (less crowd, more peace).</p>
 
-<h3>Three-season grid by format</h3>
+<h3>The four steps of the grid</h3>
+
+<p>Every format follows the same calendar. Each step applies to all apartments; only the amount differs by format:</p>
 
 <table>
   <thead>
-    <tr><th>Format</th><th>Sept 1-15 (reduced)</th><th>Sept 15-30 (very reduced)</th><th>October+ (extremely reduced)</th></tr>
+    <tr><th>Period</th><th>Rate level</th></tr>
   </thead>
   <tbody>
-    <tr><td>Studio</td><td>7,000 DA / €26</td><td>5,500 DA / €21</td><td>4,500 DA / €17</td></tr>
-    <tr><td>F2</td><td>8,000 DA / €30</td><td>6,000 DA / €23</td><td>5,000 DA / €19</td></tr>
-    <tr><td>F2 jacuzzi</td><td>13,000 DA / €49</td><td>12,000 DA / €45</td><td>10,000 DA / €38</td></tr>
-    <tr><td>F3 terrace</td><td>20,000 DA / €75</td><td>17,000 DA / €64</td><td>13,000 DA / €49</td></tr>
+    <tr><td>July - August</td><td>Highest step of the year</td></tr>
+    <tr><td>June 15-30 and September 1-15</td><td>Upper intermediate step</td></tr>
+    <tr><td>June 1-15 and September 15-30</td><td>Intermediate step</td></tr>
+    <tr><td>October to May</td><td>Base rate — the lowest (grid above)</td></tr>
   </tbody>
 </table>
 
 <h3>Practical reading of the grid</h3>
 
-<p>An F2 booked in October comes to about €19 per night, half the August rate. Over a week, savings reach €100-150, easily covering fuel or a quality meal each day. For an off-season stay at <a href="/en/gallery">residence photo gallery</a>, the value-for-money becomes unbeatable.</p>
+<p>A stay booked between October and May is charged at the base rate shown above, well below the July-August rate for the same apartment. Over a week, the gap easily covers fuel or a quality meal each day. The exact amount for each period is shown on each apartment page. For an off-season stay at <a href="/en/gallery">residence photo gallery</a>, the value-for-money becomes unbeatable.</p>
 
 <h2>How to get the best price for a Skikda rental</h2>
 
@@ -92,7 +96,7 @@ faq:
 <ul>
   <li>Book 4 to 6 weeks ahead for July-August, 2 weeks for the rest of the year</li>
   <li>Prefer September or June: reduced rates, sea still at 24-26 °C, fewer crowds</li>
-  <li>Request a weekly or bi-weekly rate for stays of 7+ nights (10-25 % discount)</li>
+  <li>Spread the stay over at least 7 nights: the 10 % discount applies automatically from that threshold</li>
   <li>Book directly via the contact page to avoid 15-20 % Airbnb commission</li>
   <li>Travel outside Algerian or French school holidays for wide availability</li>
   <li>Compare several formats: an F2 for 3 people can be cheaper total than a studio + another unit</li>
@@ -101,43 +105,44 @@ faq:
 
 <h2>Oasis Residence vs Skikda market comparison</h2>
 
-<p>At equivalent equipment (Wi-Fi, AC, equipped kitchen, parking, beach proximity), Oasis Residence rates sit in the lower range of the Filfila market for professional quality. The generous seasonal grid and the absence of a deposit reinforce the budget edge.</p>
+<p>At equivalent equipment (Wi-Fi, AC, equipped kitchen, parking, beach proximity), the Oasis Residence advantage lies mostly in what does not show up in the price displayed elsewhere: no deposit, no add-on charges, no platform commission when booking direct.</p>
 
 <table>
   <thead>
-    <tr><th>Equivalent format</th><th>Filfila market avg</th><th>Oasis Residence</th><th>Saving</th></tr>
+    <tr><th>Item</th><th>Typical Filfila market</th><th>Oasis Residence</th></tr>
   </thead>
   <tbody>
-    <tr><td>F2 high season / night</td><td>€55-75</td><td>€{{TIER_F2_EUR}}</td><td>~25 %</td></tr>
-    <tr><td>Required deposit</td><td>€100-300</td><td>€0</td><td>€200</td></tr>
-    <tr><td>Wi-Fi included</td><td>Variable</td><td>240 Mbps included</td><td>—</td></tr>
-    <tr><td>Parking</td><td>Often paid</td><td>Free</td><td>€5-10/day</td></tr>
+    <tr><td>Deposit</td><td>Often required</td><td>None</td></tr>
+    <tr><td>Water, electricity, cleaning</td><td>Sometimes billed extra</td><td>Included in the rate</td></tr>
+    <tr><td>Wi-Fi</td><td>Variable</td><td>240 Mbps fibre included</td></tr>
+    <tr><td>Parking</td><td>Often paid</td><td>Free</td></tr>
+    <tr><td>Booking commission</td><td>15-20 % via platform</td><td>None when direct</td></tr>
   </tbody>
 </table>
 
 <h2>Conclusion</h2>
 
-<p>The <strong>price of a night in a Skikda apartment</strong> oscillates between €17 and €100 depending on format and season. The most representative range for a family stay remains €30 to 50 per night in high season, with excellent off-season opportunities from €17. By applying the right levers (anticipation, period, duration, direct channel), a realistic budget remains accessible for most travellers. To compare current options and get a personalised rate, browse the <a href="/en/apartments">all residence accommodations</a> directly.</p>
+<p>The <strong>price of a night in a Skikda apartment</strong> depends first on format and period. At Oasis Residence it starts at €{{TIER_STUDIO_EUR}} ({{TIER_STUDIO_DZD}} DA) for a studio outside high season and climbs, in July-August, to the top step of the seasonal grid. By applying the right levers (anticipation, period, duration, direct channel), a realistic budget remains accessible for most travellers. To compare current options and get a personalised rate, browse the <a href="/en/apartments">all residence accommodations</a> directly.</p>
 
 <h2 class="p3">FAQ</h2>
 
 <h3 class="p1">What is the average price for a night in a Skikda apartment?</h3>
-<p class="p2">Plan for <strong>€{{TIER_STUDIO_EUR}} to €{{TIER_F3_EUR}} per night</strong> ({{TIER_STUDIO_DZD}} to {{TIER_F3_DZD}} DA). A studio starts at €{{TIER_STUDIO_EUR}}, a classic F2 at €{{TIER_F2_EUR}}, an F2 with jacuzzi and sauna at €{{TIER_F2JACUZZI_EUR}}, an F3 with terrace at €{{TIER_F3_EUR}}. See <a href="/en/apartments">available studios and F2/F3 units</a>.</p>
+<p class="p2">Base rates start at <strong>€{{TIER_STUDIO_EUR}} per night</strong> ({{TIER_STUDIO_DZD}} DA) for a studio, €{{TIER_F2_EUR}} ({{TIER_F2_DZD}} DA) for a classic F2, €{{TIER_F2JACUZZI_EUR}} ({{TIER_F2JACUZZI_DZD}} DA) for an F2 with jacuzzi and sauna, €{{TIER_F3_EUR}} ({{TIER_F3_DZD}} DA) for an F3 with terrace. These apply outside high season. See <a href="/en/apartments">available studios and F2/F3 units</a>.</p>
 
 <h3 class="p1">What are the high-season rates in Skikda?</h3>
-<p class="p2"><strong>July and August</strong> concentrate demand and the highest rates. Plan for a 20 to 40 % surcharge over the F2 reference rate (€{{TIER_F2_EUR}}/night). Booking 4 to 6 weeks ahead remains the only way to secure availability over these two months.</p>
+<p class="p2"><strong>July and August</strong> concentrate demand and form the highest step of the seasonal grid, clearly above the base rates. The exact rate applied to each apartment for that period is shown on its own page. Booking 4 to 6 weeks ahead remains the only way to secure availability over these two months.</p>
 
 <h3 class="p1">Are long-stay discounts available in Skikda?</h3>
-<p class="p2">Yes. <strong>Stays of 7 nights or more</strong> usually get a 10 to 15 % discount. Beyond 14 nights, the discount can reach 20 to 25 %. Off-season, weekly or monthly packages are regularly offered at very attractive rates. Ask via <a href="/en/contact">WhatsApp, Telegram and phone</a>.</p>
+<p class="p2">Yes. At Oasis Residence, <strong>stays of 7 nights or more</strong> get a 10 % discount. That is the only tier: the discount does not increase beyond it, whatever the length. It applies in every season, on the rate of the period booked. Ask via <a href="/en/contact">WhatsApp, Telegram and phone</a>.</p>
 
 <h3 class="p1">When are the cheapest periods in Skikda?</h3>
-<p class="p2">From <strong>October to May</strong>, rates drop 40 to 60 % compared with July-August. September marks the transition: the first half stays at an average rate, the second half shifts to reduced rates. This is the best quality-price-weather sweet spot.</p>
+<p class="p2">From <strong>October to May</strong>, the grid falls back to its base rate, the lowest of the year. September marks the transition: the first half stays at an intermediate rate, the second half steps down again. This is the best quality-price-weather sweet spot.</p>
 
 <h3 class="p1">What budget for a family of 4 in Skikda in summer?</h3>
-<p class="p2">Over a week in July-August, a <strong>family F2 comes to around €350 to 400</strong> per week (90,000 to 100,000 DA), excluding meals and activities. With an equipped kitchen for meals and free beaches, total stay budget stays well below an equivalent hotel.</p>
+<p class="p2">Count <strong>seven F2 nights at the July-August rate</strong>, minus the 10 % discount earned from 7 nights — the rate for the period is shown on each apartment page. With an equipped kitchen for meals and free beaches, total stay budget stays well below an equivalent hotel.</p>
 
 <h3 class="p1">How much does a night in an F3 with terrace in Skikda cost?</h3>
-<p class="p2">An <a href="/en/apartments/f3-terrasse-7">F3 with private terrace</a> in Filfila rents for <strong>€{{TIER_F3_EUR}} per night</strong> ({{TIER_F3_DZD}} DA) in high season. Off-season, the rate drops 30 to 50 %. Base capacity 8 people; up to {{EXTRA_PERSON_MAX}} extra guests possible (+€{{EXTRA_PERSON_EUR}}/night/person).</p>
+<p class="p2">An <a href="/en/apartments/f3-terrasse-7">F3 with private terrace</a> in Filfila rents <strong>from €{{TIER_F3_EUR}} per night</strong> ({{TIER_F3_DZD}} DA), the base rate outside high season. In July-August it moves to the top step of the grid. Base capacity 8 people; up to {{EXTRA_PERSON_MAX}} extra guests possible (+€{{EXTRA_PERSON_EUR}}/night/person).</p>
 
 <h3 class="p1">Should I pay in dinars or euros in Skikda?</h3>
 <p class="p2"><strong>Both are accepted</strong>. Rates are usually displayed in both currencies. Travellers from Europe often settle the deposit in euros by transfer, the balance on site in dinars. Official exchange happens at a bank or licensed bureau; avoid the black market.</p>

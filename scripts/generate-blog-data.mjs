@@ -102,6 +102,49 @@ function applyTokens(html, lang) {
 }
 
 // ---------------------------------------------------------------
+// Sanitisation.
+// The generated HTML lands in the bundle and is injected with
+// dangerouslySetInnerHTML. Markdown sources are internal, but an automated
+// routine writes them, so a poisoned source must not become executable code on
+// the site. Stripping happens here rather than at render time: the cost is paid
+// once at build and the reading path stays a plain innerHTML.
+// ---------------------------------------------------------------
+
+/** Elements that execute or embed foreign content. */
+const FORBIDDEN_TAGS = "script|iframe|object|embed";
+
+function stripForbiddenElements(html) {
+  return (
+    html
+      // Paired form: drop the element and everything it wraps.
+      .replace(new RegExp(`<(${FORBIDDEN_TAGS})\\b[\\s\\S]*?</\\1\\s*>`, "gi"), "")
+      // Unterminated or self-closing leftovers.
+      .replace(new RegExp(`</?(?:${FORBIDDEN_TAGS})\\b[^>]*>`, "gi"), "")
+  );
+}
+
+/**
+ * Drops `on*` handlers. Scoped to the inside of a tag so prose such as
+ * "only=1" in a sentence is left alone.
+ */
+function stripEventHandlers(html) {
+  return html.replace(
+    /<([a-zA-Z][^\s/>]*)((?:"[^"]*"|'[^']*'|[^>"'])*)>/g,
+    (_match, tagName, attributes) => {
+      const cleaned = attributes.replace(
+        /\son[a-z-]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi,
+        "",
+      );
+      return `<${tagName}${cleaned}>`;
+    },
+  );
+}
+
+function sanitizeHtml(html) {
+  return stripEventHandlers(stripForbiddenElements(html));
+}
+
+// ---------------------------------------------------------------
 
 function listSlugs() {
   let entries = [];
@@ -134,12 +177,12 @@ function loadOne(slug, lang, frFallback) {
   const raw = readFileSync(file, "utf8");
   const parsed = matter(raw);
   const data = { ...(frFallback ?? {}), ...parsed.data };
-  const rawHtml = marked.parse(parsed.content, { async: false });
+  const rawHtml = sanitizeHtml(marked.parse(parsed.content, { async: false }));
   const bodyHtml = applyTokens(rawHtml, lang);
   // FAQ entries can also contain tokens (price references)
   const faq = (Array.isArray(data.faq) ? data.faq : []).map((f) => ({
-    q: applyTokens(f.q ?? "", lang),
-    a: applyTokens(f.a ?? "", lang),
+    q: applyTokens(sanitizeHtml(f.q ?? ""), lang),
+    a: applyTokens(sanitizeHtml(f.a ?? ""), lang),
   }));
   const reading = readingTime(parsed.content);
   return {

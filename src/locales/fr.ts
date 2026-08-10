@@ -47,6 +47,9 @@ export const fr = {
       }
     }
   },
+  a11y: {
+    skipToContent: "Aller au contenu principal"
+  },
   nav: {
     home: "Accueil",
     apartments: "Appartements",

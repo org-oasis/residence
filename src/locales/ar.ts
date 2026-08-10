@@ -47,6 +47,9 @@ export const ar = {
       }
     }
   },
+  a11y: {
+    skipToContent: "تخطي إلى المحتوى الرئيسي"
+  },
   nav: {
     home: "الرئيسية",
     apartments: "الشقق",

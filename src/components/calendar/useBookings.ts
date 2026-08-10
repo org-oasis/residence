@@ -1,7 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/services/supabase";
+import { log } from "@/lib/logger";
 import type { Booking, BookingRange } from "./types";
 import { manualGroupKey, toIsoDate } from "./utils";
+
+/**
+ * Stable codes surfaced to the UI in place of the raw PostgREST message, which
+ * can name the table, a column or the policy that rejected the call. The
+ * technical detail goes to the logger instead. Codes are language-neutral on
+ * purpose: they are meant to be mapped to a locale key later on.
+ */
+const ERROR_CODE = {
+  load: "calendar-unavailable",
+  create: "calendar-save-failed",
+  update: "calendar-save-failed",
+  delete: "calendar-delete-failed",
+} as const;
+
+/** Logs the technical cause and returns the code the UI is allowed to show. */
+function reportBookingError(
+  operation: keyof typeof ERROR_CODE,
+  cause: unknown,
+): string {
+  log.error(cause, { context: `calendar.bookings.${operation}` });
+  return ERROR_CODE[operation];
+}
 
 /**
  * @param withNotes Admin only. Notes hold guest names and booking references,
@@ -30,13 +53,13 @@ export function useBookings(apartmentId: string, withNotes = false) {
         .gte("end_date", toIsoDate(new Date()))
         .order("start_date", { ascending: true });
       if (queryError) {
-        setError(queryError.message);
+        setError(reportBookingError("load", queryError));
         setBookings([]);
       } else {
         setBookings((data ?? []) as unknown as Booking[]);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      setError(reportBookingError("load", err));
       setBookings([]);
     } finally {
       setLoading(false);
@@ -61,7 +84,9 @@ export function useBookings(apartmentId: string, withNotes = false) {
         source: manualGroupKey(apartmentId, cleanNote),
       }));
       const { error: insertError } = await supabase.from("bookings").insert(rows);
-      if (insertError) throw new Error(insertError.message);
+      // Callers render `err.message` verbatim, so it carries the code, not the
+      // PostgREST wording.
+      if (insertError) throw new Error(reportBookingError("create", insertError));
       await fetchBookings();
     },
     [apartmentId, fetchBookings],
@@ -77,7 +102,7 @@ export function useBookings(apartmentId: string, withNotes = false) {
         .from("bookings")
         .update(payload)
         .eq("id", id);
-      if (updateError) throw new Error(updateError.message);
+      if (updateError) throw new Error(reportBookingError("update", updateError));
       await fetchBookings();
     },
     [apartmentId, fetchBookings],
@@ -86,7 +111,7 @@ export function useBookings(apartmentId: string, withNotes = false) {
   const deleteBooking = useCallback(
     async (id: string) => {
       const { error: deleteError } = await supabase.from("bookings").delete().eq("id", id);
-      if (deleteError) throw new Error(deleteError.message);
+      if (deleteError) throw new Error(reportBookingError("delete", deleteError));
       await fetchBookings();
     },
     [fetchBookings],

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Link, Navigate, useParams } from "react-router";
 import { currentSeasonKey, rateDzd, tierForType } from "@/data/pricing";
 import {
@@ -20,7 +21,6 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ImageStrip from "@/components/ImageStrip";
-import CalendarAvailability from "@/components/CalendarAvailability";
 import { getFeatureIcon } from "@/lib/iconUtils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getApartmentBySlug } from "@/data/appData";
@@ -33,6 +33,16 @@ import {
 } from "@/lib/i18n";
 import { buildMeta } from "@/lib/seo";
 import { buildApartmentSchema, buildBreadcrumbList } from "@/lib/jsonld";
+
+// Same pattern as ApartmentCard: the calendar pulls in date-fns + react-day-picker
+// and its own stylesheet, none of which are needed for the above-the-fold content.
+const CalendarAvailability = lazy(() => import("@/components/CalendarAvailability"));
+
+// Warm the chunk as soon as the visitor approaches the availability section, so
+// the Suspense fallback is rarely seen.
+const preloadCalendar = () => {
+  void import("@/components/CalendarAvailability");
+};
 
 export const meta: MetaFunction = ({ params }) => {
   const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
@@ -183,12 +193,24 @@ export default function ApartmentDetail() {
 
           <Separator className="my-12" />
 
-          <section>
+          <section
+            onMouseEnter={preloadCalendar}
+            onTouchStart={preloadCalendar}
+            onFocus={preloadCalendar}
+          >
             <h2 className="text-2xl font-bold mb-6">{t.apartments.availability}</h2>
-            <CalendarAvailability
-              apartmentId={apartment.id}
-              apartmentName={translatedName}
-            />
+            <Suspense
+              fallback={
+                <div className="py-10 text-center text-sm text-muted-foreground">
+                  {t.apartments.loadingCalendar}
+                </div>
+              }
+            >
+              <CalendarAvailability
+                apartmentId={apartment.id}
+                apartmentName={translatedName}
+              />
+            </Suspense>
           </section>
 
           <Separator className="my-12" />

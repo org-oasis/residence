@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
-const ADMIN_HASH =
-  "c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec";
+// Build-time secret. Absent from the repo on purpose: set VITE_ADMIN_GATE_HASH
+// (SHA-512 hex of the chosen secret) in the deploy environment. When unset the
+// gate stays closed rather than falling back to a shipped default.
+const ADMIN_HASH = (import.meta.env.VITE_ADMIN_GATE_HASH ?? "")
+  .trim()
+  .toLowerCase();
 
 async function sha512(input: string): Promise<string> {
   const data = new TextEncoder().encode(input);
@@ -17,16 +21,22 @@ function getSecretFromUrl(): string | null {
 }
 
 /**
- * Calendar admin gate: returns true when `?calendar=<secret>` is present
- * in the URL and its SHA-512 digest matches the hardcoded admin hash.
- * Note: client-only check, suitable for soft-gating UI affordances.
- * Real authorization happens server-side via Supabase RLS.
+ * Calendar admin gate: returns true when `?calendar=<secret>` is present in the
+ * URL and its SHA-512 digest matches VITE_ADMIN_GATE_HASH.
+ *
+ * This is a UI convenience only — it hides the admin affordances from casual
+ * visitors and nothing more. The comparison runs in the browser against a hash
+ * shipped in the bundle, so anyone can flip the flag with a debugger, and the
+ * Supabase table is currently readable and writable by the publishable key
+ * regardless of this gate. There is NO server-side authorization today; see
+ * docs/sql/ for the RLS migration that would add one.
  */
 export function useAdminGate(): boolean {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
+    if (!ADMIN_HASH) return;
     const secret = getSecretFromUrl();
     if (!secret) return;
     void (async () => {

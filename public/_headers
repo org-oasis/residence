@@ -28,11 +28,25 @@
 *.html
   Cache-Control: public, max-age=3600
 
-# Default cache for other files.
-# NOTE: GitHub Pages (current host) does NOT process this file — kept for
-# parity with local `bunx vite preview` and for future migration to Netlify /
-# Cloudflare Pages, which both honor `_headers`. Security headers (HSTS,
-# nosniff, Referrer-Policy, Permissions-Policy) must be configured on the
-# edge (Fastly / Cloudflare / host) to take effect.
+# Default cache + security headers for other files.
+#
+# NOTE: GitHub Pages (current host) does NOT process this file. Nothing below
+# is served today — treat it as the reference configuration for a future
+# migration to Netlify / Cloudflare Pages (both honor `_headers`) or as the
+# spec to replicate on an edge/CDN. Until then the site ships with no security
+# headers at all; do not count on this file for protection.
+#
+# CSP notes, should it ever be applied:
+#   - 'unsafe-inline' on style-src is required by Tailwind/React inline styles.
+#   - connect-src covers Supabase (REST + realtime over wss).
+#   - frame-src covers the Google Maps embed on the contact page.
+#   - Every font, image and script is self-hosted, hence 'self' elsewhere.
+#   Verify against the console after any change: a wrong CSP breaks the site
+#   silently for visitors.
 /*
   Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-src https://www.google.com; manifest-src 'self'; upgrade-insecure-requests

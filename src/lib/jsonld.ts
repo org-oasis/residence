@@ -3,10 +3,15 @@ import {
   allApartments,
   contactInfo,
   googleMapsUrl,
-  PRICE_EUR_MAX,
-  PRICE_EUR_MIN,
   siteConfig,
 } from "@/data/appData";
+import {
+  eurFrom,
+  SEASON_RATES_DZD,
+  tierForType,
+  type TierKey,
+} from "@/data/pricing";
+import { DEFAULT_LANG, dictFor, type Lang } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/seo";
 
 type JsonLd = Record<string, unknown>;
@@ -22,25 +27,87 @@ const RESIDENCE_AMENITIES = [
   "Long-term stays welcome",
 ] as const;
 
+function ensureTrailingSlash(url: string): string {
+  // Skip if URL has a query/hash, or already ends with `/`.
+  if (url.endsWith("/")) return url;
+  if (url.includes("?") || url.includes("#")) return url;
+  return `${url}/`;
+}
+
+const SITE_HOME = ensureTrailingSlash(SITE_URL);
+
+/** Nightly rate envelope of a tier across the whole year, in DZD. */
+function seasonRangeDzd(tier: TierKey): { low: number; high: number } {
+  const rates = Object.values(SEASON_RATES_DZD).map((r) => r[tier]);
+  return { low: Math.min(...rates), high: Math.max(...rates) };
+}
+
+const SEASON_COUNT = Object.keys(SEASON_RATES_DZD).length;
+
+const ALL_RATES_DZD = Object.values(SEASON_RATES_DZD).flatMap((r) =>
+  Object.values(r),
+);
+
+/**
+ * Nightly price band for one tier, published as AggregateOffer. A single
+ * `price` would only carry the base-season rate — up to three times below the
+ * summer rate — which reads as a wrong price in a rich result.
+ * No `availability`: real availability comes from the booking calendar, so a
+ * hardcoded `InStock` would be a claim the markup cannot honour.
+ */
+function buildAggregateOffer(
+  tier: TierKey,
+  currency: "EUR" | "DZD",
+  url: string,
+): JsonLd {
+  const { low, high } = seasonRangeDzd(tier);
+  const lowPrice = currency === "EUR" ? eurFrom(low) : low;
+  const highPrice = currency === "EUR" ? eurFrom(high) : high;
+  return {
+    "@type": "AggregateOffer",
+    priceCurrency: currency,
+    lowPrice,
+    highPrice,
+    offerCount: SEASON_COUNT,
+    url,
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      minPrice: lowPrice,
+      maxPrice: highPrice,
+      priceCurrency: currency,
+      unitCode: "DAY",
+    },
+  };
+}
+
+/** `apt.name` is a translation key in appData — resolve it before publishing. */
+function apartmentName(apartment: ApartmentProps, lang: Lang): string {
+  const t = dictFor(lang);
+  return (
+    t.apartmentNames[apartment.name as keyof typeof t.apartmentNames] ||
+    apartment.name
+  );
+}
+
 export function buildWebSite(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}#website`,
     name: siteConfig.name,
-    url: SITE_URL,
+    url: SITE_HOME,
     inLanguage: ["fr-FR", "en-US", "ar-DZ"],
     publisher: { "@id": `${SITE_URL}#lodging` },
   };
 }
 
-export function buildLodgingBusiness(): JsonLd {
+export function buildLodgingBusiness(lang: Lang = DEFAULT_LANG): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     "@id": `${SITE_URL}#lodging`,
     name: siteConfig.name,
-    url: SITE_URL,
+    url: SITE_HOME,
     image: `${SITE_URL}${siteConfig.heroImage}`,
     logo: `${SITE_URL}${siteConfig.logoOnly}`,
     telephone: contactInfo.phone.primary.split("(")[0].trim(),
@@ -79,7 +146,9 @@ export function buildLodgingBusiness(): JsonLd {
     availableLanguage: ["fr", "en", "ar"],
     petsAllowed: false,
     smokingAllowed: false,
-    priceRange: `€${PRICE_EUR_MIN}–€${PRICE_EUR_MAX}`,
+    // Spans the whole season grid, not just the base tier: the summer rate is
+    // several times the low-season one and must be inside the advertised range.
+    priceRange: `€${eurFrom(Math.min(...ALL_RATES_DZD))}–€${eurFrom(Math.max(...ALL_RATES_DZD))}`,
     // No aggregateRating on purpose: Google does not accept a business
     // publishing a rating about itself, and a wrong one risks a manual action
     // against every rich result on the domain. The real score stays visible on
@@ -90,10 +159,16 @@ export function buildLodgingBusiness(): JsonLd {
       value: true,
     })),
     makesOffer: allApartments.map((apt) => ({
-      "@type": "Offer",
+      // Points at the on-site listing, which is the canonical page for this
+      // offer; the Airbnb links stay in the UI but are not the offer URL.
+      ...buildAggregateOffer(
+        tierForType(apt.type),
+        "EUR",
+        ensureTrailingSlash(`${SITE_URL}/${lang}/apartments/${apt.slug}`),
+      ),
       itemOffered: {
         "@type": "Accommodation",
-        name: apt.name,
+        name: apartmentName(apt, lang),
         accommodationCategory: apt.type,
         floorSize: {
           "@type": "QuantitativeValue",
@@ -105,10 +180,6 @@ export function buildLodgingBusiness(): JsonLd {
           maxValue: apt.capacity,
         },
       },
-      price: apt.priceeur,
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url: `${SITE_URL}/fr/apartments/${apt.slug}/`,
     })),
     sameAs: [
       googleMapsUrl,
@@ -129,7 +200,7 @@ export function buildOrganization(): JsonLd {
     "@type": "Organization",
     "@id": `${SITE_URL}#organization`,
     name: siteConfig.name,
-    url: SITE_URL,
+    url: SITE_HOME,
     logo: {
       "@type": "ImageObject",
       url: `${SITE_URL}${siteConfig.logo}`,
@@ -152,13 +223,6 @@ export function buildOrganization(): JsonLd {
 export interface BreadcrumbItem {
   name: string;
   url: string;
-}
-
-function ensureTrailingSlash(url: string): string {
-  // Skip if URL has a query/hash, or already ends with `/`.
-  if (url.endsWith("/")) return url;
-  if (url.includes("?") || url.includes("#")) return url;
-  return `${url}/`;
 }
 
 export function buildBreadcrumbList(items: BreadcrumbItem[]): JsonLd {
@@ -237,8 +301,11 @@ export function buildArticleSchema({
     dateModified,
     inLanguage,
     keywords: keywords.length ? keywords.join(", ") : undefined,
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    author: { "@type": "Organization", name: authorName, url: SITE_URL },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": ensureTrailingSlash(url),
+    },
+    author: { "@type": "Organization", name: authorName, url: SITE_HOME },
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
@@ -263,17 +330,18 @@ export function buildBlogSchema(
   posts: BlogPostingItem[],
   inLanguage: string,
 ): JsonLd {
+  const url = ensureTrailingSlash(blogUrl);
   return {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "@id": blogUrl,
-    url: blogUrl,
+    "@id": url,
+    url,
     name: `${siteConfig.name} — Blog`,
     inLanguage,
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
-      url: SITE_URL,
+      url: SITE_HOME,
     },
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",
@@ -281,7 +349,7 @@ export function buildBlogSchema(
       description: p.description,
       image: p.image.startsWith("http") ? p.image : `${SITE_URL}${p.image}`,
       datePublished: p.datePublished,
-      url: p.url,
+      url: ensureTrailingSlash(p.url),
     })),
   };
 }
@@ -292,12 +360,14 @@ export function buildApartmentSchema({
   name,
   description,
 }: ApartmentSchemaInput): JsonLd {
-  const url = `${SITE_URL}${pathname}`;
+  const url = ensureTrailingSlash(`${SITE_URL}${pathname}`);
   const images = apartment.images.map((src) => `${SITE_URL}${src}`);
 
   return {
     "@context": "https://schema.org",
-    "@type": "Apartment",
+    // `offers` belongs to Product, not Apartment: without the second type the
+    // whole price block is dropped by validators.
+    "@type": ["Apartment", "Product"],
     "@id": url,
     name,
     description,
@@ -323,33 +393,8 @@ export function buildApartmentSchema({
       "@id": `${SITE_URL}#lodging`,
       name: siteConfig.name,
     },
-    offers: [
-      {
-        "@type": "Offer",
-        price: apartment.priceeur,
-        priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
-        url: apartment.airbnbLink,
-        priceSpecification: {
-          "@type": "UnitPriceSpecification",
-          price: apartment.priceeur,
-          priceCurrency: "EUR",
-          unitCode: "DAY",
-        },
-      },
-      {
-        "@type": "Offer",
-        price: apartment.pricedz,
-        priceCurrency: "DZD",
-        availability: "https://schema.org/InStock",
-        url: apartment.airbnbLink,
-        priceSpecification: {
-          "@type": "UnitPriceSpecification",
-          price: apartment.pricedz,
-          priceCurrency: "DZD",
-          unitCode: "DAY",
-        },
-      },
-    ],
+    offers: (["EUR", "DZD"] as const).map((currency) =>
+      buildAggregateOffer(tierForType(apartment.type), currency, url),
+    ),
   };
 }

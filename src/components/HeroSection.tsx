@@ -10,6 +10,7 @@ import {
   Wifi,
 } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocalizedHref } from "@/lib/i18n";
 import { contactInfo, googleReviews } from "@/data/appData";
@@ -43,9 +44,13 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <img
+        <ResponsiveImage
           src="/assets/COMMON/00-background.avif"
           alt={t.hero.imageAlt}
+          // Full-bleed backdrop: it always spans the viewport width.
+          sizes="100vw"
+          width={1000}
+          height={577}
           className="w-full h-full object-cover object-center"
           fetchPriority="high"
           loading="eager"

@@ -56,8 +56,11 @@ export default function ImageStrip({ images, alt, className }: ImageStripProps) 
                 src={image}
                 alt={`${alt} - ${index + 1}`}
                 sizes="(max-width: 768px) 90vw, 600px"
-                loading={index < 2 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "auto"}
+                // Only the first slot is guaranteed visible: the second one is
+                // `hidden md:block`, so on mobile it would fetch a 0x0 image at
+                // high priority and starve the real LCP candidate.
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "auto"}
                 width={800}
                 height={600}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

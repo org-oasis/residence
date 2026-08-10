@@ -40,8 +40,30 @@ Without these, the availability calendar on apartment detail pages stays disable
 | `bun run dev` | Start the React Router dev server at `http://localhost:5173` |
 | `bun run build` | Generate OG images (prebuild) → prerender every route to static HTML under `build/client/` |
 | `bun run og` | Regenerate OG social-preview PNGs only |
+| `bun run blog:gen` | Regenerate `src/lib/blog-data.generated.ts` + `src/lib/blog-content/` from `src/content/blog/` (both gitignored) |
+| `bun run images:gen` | Regenerate the responsive image variants |
+| `bun run typecheck` | `tsc --noEmit` on the app project |
 | `bun run lint` | ESLint on `src/**/*.{ts,tsx}` |
-| `bun run preview` | Serve the prerendered `build/client/` |
+| `bun test` | Bun test suites under `tests/` (calendar, pricing, SEO/JSON-LD, blog facts) |
+| `bun run check` | Typecheck + lint + tests in one go — same gate the CI runs before deploying |
+| `bun run preview` | Serve the built `build/client/` with `vite preview` |
+
+`bun run check` regenerates the blog data first (via its `precheck` hook), so it works
+from a clean checkout. Run it before pushing: the deploy workflow runs the same three
+steps and refuses to publish if any of them fails.
+
+## Invariants
+
+Two rules keep the static build honest — break either and the site ships wrong pages:
+
+- **Every new route must be added to the prerender list in `react-router.config.ts`.**
+  The app is `ssr: false` + full prerender on GitHub Pages: a route missing from
+  `prerender()` produces no HTML file and 404s in production, even though it works
+  in `bun run dev`.
+- **`src/data/pricing.ts` is the single source of truth for prices and capacities.**
+  Apartment cards, detail pages, the price filter bounds, the JSON-LD offers and the
+  generated blog price tables all derive from it. Never hardcode a rate elsewhere;
+  edit the grid there and rerun `bun run blog:gen`.
 
 ## Routes
 

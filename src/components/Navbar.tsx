@@ -43,9 +43,12 @@ export default function Navbar() {
 
   return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", scrolled ? "bg-white/80 backdrop-blur-lg py-3 shadow-md" : "bg-transparent py-5")}
     dir={language === "ar" ? "rtl" : "ltr"}>
-      <nav className={cn("container flex items-center gap-4", language === "ar" ? "flex-row-reverse" : "")}>
-        {/* Zone gauche : logo (équilibre la zone droite via flex-1) */}
-        <div className={cn("flex items-center flex-1", language === "ar" ? "flex-row-reverse" : "")}>
+      {/* No flex-row-reverse here: the header already carries dir="rtl", so the
+          flex axis is flipped by the document direction. Reversing on top of it
+          cancelled the flip and left the Arabic header reading left-to-right. */}
+      <nav className="container flex items-center gap-4">
+        {/* Zone de début (gauche en LTR, droite en RTL) : logo, équilibre la zone de fin via flex-1 */}
+        <div className="flex items-center flex-1">
           <Link viewTransition to={loc("/")} className="flex items-center">
             <img
               src="/assets/logo.avif"
@@ -56,7 +59,8 @@ export default function Navbar() {
         </div>
 
         {/* Zone centrale : navigation desktop centrée */}
-        <ul className={cn("hidden md:flex items-center justify-center", language === "ar" ? "flex-row-reverse space-x-reverse space-x-8" : "space-x-8")}>
+        {/* gap-* is direction-agnostic, unlike space-x-* which needs space-x-reverse in RTL */}
+        <ul className="hidden md:flex items-center justify-center gap-8">
           {navLinks.map(link => <li key={link.name} className="relative">
               <Link viewTransition to={link.path} className="font-medium transition-colors hover:text-oasis-teal after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:w-0 after:bg-oasis-teal after:transition-all hover:after:w-full">
                 {link.name}
@@ -64,8 +68,8 @@ export default function Navbar() {
             </li>)}
         </ul>
 
-        {/* Zone droite : sélecteur de langue + burger mobile (flex-1 pour équilibrer la zone gauche) */}
-        <div className={cn("flex items-center justify-end flex-1 gap-2", language === "ar" ? "flex-row-reverse" : "")}>
+        {/* Zone de fin : sélecteur de langue + burger mobile (flex-1 pour équilibrer la zone de début) */}
+        <div className="flex items-center justify-end flex-1 gap-2">
           <LanguageSelector />
           <div className="md:hidden">
             <Button

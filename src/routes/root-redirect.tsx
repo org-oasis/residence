@@ -9,39 +9,8 @@ import {
   buildWebSite,
 } from "@/lib/jsonld";
 import { contactInfo, googleMapsUrl, googleReviews } from "@/data/appData";
-
-const HOME_FAQ = [
-  {
-    question: "Où se trouve la Résidence Oasis exactement ?",
-    answer:
-      "La résidence est située à Filfila, à 20 km à l'est de Skikda et à 100 km de Constantine. Plage Jeanne d'Arc à 700 m, complexes touristiques Rusica Park et Royal Tulip à proximité immédiate.",
-  },
-  {
-    question: "Quels types d'appartements proposez-vous à Filfila ?",
-    answer:
-      "Sept appartements meublés : un studio (3 pers.), quatre F2 modernes (4 pers.), un F2 avec jacuzzi privatif et sauna (4 pers.), et un F3 de 132 m² avec terrasse privée (6 pers.). Tous équipés cuisine, climatisation neuve, Wi-Fi fibre 240 Mbps.",
-  },
-  {
-    question: "Comment réserver depuis l'étranger ?",
-    answer:
-      "Réservation directe par WhatsApp (+213 5 61 47 29 90) ou Telegram (@residence_oasis). Acompte d'une nuit par virement CCP dans les 24 h, solde à l'arrivée en dinars algériens (DA) ou en euros (€). Aucune caution, aucun frais caché.",
-  },
-  {
-    question: "Quels sont les tarifs ?",
-    answer:
-      "Les tarifs vont de 40 €/nuit (10 000 DA) pour le studio à 110 €/nuit (30 000 DA) pour le F3 avec terrasse privée. F2 standard à partir de 45 €/nuit, F2 avec jacuzzi à 70 €/nuit.",
-  },
-  {
-    question: "Y a-t-il un appartement avec jacuzzi à Skikda ?",
-    answer:
-      "Oui, l'appartement F2 Jacuzzi & Sauna (44 m², 4 personnes) propose un jacuzzi privatif et un sauna intégrés à l'appartement. Disponible à Filfila à 700 m de la plage Jeanne d'Arc.",
-  },
-  {
-    question: "Le Wi-Fi est-il rapide pour le télétravail ?",
-    answer:
-      "Oui, fibre optique 240 Mbps avec un modem dédié par étage pour répartir la charge. Adapté à Zoom, Google Meet, streaming 4K et appels vidéo simultanés.",
-  },
-];
+import { TIERS } from "@/data/pricing";
+import { HOME_FAQ } from "./root-redirect-faq";
 
 /**
  * Root URL handler at "/".
@@ -300,8 +269,8 @@ export default function RootRedirect() {
             Skikda, idéale couples ou cure thermale.
           </li>
           <li className="border-l-2 border-primary/30 pl-3">
-            <strong>F3 132 m² avec terrasse privée.</strong> Jusqu'à 6
-            personnes, parfait pour les familles élargies.
+            <strong>F3 132 m² avec terrasse privée.</strong>
+            {` Jusqu'à ${TIERS.f3.capacity} personnes, parfait pour les familles élargies.`}
           </li>
         </ul>
       </section>

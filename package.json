@@ -12,8 +12,11 @@
     "blog:gen": "bun scripts/generate-blog-data.mjs",
     "images:gen": "bun scripts/generate-image-variants.mjs",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "test": "bun test",
-    "preview": "react-router serve ./build/client"
+    "precheck": "bun scripts/generate-blog-data.mjs",
+    "check": "bun run typecheck && bun run lint && bun test",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
