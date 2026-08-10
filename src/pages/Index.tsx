@@ -179,7 +179,7 @@ export default function Index() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {featuredApartments.map((apartment, index) => (
                 <div key={apartment.id} className="animate-fade-in" style={{ animationDelay: `${(index + 1) * 100}ms` }}>
-                  <ApartmentCard apartment={apartment} />
+                  <ApartmentCard apartment={apartment} priority={index === 0} />
                 </div>
               ))}
             </div>

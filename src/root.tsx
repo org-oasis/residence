@@ -7,7 +7,6 @@ import {
   useLocation,
 } from "react-router";
 import { useEffect } from "react";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { dictFor, dirFor, isLang, DEFAULT_LANG, type Lang } from "@/lib/i18n";
 import "./index.css";
@@ -94,9 +93,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function Root() {
   return (
     <ErrorBoundary>
-      <TooltipProvider>
-        <Outlet />
-      </TooltipProvider>
+      {/* No TooltipProvider here: `Tooltip` provides its own, so the 17 KB
+          Radix bundle stays out of the 186 blog pages that never show one. */}
+      <Outlet />
     </ErrorBoundary>
   );
 }

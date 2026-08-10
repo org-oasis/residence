@@ -42,7 +42,7 @@ export const allApartments: ApartmentProps[] = [
     type: "Studio",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1210309363040804447",
-    contactPhone: "213696123800",
+    contactPhone: "213561472990",
     slug: "studio-deluxe-1"
   },
   {
@@ -64,7 +64,7 @@ export const allApartments: ApartmentProps[] = [
     type: "F2",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine"],
     airbnbLink: "https://www.airbnb.fr/rooms/1403490902913383980",
-    contactPhone: "213696123800",
+    contactPhone: "213561472990",
     slug: "f2-classique-2"
   },
   {
@@ -88,7 +88,7 @@ export const allApartments: ApartmentProps[] = [
     type: "F2-jacuzzi",
     features: ["Wi-Fi", "TV", "Kitchen", "Bathroom", "Air Conditioning", "Refrigerator", "Oven", "Stove", "Freezer", "Washing Machine", "Jacuzzi", "Sauna"],
     airbnbLink: "https://www.airbnb.fr/rooms/1406477130010047362",
-    contactPhone: "213696123800",
+    contactPhone: "213561472990",
     slug: "f2-jacuzzi-3"
   },
   {

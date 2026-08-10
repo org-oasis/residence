@@ -113,7 +113,9 @@ export function buildRows(apartmentId, events, todayIso) {
       // consecutive blocks read as a single unavailable stretch; every
       // reservation keeps its own, so two guests arriving back to back are
       // never drawn as one stay.
-      source: isBlock ? `airbnb:${apartmentId}:block` : externalUid,
+      // Keyed per event, blocks included: `source` is what groups nights into
+      // one pill, so a shared key would merge two adjacent blocks into one.
+      source: externalUid,
       external_uid: externalUid,
     });
   }

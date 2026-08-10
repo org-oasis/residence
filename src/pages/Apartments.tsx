@@ -225,8 +225,12 @@ export default function Apartments() {
           <div className="container">
             {filteredApartments.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredApartments.map((apartment) => (
-                  <ApartmentCard key={apartment.id} apartment={apartment} />
+                {filteredApartments.map((apartment, index) => (
+                  <ApartmentCard
+                    key={apartment.id}
+                    apartment={apartment}
+                    priority={index === 0}
+                  />
                 ))}
               </div>
             ) : (

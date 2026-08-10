@@ -42,7 +42,14 @@ export interface ApartmentProps {
   contactPhone?: string;
 }
 
-export default function ApartmentCard({ apartment }: { apartment: ApartmentProps }) {
+export default function ApartmentCard({
+  apartment,
+  priority = false,
+}: {
+  apartment: ApartmentProps;
+  /** Set on the first card only: its image is the LCP element above the fold. */
+  priority?: boolean;
+}) {
   const { t } = useLanguage();
   const loc = useLocalizedHref();
   const navigate = useNavigate();
@@ -89,8 +96,11 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
         <ResponsiveImage
           src={apartment.image}
           alt={translatedName}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          loading="lazy"
+          // The card is inset by the container padding, so a bare 100vw would
+          // make the browser pick a variant wider than the slot ever gets.
+          sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1024px) 50vw, 33vw"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
           className={cn(
             "w-full h-full object-cover transition-transform duration-700 cursor-pointer",
             isHovered ? "scale-110" : "scale-100",
@@ -104,9 +114,11 @@ export default function ApartmentCard({ apartment }: { apartment: ApartmentProps
           onClick={goToDetail}
         >
           <div className="w-full flex items-end justify-between gap-3">
-            <h3 className="text-white text-xl font-bold leading-tight text-left">
+            {/* h2: the card sits directly under the page h1, and skipping a
+                level breaks screen-reader outline navigation. */}
+            <h2 className="text-white text-xl font-bold leading-tight text-left">
               {translatedName}
-            </h3>
+            </h2>
             <div className="text-right shrink-0">
               <Tooltip>
                 <TooltipTrigger asChild>

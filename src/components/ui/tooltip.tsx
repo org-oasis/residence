@@ -5,7 +5,21 @@ import { cn } from "@/lib/utils"
 
 const TooltipProvider = TooltipPrimitive.Provider
 
-const Tooltip = TooltipPrimitive.Root
+/**
+ * Self-providing tooltip. Radix needs a Provider ancestor, and mounting one at
+ * the app root pulled the 17 KB tooltip bundle into all 232 pages — including
+ * the 186 blog pages, which render no tooltip at all. Providing here keeps the
+ * cost in the chunks that actually use it. The only thing lost is delay
+ * skipping between neighbouring tooltips, which no screen here depends on.
+ */
+const Tooltip = ({
+  children,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>) => (
+  <TooltipPrimitive.Provider>
+    <TooltipPrimitive.Root {...props}>{children}</TooltipPrimitive.Root>
+  </TooltipPrimitive.Provider>
+)
 
 const TooltipTrigger = TooltipPrimitive.Trigger
 
