@@ -1,5 +1,5 @@
-import { Link, Navigate, useParams } from "react-router";
-import type { MetaFunction } from "react-router";
+import { Link, Navigate, useLoaderData, useParams } from "react-router";
+import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { ArrowLeft } from "@/components/icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,9 +17,19 @@ import {
   buildBreadcrumbList,
   buildFaqPage,
 } from "@/lib/jsonld";
-import { getArticle } from "@/lib/blog";
+import { getArticle, loadArticleContent } from "@/lib/blog";
 
-export const meta: MetaFunction = ({ params }) => {
+/**
+ * The body and FAQ live in a per-article module so a reader downloads only the
+ * piece they opened. Awaiting them here keeps them in the prerendered HTML,
+ * which is what search engines and answer engines actually read.
+ */
+export async function loader({ params }: LoaderFunctionArgs) {
+  const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
+  return { content: await loadArticleContent(params.slug ?? "", lang) };
+}
+
+export const meta: MetaFunction<typeof loader> = ({ params, data }) => {
   const lang: Lang = isLang(params.lang) ? params.lang : DEFAULT_LANG;
   const slug = (params.slug ?? "") as string;
   const article = getArticle(slug, lang);
@@ -43,10 +53,9 @@ export const meta: MetaFunction = ({ params }) => {
       keywords: article.keywords,
     }),
   ];
-  if (article.faq.length > 0) {
-    jsonLd.push(
-      buildFaqPage(article.faq.map((f) => ({ question: f.q, answer: f.a }))),
-    );
+  const faq = data?.content?.faq ?? [];
+  if (faq.length > 0) {
+    jsonLd.push(buildFaqPage(faq.map((f) => ({ question: f.q, answer: f.a }))));
   }
   return buildMeta({
     lang,
@@ -63,6 +72,7 @@ export default function BlogArticle() {
   const { t, language } = useLanguage();
   const loc = useLocalizedHref();
   const article = getArticle(slug, language);
+  const { content } = useLoaderData<typeof loader>();
 
   if (!article) {
     return <Navigate to={loc("/blog")} replace />;
@@ -116,7 +126,7 @@ export default function BlogArticle() {
             className={
               language === "ar" ? "prose-oasis prose-oasis-rtl" : "prose-oasis"
             }
-            dangerouslySetInnerHTML={{ __html: article.bodyHtml }}
+            dangerouslySetInnerHTML={{ __html: content?.bodyHtml ?? "" }}
           />
         </article>
       </main>

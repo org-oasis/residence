@@ -20,10 +20,11 @@ export default function HeroSection() {
   const { t } = useLanguage();
   const loc = useLocalizedHref();
   const phoneDigits = contactInfo.phone.primary.replace(/[^+\d]/g, "");
-  const reviewsBasedOn = t.hero.reviews.basedOn.replace(
-    "{count}",
-    googleReviews.count.toString(),
-  );
+  // Shown only once the real count is known; the rating alone is still useful.
+  const reviewsBasedOn =
+    googleReviews.count === null
+      ? null
+      : t.hero.reviews.basedOn.replace("{count}", String(googleReviews.count));
 
   const featureRows = [
     { Icon: Phone, label: t.hero.features.ownerAvailable },

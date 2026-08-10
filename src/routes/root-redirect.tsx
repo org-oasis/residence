@@ -169,11 +169,13 @@ export default function RootRedirect() {
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-400/40 bg-amber-50 text-amber-900 hover:bg-amber-100"
-          aria-label={`Note Google ${googleReviews.rating} sur 5, basée sur ${googleReviews.count} avis`}
+          aria-label={`Note Google ${googleReviews.rating} sur 5`}
         >
           <span aria-hidden="true">★</span>
           <span className="font-semibold">{googleReviews.rating} / 5</span>
-          <span className="text-xs">Google · {googleReviews.count} avis</span>
+          <span className="text-xs">
+            Google{googleReviews.count === null ? "" : ` · ${googleReviews.count} avis`}
+          </span>
         </a>
         <a
           href={googleMapsUrl}

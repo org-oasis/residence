@@ -8,7 +8,7 @@ faq:
   - q: "Should I prefer a hotel or an apartment in Skikda?"
     a: "A furnished apartment offers more autonomy for a multi-day beachfront stay: equipped kitchen for self-catering, private space for families, schedule flexibility. The hotel format remains relevant for short stops or business trips. For a family holiday in Skikda, a furnished F2 or F3 is generally more advantageous."
   - q: "Which apartment size should I choose based on the number of travellers?"
-    a: "A 23 m² studio fits 2 people maximum. A 33 m² F2 sleeps up to 4 travellers, ideal for a couple with children. An F3 with private terrace accommodates up to 8 people and is the format best suited to extended families or two couples travelling together."
+    a: "A 23 m² studio fits 3 people maximum. A 33 m² F2 sleeps up to 4 travellers, ideal for a couple with children. An F3 with private terrace accommodates up to 8 people and is the format best suited to extended families or two couples travelling together."
   - q: "Which features should I check before booking in Skikda?"
     a: "High-speed Wi-Fi (at least 50 Mbps), modern air conditioning, fully equipped kitchen (refrigerator, oven, hob, washing machine), free parking and ideally 24/7 reception. These features transform the experience of a summer stay under the Mediterranean climate, particularly between June and September."
   - q: "How far from the beaches are the Filfila rentals?"
@@ -153,7 +153,7 @@ faq:
 <p class="p2">A <strong>furnished apartment</strong> offers more autonomy for a multi-day beachfront stay: equipped kitchen, private space for families, schedule flexibility. The hotel format remains relevant for short stops. For a family holiday, a <a href="/en/apartments">furnished F2 or F3</a> is generally more advantageous.</p>
 
 <h3 class="p1">Which apartment size should I choose based on the number of travellers?</h3>
-<p class="p2">A <strong>23 m² studio</strong> fits 2 people maximum. A 33 m² F2 sleeps up to 4 travellers. An <a href="/en/apartments/f3-terrasse-7">F3 with private terrace</a> accommodates up to 8 people and is the format best suited to extended families or two couples.</p>
+<p class="p2">A <strong>23 m² studio</strong> fits 3 people maximum. A 33 m² F2 sleeps up to 4 travellers. An <a href="/en/apartments/f3-terrasse-7">F3 with private terrace</a> accommodates up to 8 people and is the format best suited to extended families or two couples.</p>
 
 <h3 class="p1">Which features should I check before booking in Skikda?</h3>
 <p class="p2"><strong>High-speed Wi-Fi</strong> (at least 50 Mbps), modern air conditioning, fully equipped kitchen, free parking, and ideally 24/7 reception. These features transform the experience of a summer stay under the Mediterranean climate, particularly between June and September.</p>

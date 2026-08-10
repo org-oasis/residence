@@ -3,7 +3,6 @@ import {
   allApartments,
   contactInfo,
   googleMapsUrl,
-  googleReviews,
   PRICE_EUR_MAX,
   PRICE_EUR_MIN,
   siteConfig,
@@ -81,13 +80,10 @@ export function buildLodgingBusiness(): JsonLd {
     petsAllowed: false,
     smokingAllowed: false,
     priceRange: `€${PRICE_EUR_MIN}–€${PRICE_EUR_MAX}`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: googleReviews.rating,
-      reviewCount: googleReviews.count,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    // No aggregateRating on purpose: Google does not accept a business
+    // publishing a rating about itself, and a wrong one risks a manual action
+    // against every rich result on the domain. The real score stays visible on
+    // the page and on the Google listing linked from sameAs.
     amenityFeature: RESIDENCE_AMENITIES.map((name) => ({
       "@type": "LocationFeatureSpecification",
       name,

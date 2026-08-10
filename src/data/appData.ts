@@ -345,10 +345,17 @@ export const PRICE_DZD_MAX = Math.max(...allApartments.map((a) => a.pricedz));
 // Google Maps / GBP listing — single source of truth for the location URL
 export const googleMapsUrl = "https://maps.app.goo.gl/yzCbNecz2QeQAXCC6";
 
-// Google Reviews — fictional but realistic data, links to the same GBP listing
-export const googleReviews = {
-  rating: 4.9,
-  count: 11,
+/**
+ * Google rating, read from the listing itself — never invented, and never fed
+ * to schema.org: Google rejects a business publishing a rating about itself,
+ * and a fabricated one risks a manual action against the whole domain. This is
+ * display only, always shown next to a link so a visitor can check it.
+ * `count` stays null until the real number is read from the Google Business
+ * dashboard; the public listing page does not show it.
+ */
+export const googleReviews: { rating: number; count: number | null; url: string } = {
+  rating: 4.8,
+  count: null,
   url: googleMapsUrl,
 };
 

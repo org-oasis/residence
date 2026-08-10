@@ -19,7 +19,7 @@ faq:
   - q: "Faut-il préférer un hôtel ou un appartement à Skikda ?"
     a: "Un appartement meublé offre davantage d'autonomie pour un séjour balnéaire de plusieurs jours : cuisine équipée pour préparer ses repas, espace privatif pour les familles, flexibilité des horaires. L'hôtel reste pertinent pour des escales courtes ou des voyages d'affaires. Pour des vacances en famille à Skikda, un F2 ou F3 meublé est généralement plus avantageux."
   - q: "Quelle taille d'appartement choisir selon le nombre de voyageurs ?"
-    a: "Un studio de 23 m² convient à 2 personnes maximum. Un F2 de 33 m² accueille jusqu'à 4 voyageurs, idéal pour un couple avec enfants. Un F3 avec terrasse privative monte jusqu'à 8 personnes et reste le format le plus adapté à une famille élargie ou à deux couples voyageant ensemble."
+    a: "Un studio de 23 m² convient à 3 personnes maximum. Un F2 de 33 m² accueille jusqu'à 4 voyageurs, idéal pour un couple avec enfants. Un F3 avec terrasse privative monte jusqu'à 8 personnes et reste le format le plus adapté à une famille élargie ou à deux couples voyageant ensemble."
   - q: "Quels équipements vérifier avant de réserver à Skikda ?"
     a: "Wi-Fi haut débit (au moins 50 Mbps), climatisation moderne, cuisine entièrement équipée (réfrigérateur, four, plaques, machine à laver), parking gratuit, et idéalement réception 24h/24. Ces équipements transforment l'expérience d'un séjour estival sous le climat méditerranéen, particulièrement entre juin et septembre."
   - q: "À quelle distance des plages se trouvent les locations de Filfila ?"
@@ -164,7 +164,7 @@ faq:
 <p class="p2">Un <strong>appartement meublé</strong> offre davantage d'autonomie pour un séjour balnéaire de plusieurs jours : cuisine équipée, espace privatif pour les familles, flexibilité des horaires. L'hôtel reste pertinent pour des escales courtes. Pour des vacances en famille, un <a href="/fr/apartments">F2 ou F3 meublé</a> est généralement plus avantageux.</p>
 
 <h3 class="p1">Quelle taille d'appartement choisir selon le nombre de voyageurs ?</h3>
-<p class="p2">Un <strong>studio de 23 m²</strong> convient à 2 personnes maximum. Un F2 de 33 m² accueille jusqu'à 4 voyageurs. Un <a href="/fr/apartments/f3-terrasse-7">F3 avec terrasse privative</a> monte jusqu'à 8 personnes et reste le format le plus adapté à une famille élargie ou à deux couples.</p>
+<p class="p2">Un <strong>studio de 23 m²</strong> convient à 3 personnes maximum. Un F2 de 33 m² accueille jusqu'à 4 voyageurs. Un <a href="/fr/apartments/f3-terrasse-7">F3 avec terrasse privative</a> monte jusqu'à 8 personnes et reste le format le plus adapté à une famille élargie ou à deux couples.</p>
 
 <h3 class="p1">Quels équipements vérifier avant de réserver à Skikda ?</h3>
 <p class="p2"><strong>Wi-Fi haut débit</strong> (au moins 50 Mbps), climatisation moderne, cuisine entièrement équipée, parking gratuit, et idéalement réception 24h/24. Ces équipements transforment l'expérience d'un séjour estival sous le climat méditerranéen, particulièrement entre juin et septembre.</p>
