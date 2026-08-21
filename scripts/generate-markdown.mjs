@@ -27,6 +27,7 @@ const ENTITIES = {
 
 const decode = (s) =>
   s
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)))
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
     .replace(/&([a-zA-Z#0-9]+);/g, (m, name) => ENTITIES[name] ?? m);
 
@@ -75,36 +76,66 @@ function tableToMarkdown(html) {
   ].join("\n");
 }
 
-/** Block-level walk over the page's <main>, in document order. */
-function htmlToMarkdown(main) {
-  const blocks = [];
-  const pattern =
-    /<h([1-6])[^>]*>([\s\S]*?)<\/h\1>|<table[^>]*>[\s\S]*?<\/table>|<(ul|ol)[^>]*>[\s\S]*?<\/\3>|<p[^>]*>([\s\S]*?)<\/p>|<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi;
+/** Bullet or numbered list to markdown. */
+function listToMarkdown(html, ordered) {
+  return [...html.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
+    .map((li, i) => {
+      const text = inline(li[1]);
+      return text ? `${ordered ? `${i + 1}.` : "-"} ${text}` : "";
+    })
+    .filter(Boolean)
+    .join("\n");
+}
 
-  for (const m of main.matchAll(pattern)) {
-    const chunk = m[0];
-    if (m[1]) {
-      const text = inline(m[2]);
-      if (text) blocks.push(`${"#".repeat(Number(m[1]))} ${text}`);
-    } else if (/^<table/i.test(chunk)) {
-      const table = tableToMarkdown(chunk);
-      if (table) blocks.push(table);
-    } else if (m[3]) {
-      const ordered = m[3].toLowerCase() === "ol";
-      const items = [...chunk.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
-        .map((li, i) => {
-          const text = inline(li[1]);
-          return text ? `${ordered ? `${i + 1}.` : "-"} ${text}` : "";
-        })
-        .filter(Boolean);
-      if (items.length) blocks.push(items.join("\n"));
-    } else if (m[4] !== undefined) {
-      const text = inline(m[4]);
-      if (text) blocks.push(text);
-    } else if (m[5] !== undefined) {
-      const text = inline(m[5]);
-      if (text) blocks.push(`> ${text}`);
+/**
+ * Walk the page's <main> in document order.
+ *
+ * Structured blocks (tables, lists, headings, quotes) are converted first and
+ * parked behind placeholders so their markdown survives the flattening pass.
+ * Everything left is split on block-level tag boundaries and emitted as
+ * paragraphs — without that fallthrough, any text living in a bare div or span
+ * (price grids, card metadata, definition lists) silently vanished from the
+ * markdown while staying visible in the HTML.
+ */
+function htmlToMarkdown(main) {
+  const stash = [];
+  const park = (md) => (md ? `\u0000${stash.push(md) - 1}\u0000` : "");
+
+  let s = main
+    .replace(/<(script|style|template)[^>]*>[\s\S]*?<\/\1>/gi, " ")
+    .replace(/<!--[\s\S]*?-->/g, " ");
+
+  s = s.replace(/<table[^>]*>[\s\S]*?<\/table>/gi, (m) => park(tableToMarkdown(m)));
+  s = s.replace(/<(ul|ol)[^>]*>[\s\S]*?<\/\1>/gi, (m, tag) =>
+    park(listToMarkdown(m, tag.toLowerCase() === "ol")),
+  );
+  s = s.replace(/<h([1-6])[^>]*>([\s\S]*?)<\/h\1>/gi, (_, lvl, text) => {
+    const t = inline(text);
+    return t ? park(`${"#".repeat(Number(lvl))} ${t}`) : "";
+  });
+  s = s.replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, (_, text) => {
+    const t = inline(text);
+    return t ? park(`> ${t}`) : "";
+  });
+
+  const BLOCK = "p|div|section|article|aside|header|footer|nav|main|li|dt|dd|tr|figure|figcaption|form|label|button";
+  s = s
+    .replace(new RegExp(`</?(?:${BLOCK})\\b[^>]*>`, "gi"), "\n\n")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/\u0000(\d+)\u0000/g, "\n\n\u0000$1\u0000\n\n");
+
+  const blocks = [];
+  for (const chunk of s.split(/\n{2,}/)) {
+    const raw = chunk.trim();
+    if (!raw) continue;
+    const parked = raw.match(/^\u0000(\d+)\u0000$/);
+    if (parked) {
+      blocks.push(stash[Number(parked[1])]);
+      continue;
     }
+    const text = inline(raw);
+    // Nested wrappers can repeat the same run of text; keep the first only.
+    if (text && text !== blocks[blocks.length - 1]) blocks.push(text);
   }
   return blocks;
 }

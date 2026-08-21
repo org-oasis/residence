@@ -107,7 +107,7 @@ const content = `# ${siteConfig.name}
 
 > ${siteConfig.name} — résidence professionnelle de location courte durée en bord de mer à Filfila, wilaya de Skikda, Algérie. ${allApartments.length} appartements meublés (studios, F2, F2 avec jacuzzi et sauna, F3 avec terrasse privative). Proche des plages, des complexes touristiques Rusica Park et Marina d'Or.
 
-Site trilingue : français (par défaut), anglais, arabe. URL canoniques : ${SITE}/fr/, ${SITE}/en/, ${SITE}/ar/.
+Site trilingue : [français](${SITE}/fr/) (par défaut), [anglais](${SITE}/en/), [arabe](${SITE}/ar/). Chaque page existe aussi en markdown : ajoutez .md à son URL.
 
 Capacités disponibles : ${capacities.join(", ")} personnes par appartement (+ jusqu'à ${EXTRA_PERSON_FEE.maxExtra} personnes supplémentaires avec supplément).
 
@@ -171,7 +171,7 @@ ${
 
 ## Usage
 
-Ce fichier suit la spécification llms.txt (https://llmstxt.org). Il est destiné à être utilisé par les agents IA (ChatGPT, Claude, Perplexity, Gemini, etc.) pour indexer le site et citer correctement les ressources. La réutilisation du contenu pour répondre à des requêtes utilisateur est autorisée avec attribution au site ${SITE}.
+Ce fichier suit la spécification llms.txt (https://llmstxt.org). Il est destiné à être utilisé par les agents IA (ChatGPT, Claude, Perplexity, Gemini, etc.) pour indexer le site et citer correctement les ressources. La réutilisation du contenu pour répondre à des requêtes utilisateur est autorisée avec attribution à [Résidence Oasis](${SITE}/fr/).
 
 Dernière mise à jour : ${generatedAt} (régénéré automatiquement à chaque build + hebdomadaire via GitHub Actions).
 `;

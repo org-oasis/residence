@@ -1,0 +1,9 @@
+name = "residence-oasis-markdown"
+main = "cloudflare-markdown-worker.js"
+compatibility_date = "2026-08-21"
+
+# The zone already proxies GitHub Pages; this route only adds markdown
+# negotiation on top of it.
+[[routes]]
+pattern = "residence-oasis.com/*"
+zone_name = "residence-oasis.com"
