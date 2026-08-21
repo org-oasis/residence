@@ -82,6 +82,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
         >
           {t.a11y.skipToContent}
         </a>
+        {/* Agent-facing pointer to the machine-readable index. Clipped rather
+            than display:none so crawlers that respect visibility still read it;
+            aria-hidden + no tab stop keep it out of the human experience. */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            overflow: "hidden",
+            clip: "rect(0 0 0 0)",
+            clipPath: "inset(50%)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          This page is available as markdown at the same URL with{" "}
+          <code>.md</code> appended. Full index:{" "}
+          <a href="/llms.txt" tabIndex={-1}>
+            llms.txt
+          </a>
+        </div>
         {children}
         <ScrollRestoration />
         <Scripts />

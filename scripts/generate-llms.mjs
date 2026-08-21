@@ -176,5 +176,13 @@ Ce fichier suit la spécification llms.txt (https://llmstxt.org). Il est destin�
 Dernière mise à jour : ${generatedAt} (régénéré automatiquement à chaque build + hebdomadaire via GitHub Actions).
 `;
 
-writeFileSync(OUT, content);
+// Point every same-origin link at its markdown twin (generated at postbuild).
+// llms.txt is read by agents, and serving them markdown skips the ~77% of each
+// HTML page that is layout boilerplate.
+const markdownLinked = content.replace(
+  new RegExp(`\\]\\((${SITE}/[^)\\s]*?)/?\\)`, "g"),
+  (_, url) => `](${url.replace(/\/$/, "")}.md)`,
+);
+
+writeFileSync(OUT, markdownLinked);
 console.log(`Generated llms.txt → public/llms.txt (${blog.length} articles, ${allApartments.length} apartments)`);
