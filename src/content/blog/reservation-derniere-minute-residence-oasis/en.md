@@ -106,6 +106,20 @@ faq:
   <li>Not mentioning a possible late-evening arrival, useful information to share as soon as the booking is confirmed</li>
 </ul>
 
+<h2>Who typically books at the last minute</h2>
+
+<p>Several traveler profiles regularly end up contacting the residence just a few days before arrival. Understanding them helps explain why last-minute availability remains a realistic option in many cases.</p>
+
+<ul>
+  <li><strong>Diaspora travelers</strong> who decide on a quick trip to Skikda province to visit family</li>
+  <li><strong>Couples or groups of friends</strong> taking advantage of a long weekend that freed up at the last moment</li>
+  <li><strong>Families in transit</strong> to Constantine or Annaba who decide to add a beach stop to their route</li>
+  <li><strong>Travelers already in Algeria</strong> who discover the destination during their trip and want to work it into their plans</li>
+  <li><strong>Backup stays</strong> after another planned accommodation elsewhere on the coast falls through</li>
+</ul>
+
+<p>In all these cases, the simplicity of the direct booking process, with no paperwork to assemble and no third-party platform validation delay, plays a decisive role in turning a last-minute urge into a confirmed stay.</p>
+
 <h2>How to book quickly at Résidence Oasis</h2>
 
 <p>Booking is done directly, with no third-party platform or extra commission. Contact via <a href="/en/contact">WhatsApp, Telegram and phone</a> lets you check availability within minutes among <a href="/en/apartments">the available studios and F2/F3 units</a>, then confirm with a one-night deposit paid by CCP bank transfer. The balance is paid on arrival, in dinars or euros, with no security deposit required.</p>

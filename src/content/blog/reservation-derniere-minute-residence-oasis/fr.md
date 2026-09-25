@@ -106,6 +106,20 @@ faq:
   <li>Ne pas indiquer une éventuelle arrivée tardive dans la soirée, information utile à communiquer dès la confirmation</li>
 </ul>
 
+<h2>Qui réserve habituellement à la dernière minute</h2>
+
+<p>Plusieurs profils de voyageurs se retrouvent régulièrement à contacter la résidence quelques jours seulement avant leur arrivée. Les anticiper aide à comprendre pourquoi la disponibilité de dernière minute reste malgré tout une option réaliste dans de nombreux cas.</p>
+
+<ul>
+  <li><strong>Voyageurs de la diaspora</strong> qui décident d'un aller-retour rapide vers la wilaya de Skikda pour rendre visite à la famille</li>
+  <li><strong>Couples ou groupes d'amis</strong> qui profitent d'un long week-end libéré au dernier moment</li>
+  <li><strong>Familles en transit</strong> vers Constantine ou Annaba qui décident d'ajouter une étape balnéaire à leur trajet</li>
+  <li><strong>Voyageurs déjà présents en Algérie</strong> qui découvrent la destination pendant leur séjour et souhaitent l'intégrer à leur programme</li>
+  <li><strong>Séjours de secours</strong> après l'annulation d'un autre hébergement prévu ailleurs sur la côte</li>
+</ul>
+
+<p>Dans tous ces cas, la simplicité du processus de réservation directe, sans dossier à constituer ni délai de validation d'une plateforme tierce, joue un rôle déterminant pour transformer une envie de dernière minute en séjour confirmé.</p>
+
 <h2>Comment réserver rapidement à la Résidence Oasis</h2>
 
 <p>La réservation se fait directement, sans plateforme tierce ni commission additionnelle. Un contact par <a href="/fr/contact">WhatsApp, Telegram et téléphone</a> permet de vérifier en quelques minutes la disponibilité parmi <a href="/fr/apartments">les studios et F2/F3 disponibles</a>, puis de confirmer avec un acompte d'une nuit réglé par virement CCP. Le solde se règle à l'arrivée, en dinars ou en euros, sans caution demandée.</p>
