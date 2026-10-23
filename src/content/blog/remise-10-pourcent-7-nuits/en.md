@@ -27,7 +27,7 @@ faq:
 
 <h3>No intermediate tier, no higher tier</h3>
 
-<p>Unlike some establishments that offer a progressive discount scale (for example 5% from 5 nights, 15% from 15 nights), Oasis Residence works with a single threshold. Booking 7 nights or booking 21 nights gives the same 10% discount rate: there is no additional tier at 14 days, nor a higher percentage for a longer stay.</p>
+<p>Unlike some establishments that offer a progressive discount scale, Oasis Residence works with a single threshold. Booking 7 nights or booking 21 nights gives the same 10% discount rate: there is no additional tier at 14 days, nor a higher percentage for a longer stay.</p>
 
 <h3>A discount valid across all four formats</h3>
 

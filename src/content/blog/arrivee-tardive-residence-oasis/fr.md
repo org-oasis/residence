@@ -55,7 +55,7 @@ faq:
 
 <h2>Le trajet de nuit depuis Constantine ou Annaba jusqu'à Filfila</h2>
 
-<p>Le choix de l'aéroport d'arrivée influence directement la durée du trajet final. Depuis Constantine, environ 100 km séparent l'aéroport de Skikda ; depuis Annaba, la distance avoisine 110 km. Dans les deux cas, la route se termine par la traversée de Skikda ville, située à environ 20 km de Filfila, avant de rejoindre le quartier Jeanne d'Arc où se trouve la résidence, à 700 m de la mer.</p>
+<p>Le choix de l'aéroport d'arrivée influence directement la durée du trajet final. Depuis Constantine, environ 100 km séparent Skikda de l'aéroport ; depuis Annaba, la distance avoisine 110 km. Dans les deux cas, la route se termine par la traversée de Skikda ville, située à environ 20 km de Filfila, avant de rejoindre le quartier Jeanne d'Arc où se trouve la résidence, à 700 m de la mer.</p>
 
 <table>
   <thead>

@@ -39,7 +39,7 @@ faq:
 
 <h3>Pas de palier intermédiaire ni de palier supérieur</h3>
 
-<p>Contrairement à certains établissements qui proposent une grille de remises progressives (par exemple 5 % à partir de 5 nuits, 15 % à partir de 15 nuits), la Résidence Oasis fonctionne avec un seuil unique. Réserver 7 nuits ou réserver 21 nuits donne droit au même taux de réduction de 10 % : il n'y a pas de palier supplémentaire à 14 jours ni de pourcentage plus élevé pour un séjour plus long.</p>
+<p>Contrairement à certains établissements qui proposent une grille de remises progressives, la Résidence Oasis fonctionne avec un seuil unique. Réserver 7 nuits ou réserver 21 nuits donne droit au même taux de réduction de 10 % : il n'y a pas de palier supplémentaire à 14 jours ni de pourcentage plus élevé pour un séjour plus long.</p>
 
 <h3>Une remise valable sur les quatre formats</h3>
 
