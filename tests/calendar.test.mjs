@@ -14,6 +14,7 @@ import {
   bookingDayCount,
   expandBookingsToDates,
   findBookingForDate,
+  getCalendarStartMonth,
   groupBookingsIntoStays,
   manualGroupKey,
   parseIsoDate,
@@ -35,7 +36,7 @@ const booking = (start, end, source = null, id = `${start}_${end}_${source}`) =>
 });
 
 /**
- * The pills the calendar draws: one per reservation, clipped to today.
+ * The pills the calendar draws: one per reservation, clipped to the visible floor.
  * A trailing "*" marks a stay already under way, which keeps a square left edge.
  */
 const stayPills = (rows, todayIso) => {
@@ -52,8 +53,63 @@ const stayPills = (rows, todayIso) => {
 const isoRuns = (dates) =>
   splitContiguousRuns(dates).map((r) => `${toIsoDate(r.start)}..${toIsoDate(r.end)}`);
 
-/** Mirrors the Supabase filter in useBookings: `.gte("end_date", today)`. */
-const currentAndFuture = (rows, todayIso) => rows.filter((r) => r.end_date >= todayIso);
+const visibleBookings = (rows, todayIso) => {
+  const from = toIsoDate(getCalendarStartMonth(parseIsoDate(todayIso)));
+  return rows.filter((r) => r.end_date >= from);
+};
+
+describe("three full months of calendar history", () => {
+  test.each([
+    ["2026-10-01", "2026-07-01"],
+    ["2026-10-27", "2026-07-01"],
+    ["2026-10-31", "2026-07-01"],
+    ["2026-01-31", "2025-10-01"],
+    ["2026-03-31", "2025-12-01"],
+    ["2028-05-31", "2028-02-01"],
+  ])("%s starts at %s", (today, expected) => {
+    expect(toIsoDate(getCalendarStartMonth(parseIsoDate(today)))).toBe(expected);
+  });
+
+  test("uses local midnight without changing the supplied date", () => {
+    const today = new Date(2026, 9, 31, 23, 59, 59);
+    const original = today.getTime();
+    expect(getCalendarStartMonth(today).getTime()).toBe(new Date(2026, 6, 1).getTime());
+    expect(today.getTime()).toBe(original);
+  });
+
+  test("includes both ends of July, August and September, plus current and future bookings", () => {
+    const expected = [
+      "2026-07-01", "2026-07-31", "2026-08-01", "2026-08-31",
+      "2026-09-01", "2026-09-30", "2026-10-01", "2026-10-27", "2026-11-01",
+    ];
+    const rows = expected.map((day) => booking(day, day));
+    const days = expandBookingsToDates(rows, getCalendarStartMonth(parseIsoDate("2026-10-27")));
+    expect(days.map(toIsoDate)).toEqual(expected);
+  });
+
+  test("clips a stay crossing July 1 and excludes bookings ending in June", () => {
+    const rows = [booking("2026-06-20", "2026-06-30"), booking("2026-06-29", "2026-07-02")];
+    const days = expandBookingsToDates(rows, getCalendarStartMonth(parseIsoDate("2026-10-27")));
+    expect(days.map(toIsoDate)).toEqual(["2026-07-01", "2026-07-02"]);
+  });
+
+  test("retains the actual start and end of an elapsed reservation", () => {
+    const rows = [booking("2026-08-04", "2026-08-08", "airbnb:3:past")];
+    const floor = toIsoDate(getCalendarStartMonth(parseIsoDate("2026-10-27")));
+    expect(stayPills(rows, floor)).toEqual(["2026-08-04..2026-08-08"]);
+  });
+
+  for (let apt = 1; apt <= 7; apt += 1) {
+    test(`apartment ${apt}: saved August bookings are still visible in October`, () => {
+      const feed = readFileSync(join(FIXTURES, `apt${apt}.ics`), "utf8");
+      const floor = getCalendarStartMonth(parseIsoDate("2026-10-27"));
+      const savedRows = buildRows(String(apt), parseIcs(feed), toIsoDate(floor));
+      const painted = expandBookingsToDates(savedRows, floor).map(toIsoDate).sort();
+      expect(painted.length).toBeGreaterThan(0);
+      expect(painted).toEqual([...nightsFromIcsIndependently(feed, toIsoDate(floor))].sort());
+    });
+  }
+});
 
 /**
  * Independent re-implementation of "which nights does this feed occupy",
@@ -326,10 +382,9 @@ describe("one pill per reservation", () => {
   });
 });
 
-describe("regression: apartment 6, August 2026 (reported bug)", () => {
-  // What the database actually held: elapsed stays kept as history alongside
-  // the live ones. Painting the elapsed rows is what marked 1-5 August as
-  // booked even though Airbnb no longer lists anything before the 5th.
+describe("regression: apartment 6, August 2026 (stored history and availability)", () => {
+  // The database retains elapsed stays even after Airbnb drops them from its
+  // feed. Show that history while preserving the gaps between upcoming stays.
   const dbRows = [
     booking("2026-08-01", "2026-08-01"),
     booking("2026-08-02", "2026-08-04"),
@@ -341,16 +396,19 @@ describe("regression: apartment 6, August 2026 (reported bug)", () => {
     booking("2026-08-17", "2026-08-21"),
   ];
 
-  test("elapsed stays no longer paint past days", () => {
+  test("elapsed stays remain visible as booked days", () => {
     const painted = expandBookingsToDates(
-      currentAndFuture(dbRows, TODAY),
-      parseIsoDate(TODAY),
+      visibleBookings(dbRows, TODAY),
+      getCalendarStartMonth(parseIsoDate(TODAY)),
     ).map(toIsoDate);
-    expect(painted.filter((d) => d < TODAY)).toEqual([]);
+    expect(painted.filter((d) => d < TODAY).sort()).toEqual([
+      "2026-08-01", "2026-08-02", "2026-08-03",
+      "2026-08-04", "2026-08-05", "2026-08-06",
+    ]);
   });
 
   test("leaves the 12th bookable between the two occupied stretches", () => {
-    const days = expandBookingsToDates(currentAndFuture(dbRows, TODAY), parseIsoDate(TODAY));
+    const days = expandBookingsToDates(visibleBookings(dbRows, TODAY), parseIsoDate(TODAY));
     expect(isoRuns(days)).toEqual(["2026-08-07..2026-08-11", "2026-08-13..2026-08-21"]);
     expect(days.map(toIsoDate)).not.toContain("2026-08-12");
     expect(days).toHaveLength(14);

@@ -13,14 +13,18 @@ export function parseIsoDate(iso: string): Date {
   return startOfDay(parseISO(iso));
 }
 
+/** Include the three complete calendar months before the current month. */
+export function getCalendarStartMonth(today: Date): Date {
+  return new Date(today.getFullYear(), today.getMonth() - 3, 1);
+}
+
 /**
  * Every day covered by at least one booking, de-duplicated: Airbnb exports
  * reservations and "not available" blocks as separate events that can overlap,
  * so the same day may be claimed by several bookings.
  *
- * `from` clips the result, dropping days before it. A stay in progress starts
- * in the past, and painting those days would mark elapsed dates as booked while
- * every past date is already unselectable.
+ * `from` clips the result to the visible history window. Past occupied dates
+ * can still be displayed while remaining unavailable for selection.
  */
 export function expandBookingsToDates(bookings: Booking[], from?: Date): Date[] {
   const seen = new Set<string>();

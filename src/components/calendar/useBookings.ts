@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/services/supabase";
 import { log } from "@/lib/logger";
 import type { Booking, BookingRange } from "./types";
-import { manualGroupKey, toIsoDate } from "./utils";
+import { getCalendarStartMonth, manualGroupKey, toIsoDate } from "./utils";
 
 /**
  * Stable codes surfaced to the UI in place of the raw PostgREST message, which
@@ -40,9 +40,8 @@ export function useBookings(apartmentId: string, withNotes = false) {
     setLoading(true);
     setError(null);
     try {
-      // Stays that already ended are history: they never gate availability, and
-      // painting them would mark past days as booked (Airbnb drops them from its
-      // feed once elapsed, so the sync can never clean them up either).
+      // Include stored history and stays overlapping the first visible month.
+      // Past dates remain read-only in the calendar.
       const columns = withNotes
         ? "id, apartment_id, start_date, end_date, note, source, created_at"
         : "id, apartment_id, start_date, end_date, source, created_at";
@@ -50,7 +49,7 @@ export function useBookings(apartmentId: string, withNotes = false) {
         .from("bookings")
         .select(columns)
         .eq("apartment_id", apartmentId)
-        .gte("end_date", toIsoDate(new Date()))
+        .gte("end_date", toIsoDate(getCalendarStartMonth(new Date())))
         .order("start_date", { ascending: true });
       if (queryError) {
         setError(reportBookingError("load", queryError));

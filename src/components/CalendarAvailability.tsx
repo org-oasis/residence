@@ -12,8 +12,10 @@ import {
   expandBookingsToDates,
   findBookingForDate,
   formatDateRange,
+  getCalendarStartMonth,
   groupBookingsIntoStays,
   splitContiguousRuns,
+  toIsoDate,
 } from "./calendar/utils";
 import type { Booking, BookingRange } from "./calendar/types";
 import { BookingDialog } from "./calendar/BookingDialog";
@@ -62,39 +64,46 @@ export default function CalendarAvailability({
   } = useBookings(apartmentId, isAdmin);
 
   const today = useMemo(() => startOfDay(new Date()), []);
+  const startMonth = useMemo(() => getCalendarStartMonth(today), [today]);
   const maxDate = useMemo(() => {
     const d = new Date();
     return new Date(d.getFullYear() + 2, 11, 31);
   }, []);
 
   const unavailableDates = useMemo(
-    () => expandBookingsToDates(bookings, today),
+    () => expandBookingsToDates(bookings, startMonth),
+    [bookings, startMonth],
+  );
+
+  // Keep the existing edit list limited to current and upcoming reservations.
+  const editableBookings = useMemo(
+    () => bookings.filter((booking) => booking.end_date >= toIsoDate(today)),
     [bookings, today],
   );
 
   // One pill per reservation: rounded on the arrival day, rounded on the last
   // night, so two guests following one another read as two stays while a run of
-  // blocked days reads as one. A stay already under way keeps a square left
-  // edge — capping it on today would announce an arrival that is not one.
+  // blocked days reads as one. A stay beginning before the visible window keeps
+  // a square left edge rather than suggesting an arrival on the window's first day.
   const shapeRuns = useMemo(
     () =>
       groupBookingsIntoStays(bookings)
-        .filter((stay) => stay.end >= today)
+        .filter((stay) => stay.end >= startMonth)
         .map((stay) => ({
-          start: stay.start < today ? today : stay.start,
+          start: stay.start < startMonth ? startMonth : stay.start,
           end: stay.end,
-          startsInPast: stay.start < today,
+          startsBeforeWindow: stay.start < startMonth,
         })),
-    [bookings, today],
+    [bookings, startMonth],
   );
 
-  const isStandalone = (run: { start: Date; end: Date; startsInPast: boolean }) =>
-    !run.startsInPast && isSameDay(run.start, run.end);
+  const isStandalone = (run: { start: Date; end: Date; startsBeforeWindow: boolean }) =>
+    !run.startsBeforeWindow && isSameDay(run.start, run.end);
 
   const bookingStartDates = useMemo(
     () =>
       shapeRuns
-        .filter((run) => !run.startsInPast && !isSameDay(run.start, run.end))
+        .filter((run) => !run.startsBeforeWindow && !isSameDay(run.start, run.end))
         .map((run) => run.start),
     [shapeRuns],
   );
@@ -200,7 +209,7 @@ export default function CalendarAvailability({
     },
     locale,
     weekStartsOn: 1 as const,
-    startMonth: today,
+    startMonth,
     endMonth: maxDate,
     showOutsideDays: false,
     fixedWeeks: true,
@@ -243,7 +252,7 @@ export default function CalendarAvailability({
 
       {isAdmin && (
         <AdminPanel
-          bookings={bookings}
+          bookings={editableBookings}
           selectedDates={selectedDates}
           actionError={actionError}
           localeCode={localeCode}
