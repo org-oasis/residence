@@ -84,6 +84,12 @@ faq:
   </tbody>
 </table>
 
+<h2>Le street food selon la saison à Skikda</h2>
+
+<p>L'offre de rue évolue sensiblement avec les saisons. En été, pendant la période de baignade de juin à novembre, les jus pressés (orange, citron, fruits mélangés) et les glaces artisanales prennent le dessus en milieu de journée, quand la chaleur rend les plats frits moins tentants. Les étals de fruits frais de saison (pastèque, melon, figues) se multiplient également sur cette période.</p>
+
+<p>En automne et en hiver, le climat méditerranéen plus frais et pluvieux de la wilaya ramène les plats chauds au premier plan : mhadjeb, karantita et chapati se consomment alors davantage comme un repas réchauffant qu'une simple pause rafraîchissante. Les châtaignes et le maïs grillés, vendus par des marchands ambulants, apparaissent aussi plus volontiers dès que les températures baissent.</p>
+
 <h2>Street food vs restaurant : que choisir selon le moment</h2>
 
 <p>Le street food convient parfaitement à une pause rapide ou à une découverte culinaire en marchant, tandis qu'un repas assis dans l'un des <a href="/fr/blog/meilleurs-restaurants-skikda">meilleurs restaurants de Skikda</a> reste préférable pour un déjeuner ou un dîner complet, notamment en famille avec plusieurs plats à partager. Les deux approches se complètent bien sur un séjour de plusieurs jours plutôt que de s'exclure.</p>

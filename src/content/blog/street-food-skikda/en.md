@@ -72,6 +72,12 @@ faq:
   </tbody>
 </table>
 
+<h2>Street food by season in Skikda</h2>
+
+<p>The street offer shifts noticeably with the seasons. In summer, during the June-to-November bathing season, fresh-pressed juices (orange, lemon, mixed fruit) and artisanal ice cream take over at midday, when the heat makes fried dishes less appealing. Stalls selling seasonal fresh fruit (watermelon, melon, figs) also multiply during this period.</p>
+
+<p>In autumn and winter, the wilaya's cooler, rainier Mediterranean climate brings hot dishes back to the forefront: mhadjeb, karantita and chapati are then enjoyed more as a warming meal than a simple refreshing break. Roasted chestnuts and corn, sold by street vendors, also appear more readily once temperatures drop.</p>
+
 <h2>Street food vs restaurant: what to choose and when</h2>
 
 <p>Street food is perfect for a quick break or a walking food discovery, while a sit-down meal at one of the <a href="/en/blog/meilleurs-restaurants-skikda">best restaurants in Skikda</a> remains preferable for a full lunch or dinner, especially as a family sharing several dishes. The two approaches complement each other well over a multi-day stay rather than excluding one another.</p>
